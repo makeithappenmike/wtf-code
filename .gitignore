@@ -25,3 +25,4 @@ dist-ssr
 
 # Local
 .env
+server/config/connection.js
