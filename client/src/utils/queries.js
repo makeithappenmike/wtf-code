@@ -9,6 +9,15 @@ export const QUERY_USER = gql`
       password
     }
   }
+
+  query snippet {
+    snippet {
+      _id
+      name
+      code
+      explaination
+    }
+  }
 `;
 
 export const QUERY_PASSWORD = gql`

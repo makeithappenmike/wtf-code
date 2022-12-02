@@ -9,8 +9,17 @@ const typeDefs = gql`
 
   }
 
+  type Snippet {
+    _id: ID!
+    name: String!
+    code: String!
+    explaination: String!
+
+  }
+
   type Query {
     user: [User]
+    snippet: [Snippet]
   }
 
   type Mutation {
