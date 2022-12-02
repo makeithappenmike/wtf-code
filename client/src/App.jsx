@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 import './App.css'
+import Header from './components/Header';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import About from './pages/About';
@@ -20,6 +21,7 @@ function App() {
     <div className="App">
       <ApolloProvider client={client}>
       <Router>
+      <Header />
         <div className="flex-column justify-center align-center min-100-vh bg-primary">
           <Routes>
             <Route 
