@@ -9,15 +9,6 @@ export const QUERY_USER = gql`
       password
     }
   }
-
-  query snippet {
-    snippet {
-      _id
-      name
-      code
-      explaination
-    }
-  }
 `;
 
 export const QUERY_PASSWORD = gql`
@@ -25,6 +16,17 @@ export const QUERY_PASSWORD = gql`
     user {
       _id
       password
+    }
+  }
+`;
+
+export const QUERY_SNIPPET = gql`
+  query snippet {
+    snippet {
+      _id
+      name
+      code
+      explaination
     }
   }
 `;

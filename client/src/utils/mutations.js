@@ -10,3 +10,14 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+export const CREATE_SNIPPET = gql`
+  mutation createSnippet($name: String!, $code: String!, $explaination: String!) {
+    createSnippet(name: $name, code: $code, explaination: $explaination) {
+      _id
+      name
+      code
+      explaination
+    }
+  }
+`;
