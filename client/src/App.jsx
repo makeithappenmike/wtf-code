@@ -1,13 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ApolloClient, ApolloProvider } from '@apollo/client';
+
 import './App.css'
+import Home from './pages/Home';
+import Login from './pages/Login';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
+
+const client = new ApolloClient({
+  uri: '/graphql',
+  cache: new InMemoryCache(),
+});
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <div className="App">
-      WTF CODE GOES HERE
+      <ApolloProvider client={client}>
+      <Router>
+        <div className="flex-column justify-center align-center min-100-vh bg-primary">
+          <Routes>
+            <Route 
+              path="/" 
+              element={<Home />}
+            />
+            <Route 
+              path="/login" 
+              element={<Login />}
+            />
+            <Route 
+              path="/about" 
+              element={<About />}
+            />
+            <Route 
+              path="/contact" 
+              element={<Contact />}
+            />
+            <Route 
+              path="*"
+              element={<NotFound />}
+            />
+          </Routes>
+        </div>
+      </Router>
+    </ApolloProvider>
     </div>
   )
 }
