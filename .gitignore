@@ -24,5 +24,4 @@ dist-ssr
 *.sw?
 
 # Local
-.env
-server/config/connection.js
+server/.env
