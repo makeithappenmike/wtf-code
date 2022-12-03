@@ -12,44 +12,30 @@ const Header = () => {
   
   return (
     <nav>
-      <ul>
-        <li>
-          <NavLink
-            to="/"
-            style={({ isActive }) =>
-              isActive ? activeStyle : undefined
-            }
-          >
-            Code
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="about">
-            {({ isActive }) => (
-              <span
-                className={
-                  isActive ? activeClassName : undefined
-                }
-              >
+      <div class="ui container">
+        <div class="ui compact menu">
+            <a class="header item">
+              <NavLink to='/'>
+                Code
+              </NavLink>
+            </a>
+            <a class="header item">
+              <NavLink to='/about'>
                 About
-              </span>
-            )}
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="contact">
-            {({ isActive }) => (
-              <span
-                className={
-                  isActive ? activeClassName : undefined
-                }
-              >
+              </NavLink>
+            </a>
+            <a class="header item">
+              <NavLink to='/contact'>
                 Contact
-              </span>
-            )}
-          </NavLink>
-        </li>
-      </ul>
+              </NavLink>
+            </a>
+            <a class="header item">
+              <NavLink to='/login'>
+                Logout
+              </NavLink>
+            </a>
+        </div>
+    </div>
     </nav>
   );
 };
