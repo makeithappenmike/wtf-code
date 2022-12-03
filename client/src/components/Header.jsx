@@ -1,14 +1,56 @@
 import React from 'react';
-// Import React Router Link component for internal hyperlinks
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react';
 
 const Header = () => {
+
+  let activeStyle = {
+    textDecoration: "underline",
+  };
+
+  let activeClassName = "underline";
+  
   return (
-    <header className="bg-info text-dark mb-4 py-3 display-flex align-center">
-      <div className="container flex-column justify-space-between-lg justify-center align-center text-center">
-        Header
-      </div>
-    </header>
+    <nav>
+      <ul>
+        <li>
+          <NavLink
+            to="/"
+            style={({ isActive }) =>
+              isActive ? activeStyle : undefined
+            }
+          >
+            Code
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="about">
+            {({ isActive }) => (
+              <span
+                className={
+                  isActive ? activeClassName : undefined
+                }
+              >
+                About
+              </span>
+            )}
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="contact">
+            {({ isActive }) => (
+              <span
+                className={
+                  isActive ? activeClassName : undefined
+                }
+              >
+                Contact
+              </span>
+            )}
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
   );
 };
 
