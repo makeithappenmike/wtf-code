@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import {useNavigate} from 'react-router-dom';
+var jwt = require('jsonwebtoken');
+var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
 
 const Login = () => {
 
