@@ -9,10 +9,23 @@ const typeDefs = gql`
 
   }
 
-  type Query {
-    user: [User]
+  type Snippet {
+    _id: ID!
+    name: String!
+    code: String!
+    explaination: String!
+
   }
 
+  type Query {
+    user: [User]
+    snippet: [Snippet]
+  }
+
+  type Mutation {
+    createUser(username: String!, email: String!, password: String!): User
+    createSnippet(name: String!, code: String!, explaination: String!): Snippet
+  }
 `;
 
 module.exports = typeDefs;
