@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'semantic-ui-css/semantic.min.css'
+import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
 
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/');
+  };
+
   return (
     <main>
-      <form class="ui form">
-        <div class="field">
+      <form className="ui form">
+        <div className="field">
           <label>Email Address</label>
           <input type="text" name="email" placeholder="Email" />
         </div>
-        <div class="field">
+        <div className="field">
           <label>Password</label>
           <input type="text" name="password" placeholder="Password" />
         </div>
-        <div class="field">
+        <div className="field">
         </div>
-        <button class="ui button" type="submit">Sign In</button>
+        <button className="ui button" type="submit" onClick={handleClick}>Sign In</button>
       </form>
     </main>
   );
