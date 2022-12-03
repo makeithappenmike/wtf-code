@@ -1,14 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMutation } from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import {useNavigate} from 'react-router-dom';
-var jwt = require('jsonwebtoken');
-var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
+import Auth from '../utitls/auth';
 
 const Login = () => {
 
   const navigate = useNavigate();
   const handleClick = () => {
     navigate('/');
+  };
+
+  const [formState, setFormState] = useState({ email: '', password: '' });
+  // const [login, { error, data }] = useMutation(LOGIN_USER);
+
+  // update state based on form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  // submit form
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
+    try {
+      const { data } = await login({
+        variables: { ...formState },
+      });
+
+      Auth.login(data.login.token);
+    } catch (e) {
+      console.error(e);
+    }
+
+    // clear form values
+    setFormState({
+      email: '',
+      password: '',
+    });
   };
 
   return (

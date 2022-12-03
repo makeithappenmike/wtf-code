@@ -12,24 +12,24 @@ const Header = () => {
   
   return (
     <nav>
-      <div class="ui container">
-        <div class="ui compact menu">
-            <a class="header item">
+      <div className="ui container">
+        <div className="ui compact menu">
+            <a className="header item">
               <NavLink to='/'>
                 Code
               </NavLink>
             </a>
-            <a class="header item">
+            <a className="header item">
               <NavLink to='/about'>
                 About
               </NavLink>
             </a>
-            <a class="header item">
+            <a className="header item">
               <NavLink to='/contact'>
                 Contact
               </NavLink>
             </a>
-            <a class="header item">
+            <a className="header item">
               <NavLink to='/login'>
                 Logout
               </NavLink>
