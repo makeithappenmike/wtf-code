@@ -1,4 +1,6 @@
-:root {
+/* We can likely remove this */
+
+/* :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
@@ -27,9 +29,11 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  place-items: top;
   min-width: 320px;
   min-height: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 h1 {
@@ -56,6 +60,25 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.header{
+  background-color: red;
+  
+}
+
+.nav {
+  background-color: blue;
+  margin-bottom: 100px;
+}
+
+.item {
+  padding: 15px;
+}
+
+.main {
+  background-color: green;
+  width: 100%;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -67,4 +90,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
