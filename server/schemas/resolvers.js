@@ -20,7 +20,17 @@ const resolvers = {
     createSnippet: async (parent, args) => {
         const snippet = await Snippet.create(args);
         return snippet;
-      },
+    },
+
+    deleteUser: async (parent, {_id}) => {
+        const user = await User.findByIdAndDelete(_id);
+        return user;
+    },
+
+    deleteSnippet: async (parent, {_id}) => {
+      const snippet = await Snippet.findByIdAndDelete(_id);
+      return snippet;
+ }        
   }
 };
 
