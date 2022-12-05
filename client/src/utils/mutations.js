@@ -21,3 +21,19 @@ export const CREATE_SNIPPET = gql`
     }
   }
 `;
+
+export const DELETE_USER = gql`
+mutation deleteUser($deleteUserId: String!) {
+  deleteUser(_id: $deleteUserId) {
+    _id
+  }
+}
+`;
+
+export const DELETE_SNIPPET = gql`
+mutation deleteSnippet($id: String!){
+  deleteSnippet(_id: $id) {
+    _id
+  }
+}
+`;
