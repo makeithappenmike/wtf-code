@@ -14,11 +14,11 @@ const functionExplainer = "\"\"\"\nHere's what the above function is doing:\n1."
 const codeExplainer = "\"\"\"\nHere's what the above code is doing:\n1.";
 
 
-async function code() {
+async function code($explainer, $snippet) {
     const openai = new OpenAIApi(configuration);
     const response = await openai.createCompletion({
       model: "code-davinci-002",
-      prompt: snippet + functionExplainer,
+      prompt: $snippet + $explainer,
       temperature: 0,
       max_tokens: 150,
       top_p: 1,
@@ -33,4 +33,4 @@ async function code() {
     return answer;
 }
 
-code();
+code(functionExplainer, snippet);
