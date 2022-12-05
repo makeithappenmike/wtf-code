@@ -1,62 +1,54 @@
-import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
-import { NavLink } from 'react-router-dom';
+// import React, { Component } from 'react'
+// import { Menu } from 'semantic-ui-react'
 
-const colors = [
-  'black',
-]
+// const colors = [
+//   'black',
+// ]
 
-class ExampleMenu extends Component {
-  state = { activeItem: 'home' }
+// class ExampleMenu extends Component {
+//   state = { activeItem: 'home' }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+//   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
-  render() {
-    const { color } = this.props
-    const { activeItem } = this.state
+//   render() {
+//     const { color } = this.props
+//     const { activeItem } = this.state
 
-    return (
-      <Menu color={'black'} inverted widths={4}>
-        <Menu.Item
-          name='code'
-          active={activeItem === 'code'}
-          onClick={this.handleItemClick}
-          as={NavLink}
-          exact to="/"
-        />
-        <Menu.Item
-          name='about'
-          active={activeItem === 'about'}
-          onClick={this.handleItemClick}
-          as={NavLink}
-          exact to="about"
-        />
-        <Menu.Item
-          name='contact'
-          active={activeItem === 'contact'}
-          onClick={this.handleItemClick}
-          as={NavLink}
-          exact to="contact"
-        />
-        <Menu.Item
-          name='logout'
-          active={activeItem === 'logout'}
-          onClick={this.handleItemClick}
-          as={NavLink}
-          exact to="login"
-        />
-      </Menu>
-    )
-  }
-}
+//     return (
+//       <Menu color={'black'} inverted widths={4}>
+//         <Menu.Item
+//           name='code'
+//           active={activeItem === 'code'}
+//           onClick={this.handleItemClick}
+          
+//         />
+//         <Menu.Item
+//           name='about'
+//           active={activeItem === 'about'}
+//           onClick={this.handleItemClick}
+//         />
+//         <Menu.Item
+//           name='contact'
+//           active={activeItem === 'contact'}
+//           onClick={this.handleItemClick}
+//         />
+//         <Menu.Item
+//           name='logout'
+//           active={activeItem === 'logout'}
+//           onClick={this.handleItemClick}
+//         />
+//       </Menu>
+//     )
+//   }
+// }
 
-const Header = () => {
-  const menus = colors.map((color) => <ExampleMenu color={color} key={color} />)
+// const Header = () => {
+//   const menus = colors.map((color) => <ExampleMenu color={color} key={color} />)
 
-  return <div>{menus}</div>
-}
+//   return <div>{menus}</div>
+// }
 
-export default Header
+// export default Header
 
 // import React, { Component } from 'react'
 // import { NavLink } from 'react-router-dom';
@@ -116,46 +108,46 @@ export default Header
 // }
 
 
-// import React from 'react';
-// import { NavLink } from 'react-router-dom';
-// import { Menu } from 'semantic-ui-react';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react';
 
-// const Header = () => {
+const Header = () => {
 
-//   let activeStyle = {
-//     textDecoration: "underline",
-//   };
+  let activeStyle = {
+    textDecoration: "underline",
+  };
 
-//   let activeClassName = "underline";
+  let activeClassName = "underline";
   
-//   return (
-//     <nav className='nav'>
-//       <div className="ui container">
-//         <div className="navItems">
-//             <a className="header link item">
-//               <NavLink to='/'>
-//                 Code
-//               </NavLink>
-//             </a>
-//             <a className="header item">
-//               <NavLink to='/about'>
-//                 About
-//               </NavLink>
-//             </a>
-//             <a className="header item">
-//               <NavLink to='/contact'>
-//                 Contact
-//               </NavLink>
-//             </a>
-//             <a className="header item">
-//               <NavLink to='/login'>
-//                 Logout
-//               </NavLink>
-//             </a>
-//         </div>
-//     </div>
-//     </nav>
-//   );
-// };
+  return (
+    <nav className='nav'>
+      <div className="ui container">
+        <div className="navItems">
+            <a className="header link item">
+              <NavLink to='/'>
+                Code
+              </NavLink>
+            </a>
+            <a className="header item">
+              <NavLink to='/about'>
+                About
+              </NavLink>
+            </a>
+            <a className="header item">
+              <NavLink to='/contact'>
+                Contact
+              </NavLink>
+            </a>
+            <a className="header item">
+              <NavLink to='/login'>
+                Logout
+              </NavLink>
+            </a>
+        </div>
+    </div>
+    </nav>
+  );
+};
 
-// export default Header;
+export default Header;
