@@ -1,14 +1,14 @@
 {
   "name": "wtf-code",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "proxy": "http://localhost:3001/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "start:dev": "concurrently \"cd client && npm run build\" \"cd server && npm run server\" ",
-    "start": "cd server && node server.js && cd .. && npm run dev",
+    "start": "node server/server.js",
     "server": "cd server server.js --ignore client",
     "install": "cd server && npm i && cd ../client && npm i",
     "client": "cd client && npm start"
