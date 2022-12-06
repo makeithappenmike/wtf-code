@@ -33,7 +33,7 @@ const resolvers = {
     deleteSnippet: async (parent, {_id}) => {
       const snippet = await Snippet.findByIdAndDelete(_id);
       return snippet;
- }        
+    }        
       },
       login: async (parent, { email, password }) => {
 
