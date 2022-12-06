@@ -5,7 +5,7 @@ const path = require('path');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const server = new ApolloServer({
   typeDefs,
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.get('/', (req, res) => {
   console.log('Running...');
-  res.sendFile(path.join(__dirname, '../build/index.html'));
+  res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 // Call the async function to start the server
