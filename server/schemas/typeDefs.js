@@ -6,7 +6,11 @@ const typeDefs = gql`
     username: String!
     email: String!
     password: String!
+  }
 
+  type Auth {
+    token: ID!
+    user: User
   }
 
   type Snippet {
@@ -27,6 +31,7 @@ const typeDefs = gql`
     createSnippet(name: String!, code: String!, explaination: String!): Snippet
     deleteUser(_id:String!): User
     deleteSnippet(_id:String!): Snippet
+    login(email: String!, password: String!): Auth
   }
 `;
 

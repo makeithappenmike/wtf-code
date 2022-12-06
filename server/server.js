@@ -5,7 +5,7 @@ const path = require('path');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const server = new ApolloServer({
   typeDefs,
@@ -30,6 +30,7 @@ db.once('open', () => {
 }
 
 if (process.env.NODE_ENV === 'production') {
+  console.log('In production');
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
@@ -39,6 +40,7 @@ if (process.env.NODE_ENV === 'production') {
 // });
 
 app.get('/', (req, res) => {
+  console.log('Running...');
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
