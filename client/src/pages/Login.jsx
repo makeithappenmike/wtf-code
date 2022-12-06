@@ -26,7 +26,9 @@ const Login = (props) => {
     console.log(formState);
     // console.log("token", data.login.token);
     try {
-      const { data } = await login({"email": "mikhael@fart.cool", "password": "excellence2"});
+      const { data } = await login({
+        variables: { ...formState },
+      });
 
       console.log(data);
 
