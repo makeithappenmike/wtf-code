@@ -1,14 +1,41 @@
 import React from 'react';
-// Import React Router Link component for internal hyperlinks
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
+
+  let activeStyle = {
+    textDecoration: "underline",
+  };
+
+  let activeClassName = "underline";
+  
   return (
-    <header className="bg-info text-dark mb-4 py-3 display-flex align-center">
-      <div className="container flex-column justify-space-between-lg justify-center align-center text-center">
-        Header
-      </div>
-    </header>
+    <nav className='nav'>
+      <div className="ui container">
+        <div className="navItems">
+            <a className="header link item">
+              <NavLink to='/'>
+                Code
+              </NavLink>
+            </a>
+            <a className="header item">
+              <NavLink to='/about'>
+                About
+              </NavLink>
+            </a>
+            <a className="header item">
+              <NavLink to='/contact'>
+                Contact
+              </NavLink>
+            </a>
+            <a className="header item">
+              <NavLink to='/login'>
+                Logout
+              </NavLink>
+            </a>
+        </div>
+    </div>
+    </nav>
   );
 };
 
