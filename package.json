@@ -17,6 +17,7 @@
     "@apollo/client": "^3.7.1",
     "apollo-server-express": "^3.11.1",
     "bcrypt": "^5.1.0",
+    "codemirror": "^6.0.1",
     "concurrently": "^7.6.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
