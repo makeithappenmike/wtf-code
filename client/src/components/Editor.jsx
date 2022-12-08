@@ -1,8 +1,10 @@
 import React from 'react';
 import CodeMirror from '@uiw/react-codemirror';
+import { useMutation } from '@apollo/client';
 import { createTheme } from '@uiw/codemirror-themes';
 import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
+import { CREATE_SNIPPET } from '../../src/utils/mutations';
 
 // If we want to include custom themes we can do so like below
 // We can bring in already created themes from https://uiwjs.github.io/react-codemirror/#/theme/
@@ -71,15 +73,31 @@ const extensions = [javascript({ jsx: true })];
 
 export default function Editor() {
 
-  const handleSubmit = event => {
-
+  const [createSnippet, { error }] = useMutation(CREATE_SNIPPET);
+  // ! This submit button is currently set up to save the content of the snippet which is not the final plan!
+  // TODO: the submit button should run the openAI query to provide an explaination on the page
+  const handleSubmit = async (event) => {
+    // the code editor conent
     const content = document.getElementsByClassName('cm-content')[0].innerText;
 
     // 👇️ prevent page refresh
     event.preventDefault();
 
     console.log("Code content: ", content);
+
+    try {
+      // Execute mutation and pass in defined parameter data as variables
+      // ! currently saves the content and dummy data just to test
+      const { data } = await createSnippet({
+        variables: {code: content, name: "testing", explaination: "coming soon" },
+      });
+      console.log("snippet saved");
+      // window.location.reload();
+    } catch (err) {
+      console.error(err);
+    }
   };
+
 
   const onChange = React.useCallback((value, viewUpdate) => {
     console.log('value:', value);
@@ -102,4 +120,4 @@ export default function Editor() {
       </form>
     </div>
   );
-}
+  };
