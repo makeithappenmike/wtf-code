@@ -133,8 +133,8 @@ export default function Editor() {
         theme={dark}
         extensions={extensions}
         onChange={handleChange}     
-        smartIndent='true'
-        lineWrapping='true'
+        smartindent='true'
+        linewrapping='true'
       />
 
       <form onSubmit={handleSave}>
