@@ -70,19 +70,36 @@ const dark = createTheme({
 const extensions = [javascript({ jsx: true })];
 
 export default function Editor() {
+
+  const handleSubmit = event => {
+
+    const content = document.getElementsByClassName('cm-content')[0].innerText;
+
+    // 👇️ prevent page refresh
+    event.preventDefault();
+
+    console.log("Code content: ", content);
+  };
+
   const onChange = React.useCallback((value, viewUpdate) => {
     console.log('value:', value);
   }, []);
   return (
-    <CodeMirror
-      value="console.log('hello world!');"
-      height="500px"
-      align='left'
-      theme={dark}
-      extensions={extensions}
-      onChange={onChange}
-      smartIndent='true'
-      lineWrapping='true'
-    />
+    <div>
+      <CodeMirror
+        value="console.log('hello world!');"
+        height="500px"
+        align='left'
+        theme={dark}
+        extensions={extensions}
+        onChange={onChange}
+        smartIndent='true'
+        lineWrapping='true'
+      />
+
+      <form onSubmit={handleSubmit}>
+      <input type="submit" value="Submit" />
+      </form>
+    </div>
   );
 }
