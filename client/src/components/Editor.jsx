@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
+import { useMutation } from '@apollo/client';
 import { createTheme } from '@uiw/codemirror-themes';
 import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
+import { CREATE_SNIPPET } from '../../src/utils/mutations';
 
 // If we want to include custom themes we can do so like below
 // We can bring in already created themes from https://uiwjs.github.io/react-codemirror/#/theme/
@@ -70,19 +72,75 @@ const dark = createTheme({
 const extensions = [javascript({ jsx: true })];
 
 export default function Editor() {
-  const onChange = React.useCallback((value, viewUpdate) => {
-    console.log('value:', value);
-  }, []);
+
+  const [createSnippet, { error }] = useMutation(CREATE_SNIPPET);
+  const [formState, setFormState] = useState({ code: '', name: 'untitiled', explaination: 'coming soon...' });
+
+  // update state based on form input changes
+  const handleChange = (event) => {
+    const codeForm = { code: document.getElementsByClassName('cm-content')[0].innerText, name: 'untitiled', explaination: 'coming soon...' };
+    setFormState(codeForm);
+    console.log(formState);
+  };
+
+  // save code based on state
+  const handleSave = async (event) => {
+    // the code editor conent
+    event.preventDefault();
+
+    try {
+      const { data } = await createSnippet({
+        // ! using dummy data right now for name and explination
+        // TODO: add fields for name and explaination
+        // TODO: update state with those values, update this save to include them
+        variables: {code: formState.code, name: formState.name, explaination: formState.explaination },
+      });
+      console.log("snippet saved");
+      console.log(formState);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // TODO: make this query the openAI API to get results
+  // const handleSubmit = async (event) => {
+  //   // the code editor conent
+  //   // const content = document.getElementsByClassName('cm-content')[0].innerText;
+  //   const formCode = formState.code;
+
+  //   event.preventDefault();
+
+  //   const functionExplainer = "\"\"\"\nHere's what the above function is doing:\n1.";
+
+  //   try {
+
+  //     const { data } = await code(functionExplainer, content);
+      
+  //     console.log("fetching explaination..");
+  //     console.log(data)
+  //     // window.location.reload();
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
   return (
-    <CodeMirror
-      value="console.log('hello world!');"
-      height="500px"
-      align='left'
-      theme={dark}
-      extensions={extensions}
-      onChange={onChange}
-      smartIndent='true'
-      lineWrapping='true'
-    />
+    <div>
+      <CodeMirror
+        value="console.log('hello world!');"
+        height="500px"
+        align='left'
+        theme={dark}
+        extensions={extensions}
+        onChange={handleChange}     
+        smartindent='true'
+        linewrapping='true'
+      />
+
+      <form onSubmit={handleSave}>
+      <input type="submit" value="Save" />
+      </form>
+
+    </div>
   );
-}
+  };
