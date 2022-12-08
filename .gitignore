@@ -24,4 +24,5 @@ dist-ssr
 *.sw?
 
 # Local
+.env-cmdrc.json
 server/.env
