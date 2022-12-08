@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { useMutation } from '@apollo/client';
 import { createTheme } from '@uiw/codemirror-themes';
@@ -74,34 +74,56 @@ const extensions = [javascript({ jsx: true })];
 export default function Editor() {
 
   const [createSnippet, { error }] = useMutation(CREATE_SNIPPET);
-  // ! This submit button is currently set up to save the content of the snippet which is not the final plan!
-  // TODO: the submit button should run the openAI query to provide an explaination on the page
-  const handleSubmit = async (event) => {
+  const [formState, setFormState] = useState({ code: '' });
+
+  // update state based on form input changes
+  const handleChange = (event) => {
+    const codeForm = { code: document.getElementsByClassName('cm-content')[0].innerText };
+    setFormState(codeForm);
+    console.log(formState);
+  };
+
+  // save code based on state
+  const handleSave = async (event) => {
     // the code editor conent
     const content = document.getElementsByClassName('cm-content')[0].innerText;
-
-    // 👇️ prevent page refresh
     event.preventDefault();
 
-    console.log("Code content: ", content);
-
     try {
-      // Execute mutation and pass in defined parameter data as variables
-      // ! currently saves the content and dummy data just to test
       const { data } = await createSnippet({
-        variables: {code: content, name: "testing", explaination: "coming soon" },
+        // ! using dummy data right now for name and explination
+        // TODO: add fields for name and explaination
+        // TODO: update state with those values, update this save to include them
+        variables: {code: formState.code, name: "testing", explaination: "coming soon" },
       });
       console.log("snippet saved");
-      // window.location.reload();
+      console.log(formState);
     } catch (err) {
       console.error(err);
     }
   };
 
+  // TODO: make this query the openAI API to get results
+  // const handleSubmit = async (event) => {
+  //   // the code editor conent
+  //   const content = document.getElementsByClassName('cm-content')[0].innerText;
 
-  const onChange = React.useCallback((value, viewUpdate) => {
-    console.log('value:', value);
-  }, []);
+  //   // 👇️ prevent page refresh
+  //   event.preventDefault();
+  //   const functionExplainer = "\"\"\"\nHere's what the above function is doing:\n1.";
+
+  //   try {
+
+  //     const { data } = await code(functionExplainer, content);
+      
+  //     console.log("fetching explaination..");
+  //     console.log(data)
+  //     // window.location.reload();
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
   return (
     <div>
       <CodeMirror
@@ -110,14 +132,15 @@ export default function Editor() {
         align='left'
         theme={dark}
         extensions={extensions}
-        onChange={onChange}
+        onChange={handleChange}     
         smartIndent='true'
         lineWrapping='true'
       />
 
-      <form onSubmit={handleSubmit}>
-      <input type="submit" value="Submit" />
+      <form onSubmit={handleSave}>
+      <input type="submit" value="Save" />
       </form>
+
     </div>
   );
   };
