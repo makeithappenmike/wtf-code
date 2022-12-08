@@ -74,11 +74,11 @@ const extensions = [javascript({ jsx: true })];
 export default function Editor() {
 
   const [createSnippet, { error }] = useMutation(CREATE_SNIPPET);
-  const [formState, setFormState] = useState({ code: '' });
+  const [formState, setFormState] = useState({ code: '', name: 'untitiled', explaination: 'coming soon...' });
 
   // update state based on form input changes
   const handleChange = (event) => {
-    const codeForm = { code: document.getElementsByClassName('cm-content')[0].innerText };
+    const codeForm = { code: document.getElementsByClassName('cm-content')[0].innerText, name: 'untitiled', explaination: 'coming soon...' };
     setFormState(codeForm);
     console.log(formState);
   };
@@ -86,7 +86,6 @@ export default function Editor() {
   // save code based on state
   const handleSave = async (event) => {
     // the code editor conent
-    const content = document.getElementsByClassName('cm-content')[0].innerText;
     event.preventDefault();
 
     try {
@@ -94,7 +93,7 @@ export default function Editor() {
         // ! using dummy data right now for name and explination
         // TODO: add fields for name and explaination
         // TODO: update state with those values, update this save to include them
-        variables: {code: formState.code, name: "testing", explaination: "coming soon" },
+        variables: {code: formState.code, name: formState.name, explaination: formState.explaination },
       });
       console.log("snippet saved");
       console.log(formState);
@@ -106,10 +105,11 @@ export default function Editor() {
   // TODO: make this query the openAI API to get results
   // const handleSubmit = async (event) => {
   //   // the code editor conent
-  //   const content = document.getElementsByClassName('cm-content')[0].innerText;
+  //   // const content = document.getElementsByClassName('cm-content')[0].innerText;
+  //   const formCode = formState.code;
 
-  //   // 👇️ prevent page refresh
   //   event.preventDefault();
+
   //   const functionExplainer = "\"\"\"\nHere's what the above function is doing:\n1.";
 
   //   try {
