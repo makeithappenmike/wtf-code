@@ -76,13 +76,22 @@ export default function Editor() {
   const [createSnippet, { error }] = useMutation(CREATE_SNIPPET);
   const [explainCode, { e, data }] = useMutation(EXPLAIN_CODE);
 
-  const [formState, setFormState] = useState({ code: '', name: 'untitiled', explaination: 'coming soon...' });
+  const [codeState, setCodeState] = useState({ code: '', name: 'untitiled'});
+  const [explainationState, setexplainationState] = useState({explaination: '' });
+
 
   // update state based on form input changes
   const handleChange = (event) => {
-    const codeForm = { code: document.getElementsByClassName('cm-content')[0].innerText, name: 'untitiled', explaination: 'coming soon...' };
-    setFormState(codeForm);
-    console.log(formState);
+    const codeForm = { code: document.getElementsByClassName('cm-content')[0].innerText, name: 'untitiled'};
+    setCodeState(codeForm);
+    console.log(codeState);
+  };
+
+  // update state when explaination added to text field
+  const handleExplaination = (event) => {
+    const textArea = { explaination: document.getElementById('explaination').value};
+    setexplainationState(textArea);
+    console.log(explainationState);
   };
 
   // save code based on state
@@ -94,10 +103,10 @@ export default function Editor() {
         // ! using dummy data right now for name and explination
         // TODO: add fields for name and explaination
         // TODO: update state with those values, update this save to include them
-        variables: { code: formState.code, name: formState.name, explaination: formState.explaination },
+        variables: { code: codeState.code, name: codeState.name, explaination: explainationState.explaination },
       });
       console.log("snippet saved");
-      console.log(formState);
+      console.log(codeState, explainationState);
     } catch (err) {
       console.error(err);
     }
@@ -140,6 +149,14 @@ export default function Editor() {
       <form onSubmit={handleSave}>
       <input type="submit" value="Save" />
       </form>
+
+      <br></br>
+
+      <textarea id="explaination" name="explaination"
+                onChange={handleExplaination}
+                rows="15" cols="45">
+      </textarea>
+
 
     </div>
   );
