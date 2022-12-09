@@ -52,8 +52,6 @@ export const LOGIN_USER = gql`
 
 export const EXPLAIN_CODE = gql`
   mutation explainCode($code: String!, $explainer: String!) {
-    explainCode(code: $code, explainer: $explainer) {
-      code
-    }
+    explainCode(code: $code, explainer: $explainer)
   }
 `;

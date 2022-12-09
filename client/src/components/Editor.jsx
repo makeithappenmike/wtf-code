@@ -103,7 +103,7 @@ export default function Editor() {
     }
   };
 
-  // TODO: make this query the openAI API to get results
+  // submit code in editor to openAI for explaination
   const handleSubmit = async (event) => {
     event.preventDefault();
 
