@@ -84,14 +84,14 @@ export default function Editor() {
   const handleChange = (event) => {
     const codeForm = { code: document.getElementsByClassName('cm-content')[0].innerText, name: 'untitiled'};
     setCodeState(codeForm);
-    console.log(codeState);
+    console.log("Code State: ", codeState.code);
   };
 
   // update state when explaination added to text field
   const handleExplaination = (event) => {
     const textArea = { explaination: document.getElementById('explaination').value};
     setexplainationState(textArea);
-    console.log(explainationState);
+    console.log("Explaination State: ",explainationState.explaination);
   };
 
   // save code based on state
@@ -106,7 +106,7 @@ export default function Editor() {
         variables: { code: codeState.code, name: codeState.name, explaination: explainationState.explaination },
       });
       console.log("snippet saved");
-      console.log(codeState, explainationState);
+      console.log(codeState.code, explainationState.explaination);
     } catch (err) {
       console.error(err);
     }
@@ -120,10 +120,11 @@ export default function Editor() {
 
     try {
       const { data } = await explainCode({
-        variables: { code: formState.code, explainer: functionExplainer },
+        variables: { code: codeState.code, explainer: functionExplainer },
       });
       console.log("explaination incoming...");
-      console.log(data);
+      console.log(data.explainCode);
+      document.getElementById('explaination').value = data.explainCode
     } catch (err) {
       console.error(err);
     }
