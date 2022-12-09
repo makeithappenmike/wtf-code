@@ -16,6 +16,7 @@ const styles = {
   
   return (
     <nav className='nav'>
+      {Auth.loggedIn() ? (
       <div className="ui container">
         <div className="navItems">
               <NavLink style={styles.links} className="header link item" to='/'>
@@ -28,18 +29,13 @@ const styles = {
                 Contact
               </NavLink>
               {Auth.loggedIn() ? (
-              
               <button onClick={logout}>
-                <NavLink style={styles.links} className="header item" to='/login'>
                 Logout
-                </NavLink>
               </button>
-              
-              ) : <button>
-                Sign Up
-            </button>}
+              ) : <></>}
         </div>
     </div>
+    ) : <></>}
     </nav>
   );
 };
