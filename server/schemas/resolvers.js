@@ -3,8 +3,8 @@ const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
-  // need to get env working
-  apiKey: REACT_APP_OPENAI_API_KEY,
+  // TODO: need to get env working
+  apiKey: "",
   
 });
 
@@ -87,6 +87,7 @@ const resolvers = {
           presence_penalty: 0,
           stop: ["\"\"\""],
         });
+
         const answer = response['data']['choices'][0].text;
         console.log(answer);
         return answer;

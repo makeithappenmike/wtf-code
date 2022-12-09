@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { createTheme } from '@uiw/codemirror-themes';
 import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
-import { CREATE_SNIPPET } from '../../src/utils/mutations';
+import { CREATE_SNIPPET, EXPLAIN_CODE } from '../../src/utils/mutations';
 
 // If we want to include custom themes we can do so like below
 // We can bring in already created themes from https://uiwjs.github.io/react-codemirror/#/theme/
@@ -74,6 +74,8 @@ const extensions = [javascript({ jsx: true })];
 export default function Editor() {
 
   const [createSnippet, { error }] = useMutation(CREATE_SNIPPET);
+  const [explainCode, { e, data }] = useMutation(EXPLAIN_CODE);
+
   const [formState, setFormState] = useState({ code: '', name: 'untitiled', explaination: 'coming soon...' });
 
   // update state based on form input changes
@@ -85,7 +87,6 @@ export default function Editor() {
 
   // save code based on state
   const handleSave = async (event) => {
-    // the code editor conent
     event.preventDefault();
 
     try {
@@ -93,7 +94,7 @@ export default function Editor() {
         // ! using dummy data right now for name and explination
         // TODO: add fields for name and explaination
         // TODO: update state with those values, update this save to include them
-        variables: {code: formState.code, name: formState.name, explaination: formState.explaination },
+        variables: { code: formState.code, name: formState.name, explaination: formState.explaination },
       });
       console.log("snippet saved");
       console.log(formState);
@@ -103,26 +104,21 @@ export default function Editor() {
   };
 
   // TODO: make this query the openAI API to get results
-  // const handleSubmit = async (event) => {
-  //   // the code editor conent
-  //   // const content = document.getElementsByClassName('cm-content')[0].innerText;
-  //   const formCode = formState.code;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  //   event.preventDefault();
+    const functionExplainer = "\"\"\"\nHere's what the above function is doing:\n1.";
 
-  //   const functionExplainer = "\"\"\"\nHere's what the above function is doing:\n1.";
-
-  //   try {
-
-  //     const { data } = await code(functionExplainer, content);
-      
-  //     console.log("fetching explaination..");
-  //     console.log(data)
-  //     // window.location.reload();
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+    try {
+      const { data } = await explainCode({
+        variables: { code: formState.code, explainer: functionExplainer },
+      });
+      console.log("explaination incoming...");
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return (
     <div>
@@ -136,6 +132,10 @@ export default function Editor() {
         smartindent='true'
         linewrapping='true'
       />
+
+      <form onSubmit={handleSubmit}>
+      <input type="submit" value="Submit" />
+      </form>
 
       <form onSubmit={handleSave}>
       <input type="submit" value="Save" />
