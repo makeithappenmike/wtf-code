@@ -28,9 +28,13 @@ const styles = {
                 Contact
               </NavLink>
               {Auth.loggedIn() ? (
+              
               <button onClick={logout}>
+                <NavLink style={styles.links} className="header item" to='/login'>
                 Logout
+                </NavLink>
               </button>
+              
               ) : <button>
                 Sign Up
             </button>}
