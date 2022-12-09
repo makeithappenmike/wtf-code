@@ -1,40 +1,41 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Auth from '../utils/auth';
 
 const Header = () => {
-
-  let activeStyle = {
-    textDecoration: "underline",
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
   };
 
-  let activeClassName = "underline";
+const styles = {
+  links: {
+    color: 'black'
+  }
+}
   
   return (
     <nav className='nav'>
+      {Auth.loggedIn() ? (
       <div className="ui container">
         <div className="navItems">
-            <a className="header link item">
-              <NavLink to='/'>
+              <NavLink style={styles.links} className="header link item" to='/'>
                 Code
               </NavLink>
-            </a>
-            <a className="header item">
-              <NavLink to='/about'>
+              <NavLink style={styles.links} className="header item" to='/about'>
                 About
               </NavLink>
-            </a>
-            <a className="header item">
-              <NavLink to='/contact'>
+              <NavLink style={styles.links} className="header item" to='/contact'>
                 Contact
               </NavLink>
-            </a>
-            <a className="header item">
-              <NavLink to='/login'>
+              {Auth.loggedIn() ? (
+              <button onClick={logout}>
                 Logout
-              </NavLink>
-            </a>
+              </button>
+              ) : <></>}
         </div>
     </div>
+    ) : <></>}
     </nav>
   );
 };
