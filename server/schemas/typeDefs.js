@@ -32,6 +32,7 @@ const typeDefs = gql`
     deleteUser(_id:String!): User
     deleteSnippet(_id:String!): Snippet
     login(email: String!, password: String!): Auth
+    explainCode(code: String!, explainer: String!): String!
   }
 `;
 
