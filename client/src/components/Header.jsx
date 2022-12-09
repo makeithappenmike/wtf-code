@@ -27,9 +27,13 @@ const styles = {
               <NavLink style={styles.links} className="header item" to='/contact'>
                 Contact
               </NavLink>
+              {Auth.loggedIn() ? (
               <button onClick={logout}>
                 Logout
               </button>
+              ) : <button>
+                Sign Up
+            </button>}
         </div>
     </div>
     </nav>
