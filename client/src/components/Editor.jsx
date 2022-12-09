@@ -76,13 +76,30 @@ export default function Editor() {
   const [createSnippet, { error }] = useMutation(CREATE_SNIPPET);
   const [explainCode, { e, data }] = useMutation(EXPLAIN_CODE);
 
-  const [formState, setFormState] = useState({ code: '', name: 'untitiled', explaination: 'coming soon...' });
+  const [codeState, setCodeState] = useState({ code: ''});
+  const [nameState, setNameState] = useState({ name: ''});
+  const [explainationState, setexplainationState] = useState({explaination: '' });
+
 
   // update state based on form input changes
   const handleChange = (event) => {
-    const codeForm = { code: document.getElementsByClassName('cm-content')[0].innerText, name: 'untitiled', explaination: 'coming soon...' };
-    setFormState(codeForm);
-    console.log(formState);
+    const codeForm = { code: document.getElementsByClassName('cm-content')[0].innerText, name: 'untitiled'};
+    setCodeState(codeForm);
+    console.log("Code State: ", codeState.code);
+  };
+
+  // update state when explaination added to text field
+  const handleExplaination = (event) => {
+    const textArea = { explaination: document.getElementById('explaination').value};
+    setexplainationState(textArea);
+    console.log("Explaination State: ", explainationState.explaination);
+  };
+
+  // update state when name added to text field
+  const handleName = (event) => {
+    const nameArea = { name: document.getElementById('name').value};
+    setNameState(nameArea);
+    console.log("Name State: ", nameState.name);
   };
 
   // save code based on state
@@ -91,19 +108,16 @@ export default function Editor() {
 
     try {
       const { data } = await createSnippet({
-        // ! using dummy data right now for name and explination
-        // TODO: add fields for name and explaination
-        // TODO: update state with those values, update this save to include them
-        variables: { code: formState.code, name: formState.name, explaination: formState.explaination },
+        variables: { code: codeState.code, name: nameState.name, explaination: explainationState.explaination },
       });
       console.log("snippet saved");
-      console.log(formState);
+      console.log(codeState.code, explainationState.explaination, nameState.name);
     } catch (err) {
       console.error(err);
     }
   };
 
-  // TODO: make this query the openAI API to get results
+  // submit code in editor to openAI for explaination
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -111,10 +125,11 @@ export default function Editor() {
 
     try {
       const { data } = await explainCode({
-        variables: { code: formState.code, explainer: functionExplainer },
+        variables: { code: codeState.code, explainer: functionExplainer },
       });
       console.log("explaination incoming...");
-      console.log(data);
+      console.log(data.explainCode);
+      document.getElementById('explaination').value = data.explainCode
     } catch (err) {
       console.error(err);
     }
@@ -136,10 +151,25 @@ export default function Editor() {
       <form onSubmit={handleSubmit}>
       <input type="submit" value="Submit" />
       </form>
+      <br></br>
 
       <form onSubmit={handleSave}>
       <input type="submit" value="Save" />
+      <br></br>
       </form>
+
+      <form onChange={handleName}>
+      <input type="text" id="name" name="name" />
+      <br></br>
+      </form>
+
+      <br></br>
+
+      <textarea id="explaination" name="explaination"
+                onChange={handleExplaination}
+                rows="15" cols="45">
+      </textarea>
+
 
     </div>
   );
