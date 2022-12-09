@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { redirect } from "react-router-dom";
+import useLocalStorage from './utils/hooks/localStorage'; // ! TODO: Implement this page
 
 import './App.css'
 import Header from './components/Header';
@@ -10,6 +12,8 @@ import Login from './pages/Login';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
+
+// console.log("Use Local:", useLocalStorage);
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
@@ -31,6 +35,19 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
+
+// TODO: Convert to state
+const isLoggedIn = window.localStorage.getItem('id_token');
+
+// const loader = async () => {
+  if (isLoggedIn) {
+    console.log('logged in');
+  } else {
+    console.log('logged out');
+    // return redirect("/login");
+  }
+// };
+
 
 function App() {
 
