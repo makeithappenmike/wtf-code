@@ -76,7 +76,8 @@ export default function Editor() {
   const [createSnippet, { error }] = useMutation(CREATE_SNIPPET);
   const [explainCode, { e, data }] = useMutation(EXPLAIN_CODE);
 
-  const [codeState, setCodeState] = useState({ code: '', name: 'untitiled'});
+  const [codeState, setCodeState] = useState({ code: ''});
+  const [nameState, setNameState] = useState({ name: ''});
   const [explainationState, setexplainationState] = useState({explaination: '' });
 
 
@@ -91,7 +92,14 @@ export default function Editor() {
   const handleExplaination = (event) => {
     const textArea = { explaination: document.getElementById('explaination').value};
     setexplainationState(textArea);
-    console.log("Explaination State: ",explainationState.explaination);
+    console.log("Explaination State: ", explainationState.explaination);
+  };
+
+  // update state when name added to text field
+  const handleName = (event) => {
+    const nameArea = { name: document.getElementById('name').value};
+    setNameState(nameArea);
+    console.log("Name State: ", nameState.name);
   };
 
   // save code based on state
@@ -100,13 +108,10 @@ export default function Editor() {
 
     try {
       const { data } = await createSnippet({
-        // ! using dummy data right now for name and explination
-        // TODO: add fields for name and explaination
-        // TODO: update state with those values, update this save to include them
-        variables: { code: codeState.code, name: codeState.name, explaination: explainationState.explaination },
+        variables: { code: codeState.code, name: nameState.name, explaination: explainationState.explaination },
       });
       console.log("snippet saved");
-      console.log(codeState.code, explainationState.explaination);
+      console.log(codeState.code, explainationState.explaination, nameState.name);
     } catch (err) {
       console.error(err);
     }
@@ -146,9 +151,16 @@ export default function Editor() {
       <form onSubmit={handleSubmit}>
       <input type="submit" value="Submit" />
       </form>
+      <br></br>
 
       <form onSubmit={handleSave}>
       <input type="submit" value="Save" />
+      <br></br>
+      </form>
+
+      <form onChange={handleName}>
+      <input type="text" id="name" name="name" />
+      <br></br>
       </form>
 
       <br></br>
