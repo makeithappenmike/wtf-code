@@ -1,6 +1,12 @@
 const { User, Snippet } = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
+const { Configuration, OpenAIApi } = require("openai");
+const configuration = new Configuration({
+  // TODO: need to get env working
+  apiKey: "",
+  
+});
 
 
 const resolvers = {
@@ -34,6 +40,7 @@ const resolvers = {
       const snippet = await Snippet.findByIdAndDelete(_id);
       return snippet;
     },
+
     login: async (parent, { email, password }) => {
 
       // Searching for one User based on an Email address
@@ -65,8 +72,31 @@ const resolvers = {
       const token = signToken(user);
       console.log("Token", token);
       return { token, user };
-    },      
+    },
+
+    explainCode: async (parent, {code, explainer}) => {
+      const openai = new OpenAIApi(configuration);
+      try {
+        const response = await openai.createCompletion({
+          model: "code-davinci-002",
+          prompt: code + explainer,
+          temperature: 0,
+          max_tokens: 10,
+          top_p: 1,
+          frequency_penalty: 0,
+          presence_penalty: 0,
+          stop: ["\"\"\""],
+        });
+
+        const answer = response['data']['choices'][0].text;
+        console.log(answer);
+        return answer;
+    
+      }  catch (e) {
+        console.log(e)
     }
-  };
+    },
+  }
+};
 
 module.exports = resolvers;
