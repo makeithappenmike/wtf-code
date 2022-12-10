@@ -6,7 +6,7 @@ import { redirect } from "react-router-dom";
 import useLocalStorage from './utils/hooks/localStorage'; // ! TODO: Implement this page
 
 import './App.css'
-import Header from './components/Header';
+import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import About from './pages/About';
@@ -55,7 +55,7 @@ function App() {
     <div className="App">
       <ApolloProvider client={client}>
       <Router>
-      <Header />
+      <NavBar />
         <div className="flex-column justify-center align-center min-100-vh bg-primary main">
           <Routes>
             <Route 
