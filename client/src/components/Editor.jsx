@@ -5,6 +5,9 @@ import { createTheme } from '@uiw/codemirror-themes';
 import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
 import { CREATE_SNIPPET, EXPLAIN_CODE } from '../../src/utils/mutations';
+import { Button, Input } from 'antd';
+
+const { TextArea } = Input;
 
 // If we want to include custom themes we can do so like below
 // We can bring in already created themes from https://uiwjs.github.io/react-codemirror/#/theme/
@@ -148,29 +151,35 @@ export default function Editor() {
         linewrapping='true'
       />
 
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
       <input type="submit" value="Submit" />
-      </form>
+      </form> */}
+        <Button onClick={handleSubmit}>Submit</Button>
       <br></br>
 
-      <form onSubmit={handleSave}>
-      <input type="submit" value="Save" />
+      {/* <form onSubmit={handleSave}> */}
+      {/* <input type="submit" value="Save" /> */}
+      <Button onClick={handleSave}>Save</Button>
       <br></br>
-      </form>
+      {/* </form> */}
 
-      <form onChange={handleName}>
-      <input type="text" id="name" name="name" />
+      {/* <form onChange={handleName}> */}
+      {/* <input type="text" id="name" name="name" /> */}
+      <Input onChange={handleName} type="text" id="name" name="name" placeholder="Name" />
       <br></br>
-      </form>
+      {/* </form> */}
 
       <br></br>
 
-      <textarea id="explaination" name="explaination"
+      {/* <textarea id="explaination" name="explaination"
                 onChange={handleExplaination}
                 rows="15" cols="45">
-      </textarea>
-
-
+      </textarea> */}
+      <TextArea id="explaination" name="explaination"
+                onChange={handleExplaination}
+                cols="45" rows={4} placeholder="Explanation.."/>
+      <br />
+      <br />
     </div>
   );
   };
