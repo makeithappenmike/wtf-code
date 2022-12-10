@@ -1,11 +1,18 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Auth from '../utils/auth';
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import { LaptopOutlined, NotificationOutlined, UserOutlined, PictureOutlined } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import WTFCode from'../assets/wtf-code.png';
+
 
 const { Header, Content, Footer, Sider } = Layout;
 const items1 = [
+  {
+    path: "/",
+    label: "",
+    icon: <img  src={WTFCode} style={{ maxHeight: '30px', verticalAlign: 'middle'}} alt="WTFCode"/>,
+  },
   {
     path: "/",
     label: "Code",
@@ -73,8 +80,9 @@ const styles = {
   
   return (
     <>
+    <Layout>
+    
     <Header className="header">
-        {/* <div className="logo" /> */}
         {/* <nav className='nav'>
           {Auth.loggedIn() ? (
           <div className="ui container">
@@ -97,10 +105,13 @@ const styles = {
         </div>
         ) : <></>}
         </nav> */}
+        
+        {/* <div className="logo" /> */}
         {Auth.loggedIn() ? (
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
         ) : <></>}
     </Header>
+    </Layout>
     </>
   );
 };

@@ -27,6 +27,7 @@ const Home = () => {
             margin: '0 16px',
           }}
         >
+          <br />
           <Editor />
         </Content>
         <SiteFooter />
