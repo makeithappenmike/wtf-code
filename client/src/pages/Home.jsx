@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Editor from '../components/Editor';
 import Sidebar from '../components/Sidebar';
+import Options from '../components/Options';
 import SiteFooter from '../components/Footer';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 
@@ -32,6 +33,7 @@ const Home = () => {
         </Content>
         <SiteFooter />
       </Layout>
+      <Options />
     </Layout>
     </main>
   );

@@ -5,7 +5,9 @@ import {
     FileOutlined,
     PieChartOutlined,
     TeamOutlined,
-    RightSquareOutlined,
+    UserOutlined,
+    CodeOutlined,
+    RightOutlined
   } from '@ant-design/icons';
   import { Breadcrumb, Layout, Menu, theme } from 'antd';
   const { Header, Content, Footer, Sider } = Layout;
@@ -18,12 +20,14 @@ import {
     };
   }
   const items = [
-    getItem('Saved One', '1', <RightSquareOutlined />),
-    getItem('Saved Two', '2', <RightSquareOutlined />),
-    getItem('Saved Two', '2', <RightSquareOutlined />),
+    getItem('Model', 'sub1', <CodeOutlined />, [
+      getItem('Model 1', '3'),
+      getItem('Model 2', '4'),
+      getItem('Model 3', '5'),
+    ])
   ];
 
-const Sidebar = () => {
+const Options = () => {
 
 const [collapsed, setCollapsed] = useState(false);
   const {
@@ -37,10 +41,10 @@ const [collapsed, setCollapsed] = useState(false);
   
   return (
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <h3 style={{ color: 'white'}}>Saved Blocks</h3>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+        <h3 style={{ color: 'white'}}>Options</h3>
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} expandIcon={<RightOutlined />}/>
       </Sider>
   );
 };
 
-export default Sidebar;
+export default Options;
