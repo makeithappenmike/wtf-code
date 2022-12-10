@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Editor from '../components/Editor';
 import Sidebar from '../components/Sidebar';
+import SiteFooter from '../components/Footer';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import {
   DesktopOutlined,
@@ -49,13 +50,7 @@ const Home = () => {
           </Breadcrumb> */}
           <Editor />
         </Content>
-        <Footer
-          style={{
-            textAlign: 'center',
-          }}
-        >
-          Ant Design ©2018 Created by Ant UED
-        </Footer>
+        <SiteFooter />
       </Layout>
     </Layout>
     </main>
