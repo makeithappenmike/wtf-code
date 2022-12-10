@@ -1,4 +1,5 @@
 import React from 'react';
+import SiteFooter from '../components/Footer';
 
 const NotFound = () => {
 
