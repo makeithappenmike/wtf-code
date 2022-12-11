@@ -82,7 +82,6 @@ export default function Editor() {
   const [codeState, setCodeState] = useState({ code: ''});
   const [nameState, setNameState] = useState({ name: ''});
   const [explanationState, setexplanationState] = useState({explanation: '' });
-  const isNamed = true;
   const [form] = Form.useForm();
 
 
@@ -102,7 +101,7 @@ export default function Editor() {
 
   // update state when name added to text field
   const handleName = (event) => {
-    const nameArea = { name: document.getElementById('name').value};
+    const nameArea = { name: document.getElementById('explanation_name').value};
     setNameState(nameArea);
     console.log("Name State: ", nameState.name);
   };
@@ -152,13 +151,13 @@ export default function Editor() {
         smartindent='true'
         linewrapping='true'
       />
-        <Button id='submit_code' onClick={handleSubmit} size="medium">Submit</Button>
+        <Button id='submit_code' onClick={handleSubmit} size="medium" disabled={!codeState.code ? false : true}>Submit</Button>
       <TextArea id="explanation" name="explanation"
                 onChange={handleexplanation}
                 cols="45" rows={4} placeholder="Explanation.." size="medium"/>
       <Space.Compact block size="medium">
       <Input style={{ width: '100%' }} onChange={handleName} type="text" id="explanation_name" name="name" placeholder="Name & Save Snippet.." />
-      <Button onClick={handleSave} disabled={isNamed ? true : false}>Save</Button>
+      <Button onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
     </Space.Compact>
 
       
