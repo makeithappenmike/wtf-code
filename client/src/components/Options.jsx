@@ -9,7 +9,7 @@ import {
     CodeOutlined,
     RightOutlined
   } from '@ant-design/icons';
-  import { Breadcrumb, Layout, Menu, theme } from 'antd';
+  import { Breadcrumb, Layout, Menu, theme, Switch } from 'antd';
   const { Header, Content, Footer, Sider } = Layout;
   function getItem(label, key, icon, children) {
     return {
@@ -19,11 +19,19 @@ import {
       label,
     };
   }
-  const items = [
+  const modelItems = [
     getItem('Model', 'sub1', <CodeOutlined />, [
       getItem('Model 1', '3'),
       getItem('Model 2', '4'),
       getItem('Model 3', '5'),
+    ])
+  ];
+
+  const editorItems = [
+    getItem('Editor Theme', 'sub1', <CodeOutlined />, [
+      getItem('Theme 1', '3'),
+      getItem('Theme 2', '4'),
+      getItem('Theme 3', '5'),
     ])
   ];
 
@@ -38,11 +46,16 @@ const [collapsed, setCollapsed] = useState(false);
     event.preventDefault();
     Auth.logout();
   };
+
+  const onChange = (checked) => {
+    console.log(`switch to ${checked}`);
+  };
   
   return (
       <Sider id='options' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <h3 style={{ color: 'white'}}>Options</h3>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} expandIcon={<RightOutlined />}/>
+        <h3>Options</h3>
+        <Menu style={{ textAlign: 'left'}} theme="dark" defaultSelectedKeys={['1']} mode="inline" items={modelItems} expandIcon={<RightOutlined />}/>
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" style={{ textAlign: 'left'}} items={editorItems} expandIcon={<RightOutlined />}/>
       </Sider>
   );
 };

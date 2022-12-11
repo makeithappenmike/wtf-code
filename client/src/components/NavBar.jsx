@@ -2,11 +2,13 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { LaptopOutlined, NotificationOutlined, UserOutlined, PictureOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Layout, Menu, theme, Switch, Col, Divider, Row } from 'antd';
 import WTFCode from'../assets/wtf-code.png';
 
-
 const { Header, Content, Footer, Sider } = Layout;
+const onChange = (checked) => {
+  console.log(`switch to ${checked}`);
+};
 const items1 = [
   {
     path: "/",
@@ -32,7 +34,7 @@ const items1 = [
     path: "/login",
     label: "Logout",
     // icon: <Icon type="fire" />,
-  },
+  }
 ].map((item, index) => {
   return {
     key: index,
@@ -81,35 +83,19 @@ const styles = {
   return (
     <>
     <Layout>
-    
-    <Header className="header">
-        {/* <nav className='nav'>
-          {Auth.loggedIn() ? (
-          <div className="ui container">
-            <div className="navItems">
-                  <NavLink style={styles.links} className="header link item" to='/'>
-                    Code
-                  </NavLink>
-                  <NavLink style={styles.links} className="header item" to='/about'>
-                    About
-                  </NavLink>
-                  <NavLink style={styles.links} className="header item" to='/contact'>
-                    Contact
-                  </NavLink>
-                  {Auth.loggedIn() ? (
-                  <button onClick={logout}>
-                    Logout
-                  </button>
-                  ) : <></>}
-            </div>
-        </div>
-        ) : <></>}
-        </nav> */}
-        
-        {/* <div className="logo" /> */}
+    <Header flex="auto" className="header" >
+    <Row wrap={true}>
+      <Col flex="auto">
         {Auth.loggedIn() ? (
+        <>
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
+        </>
         ) : <></>}
+        </Col>
+      <Col flex="100px">
+    <Switch id='modeSwitch' size="medium" checkedChildren="light" unCheckedChildren="dark" onChange={onChange} />
+    </Col>
+    </Row>
     </Header>
     </Layout>
     </>

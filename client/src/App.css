@@ -34,6 +34,7 @@
 #sidebar,
 #options {
   text-align: center;
+  color: white;
 }
 
 #submit_code {
@@ -44,8 +45,9 @@
   margin-bottom: 10px;
 }
 
-#explanation_name {
-  width: 100%;
+#modeSwitch {
+  width: fit-content;
+  justify-content: flex-end;
 }
 
 @keyframes logo-spin {
