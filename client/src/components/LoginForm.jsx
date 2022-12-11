@@ -2,93 +2,72 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
-
+import { Form, Input, Button } from 'antd';
 import Auth from '../utils/auth';
+
+// TODO: Handle form validation
+// TODO: Add signup button
+// TODO: Handle errors and adjust current error handling
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
 
-  // update state based on form input changes
+  // Update state based on form input changes
   const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormState({
+  const { name, value } = event.target;
+  
+  // Update and set formstate
+  setFormState({
       ...formState,
       [name]: value,
     });
   };
 
-  // submit form
+  // On form submit, attempt login
   const handleFormSubmit = async (event) => {
-    console.log('Logging in...');
     event.preventDefault();
-    console.log(formState);
-    // console.log("token", data.login.token);
     try {
       const { data } = await login({
         variables: { ...formState },
       });
-
-      console.log(data);
-
       Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
     }
 
-    // clear form values
+    // Clear form values
     setFormState({
       email: '',
       password: '',
     });
+
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
+    <main className="flex-row justify-center">
       <div className="col-12 col-lg-10">
         <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
+          <h2>Login</h2>
             {data ? (
               <p>
                 Success! You may now head{' '}
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-info"
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
+              <Form>
+                <Input className="form-input" placeholder="Your email" name="email" type="email" value={formState.email} onChange={handleChange} id='submit_login' />
+                <Input className="form-input" placeholder="******" name="password" type="password" value={formState.password} onChange={handleChange} />
+                <Button id='submit_login' onClick={handleFormSubmit} >
                   Submit
-                </button>
-              </form>
+                </Button>
+              </Form>
             )}
-
             {error && (
               <div className="my-3 p-3 bg-danger text-white">
                 {error.message}
               </div>
             )}
-          </div>
         </div>
       </div>
     </main>

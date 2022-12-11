@@ -1,8 +1,8 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /* padding: 2rem; */
+  /* text-align: center; */
 }
 
 .logo {
@@ -29,6 +29,27 @@
 
 .item {
   color: white;
+}
+
+#sidebar,
+#options {
+  text-align: center;
+  color: white;
+}
+
+#submit_code,
+#submit_login,
+#login_email {
+  margin: 10px 0px 10px 0px;
+}
+
+#explanation {
+  margin-bottom: 10px;
+}
+
+#modeSwitch {
+  width: fit-content;
+  justify-content: flex-end;
 }
 
 @keyframes logo-spin {

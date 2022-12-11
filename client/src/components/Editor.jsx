@@ -5,10 +5,22 @@ import { createTheme } from '@uiw/codemirror-themes';
 import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
 import { CREATE_SNIPPET, EXPLAIN_CODE } from '../../src/utils/mutations';
+import { Button, Input, Form, Space } from 'antd';
+import { ShareAltOutlined } from '@ant-design/icons';
+
+// TODO: Wire up theme editor switching
+// TODO: Debug explanation (Cannot return null for non-nullable field Mutation.explainCode)
+// TODO: Handle sharing
+// ?: When ready, remove console.logs
+// ?: Should we disable the ability to save if the explanation is empty? 
+
+const { TextArea } = Input;
+const extensions = [javascript({ jsx: true })];
 
 // If we want to include custom themes we can do so like below
 // We can bring in already created themes from https://uiwjs.github.io/react-codemirror/#/theme/
 
+// Dark theme
 const dark = createTheme({
     theme: 'dark',
     settings: {
@@ -39,6 +51,7 @@ const dark = createTheme({
     ],
   });
 
+  // Light theme
   const light = createTheme({
     theme: 'light',
     settings: {
@@ -69,67 +82,71 @@ const dark = createTheme({
     ],
   });
 
-const extensions = [javascript({ jsx: true })];
-
 export default function Editor() {
 
   const [createSnippet, { error }] = useMutation(CREATE_SNIPPET);
   const [explainCode, { e, data }] = useMutation(EXPLAIN_CODE);
-
   const [codeState, setCodeState] = useState({ code: ''});
   const [nameState, setNameState] = useState({ name: ''});
-  const [explainationState, setexplainationState] = useState({explaination: '' });
+  const [explanationState, setexplanationState] = useState({explanation: '' });
 
-
-  // update state based on form input changes
+  // Update state based on form input changes
   const handleChange = (event) => {
     const codeForm = { code: document.getElementsByClassName('cm-content')[0].innerText, name: 'untitiled'};
     setCodeState(codeForm);
     console.log("Code State: ", codeState.code);
   };
 
-  // update state when explaination added to text field
-  const handleExplaination = (event) => {
-    const textArea = { explaination: document.getElementById('explaination').value};
-    setexplainationState(textArea);
-    console.log("Explaination State: ", explainationState.explaination);
+  // Update state when explanation added to text field
+  const handleexplanation = (event) => {
+    const textArea = { explanation: document.getElementById('explanation').value};
+    setexplanationState(textArea);
+    console.log("explanation State: ", explanationState.explanation);
   };
 
-  // update state when name added to text field
+  // Update state when name added to text field
   const handleName = (event) => {
-    const nameArea = { name: document.getElementById('name').value};
+    const nameArea = { name: document.getElementById('explanation_name').value};
     setNameState(nameArea);
     console.log("Name State: ", nameState.name);
   };
 
-  // save code based on state
+  // Save code based on state
   const handleSave = async (event) => {
     event.preventDefault();
-
     try {
       const { data } = await createSnippet({
-        variables: { code: codeState.code, name: nameState.name, explaination: explainationState.explaination },
+        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation },
       });
       console.log("snippet saved");
-      console.log(codeState.code, explainationState.explaination, nameState.name);
+      console.log(codeState.code, explanationState.explanation, nameState.name);
     } catch (err) {
       console.error(err);
     }
   };
 
-  // submit code in editor to openAI for explaination
+  // Save code based on state
+  const handleShare = async (event) => {
+    event.preventDefault();
+    try {
+      console.log("Sharing is caring..");
+      console.log(codeState.code, explanationState.explanation, nameState.name);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Submit code in editor to openAI for explanation
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const functionExplainer = "\"\"\"\nHere's what the above function is doing:\n1.";
-
     try {
       const { data } = await explainCode({
         variables: { code: codeState.code, explainer: functionExplainer },
       });
-      console.log("explaination incoming...");
+      console.log("explanation incoming...");
       console.log(data.explainCode);
-      document.getElementById('explaination').value = data.explainCode
+      document.getElementById('explanation').value = data.explainCode
     } catch (err) {
       console.error(err);
     }
@@ -147,30 +164,22 @@ export default function Editor() {
         smartindent='true'
         linewrapping='true'
       />
+      {/* Button is active if the editor is not empty */}
+      <Button id='submit_code' onClick={handleSubmit} size="medium" disabled={!codeState.code ? false : true}>Submit</Button>
+      <TextArea id="explanation" name="explanation"
+                onChange={handleexplanation}
+                cols="45" rows={4} placeholder="Explanation.." size="medium"/>
+      <Space>
+      <Space.Compact block size="medium">
+      <Input style={{ width: '100%' }} onChange={handleName} type="text" id="explanation_name" name="name" placeholder="Name & Save Snippet.." />
+      {/* Button is active if the explanation name is not empty */}
+      <Button onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
+      </Space.Compact>
+      {/* Button is active if the explanation name is not empty */}
+      <Button onClick={handleShare} disabled={nameState.name ? false : true}><ShareAltOutlined />Share</Button>
+      </Space>
 
-      <form onSubmit={handleSubmit}>
-      <input type="submit" value="Submit" />
-      </form>
-      <br></br>
-
-      <form onSubmit={handleSave}>
-      <input type="submit" value="Save" />
-      <br></br>
-      </form>
-
-      <form onChange={handleName}>
-      <input type="text" id="name" name="name" />
-      <br></br>
-      </form>
-
-      <br></br>
-
-      <textarea id="explaination" name="explaination"
-                onChange={handleExplaination}
-                rows="15" cols="45">
-      </textarea>
-
-
+      
     </div>
   );
   };
