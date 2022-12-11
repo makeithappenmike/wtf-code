@@ -1,22 +1,10 @@
-import React, { useState } from 'react';
-import Auth from '../utils/auth';
-import {
-    DesktopOutlined,
-    FileOutlined,
-    PieChartOutlined,
-    TeamOutlined,
-    UserOutlined,
-  } from '@ant-design/icons';
-  import { Breadcrumb, Layout, Menu, theme } from 'antd';
-  const { Header, Content, Footer, Sider } = Layout;
+import React from 'react';
+import { Layout } from 'antd';
+const { Footer } = Layout;
+
+// TODO: Show footer on view screen -- currently you have to scroll a touch
 
 const SiteFooter = () => {
-
-const styles = {
-  links: {
-    color: 'black'
-  }
-}
   
   return (
     <Footer

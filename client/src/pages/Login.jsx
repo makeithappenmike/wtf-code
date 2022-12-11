@@ -3,19 +3,21 @@ import LoginForm from '../components/LoginForm';
 import { Layout } from 'antd';
 import SiteFooter from '../components/Footer';
 
-const { Header, Footer, Sider, Content } = Layout;
+// TODO: What other content do we want here?
+
+const { Content } = Layout;
 
 const Login = () => {
 
   return (
     <main>
-        <Layout>
-        <Content style={{
+        <Layout style={{
         minHeight: '100vh',
       }}>
-        <LoginForm />
-        </Content>
-        <SiteFooter />
+          <Content >
+            <LoginForm />
+          </Content>
+            <SiteFooter />
         </Layout>
     </main>
   );

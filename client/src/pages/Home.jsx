@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Editor from '../components/Editor';
 import Sidebar from '../components/Sidebar';
 import Options from '../components/Options';
 import SiteFooter from '../components/Footer';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, theme } from 'antd';
 
-const { Header, Content, Footer, Sider } = Layout;
+// TODO: Footer is off page -- should be visible by default
+// TODO: What other components do we need on this page?
+
+const { Content } = Layout;
 
 const Home = () => {
 
-  const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();

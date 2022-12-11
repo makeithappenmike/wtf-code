@@ -2,18 +2,18 @@ import { Layout } from 'antd';
 import React from 'react';
 import SiteFooter from '../components/Footer';
 
-const { Header, Footer, Sider, Content } = Layout;
+// TODO: Add content here -- maybe some details on OpenAI?
+// TODO: Footer is off page -- should be visible by default
 
-
-
+const { Content } = Layout;
 const About = () => {
 
   return (
     <main>
-        <Layout>
-        <Content style={{
+        <Layout style={{
         minHeight: '100vh',
       }}>
+        <Content>
         About
         </Content>
         <SiteFooter />
