@@ -20,7 +20,7 @@ import {
   const items = [
     getItem('Saved One', '1', <RightSquareOutlined />),
     getItem('Saved Two', '2', <RightSquareOutlined />),
-    getItem('Saved Two', '2', <RightSquareOutlined />),
+    getItem('Saved Two', '3', <RightSquareOutlined />),
   ];
 
 const Sidebar = () => {
@@ -36,7 +36,7 @@ const [collapsed, setCollapsed] = useState(false);
   };
   
   return (
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+      <Sider id='sidebar' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <h3 style={{ color: 'white'}}>Saved Blocks</h3>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
       </Sider>

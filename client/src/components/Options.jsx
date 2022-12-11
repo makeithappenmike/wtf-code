@@ -40,7 +40,7 @@ const [collapsed, setCollapsed] = useState(false);
   };
   
   return (
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+      <Sider id='options' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <h3 style={{ color: 'white'}}>Options</h3>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} expandIcon={<RightOutlined />}/>
       </Sider>

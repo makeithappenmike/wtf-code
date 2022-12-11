@@ -5,7 +5,7 @@ import { createTheme } from '@uiw/codemirror-themes';
 import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
 import { CREATE_SNIPPET, EXPLAIN_CODE } from '../../src/utils/mutations';
-import { Button, Input } from 'antd';
+import { Button, Input, Form, Space } from 'antd';
 
 const { TextArea } = Input;
 
@@ -82,6 +82,7 @@ export default function Editor() {
   const [codeState, setCodeState] = useState({ code: ''});
   const [nameState, setNameState] = useState({ name: ''});
   const [explainationState, setexplainationState] = useState({explaination: '' });
+  const [form] = Form.useForm();
 
 
   // update state based on form input changes
@@ -150,36 +151,16 @@ export default function Editor() {
         smartindent='true'
         linewrapping='true'
       />
-
-      {/* <form onSubmit={handleSubmit}>
-      <input type="submit" value="Submit" />
-      </form> */}
-        <Button onClick={handleSubmit}>Submit</Button>
-      <br></br>
-
-      {/* <form onSubmit={handleSave}> */}
-      {/* <input type="submit" value="Save" /> */}
+        <Button id='submit_code' onClick={handleSubmit} size="medium">Submit</Button>
+      <TextArea id="explanation" name="explanation"
+                onChange={handleExplaination}
+                cols="45" rows={4} placeholder="Explanation.." size="medium"/>
+      <Space.Compact block size="medium">
+      <Input style={{ width: '100%' }} onChange={handleName} type="text" id="explanation_name" name="name" placeholder="Name & Save Snippet.." />
       <Button onClick={handleSave}>Save</Button>
-      <br></br>
-      {/* </form> */}
+    </Space.Compact>
 
-      {/* <form onChange={handleName}> */}
-      {/* <input type="text" id="name" name="name" /> */}
-      <Input onChange={handleName} type="text" id="name" name="name" placeholder="Name" />
-      <br></br>
-      {/* </form> */}
-
-      <br></br>
-
-      {/* <textarea id="explaination" name="explaination"
-                onChange={handleExplaination}
-                rows="15" cols="45">
-      </textarea> */}
-      <TextArea id="explaination" name="explaination"
-                onChange={handleExplaination}
-                cols="45" rows={4} placeholder="Explanation.."/>
-      <br />
-      <br />
+      
     </div>
   );
   };

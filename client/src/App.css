@@ -2,7 +2,7 @@
   /* max-width: 1280px; */
   margin: 0 auto;
   /* padding: 2rem; */
-  text-align: center;
+  /* text-align: center; */
 }
 
 .logo {
@@ -29,6 +29,23 @@
 
 .item {
   color: white;
+}
+
+#sidebar,
+#options {
+  text-align: center;
+}
+
+#submit_code {
+  margin: 10px 0px 10px 0px;
+}
+
+#explanation {
+  margin-bottom: 10px;
+}
+
+#explanation_name {
+  width: 100%;
 }
 
 @keyframes logo-spin {
