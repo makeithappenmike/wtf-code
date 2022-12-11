@@ -6,6 +6,9 @@ import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
 import { CREATE_SNIPPET, EXPLAIN_CODE } from '../../src/utils/mutations';
 import { Button, Input, Form, Space } from 'antd';
+import {
+  ShareAltOutlined
+} from '@ant-design/icons';
 
 const { TextArea } = Input;
 
@@ -155,10 +158,13 @@ export default function Editor() {
       <TextArea id="explanation" name="explanation"
                 onChange={handleexplanation}
                 cols="45" rows={4} placeholder="Explanation.." size="medium"/>
+      <Space>
       <Space.Compact block size="medium">
       <Input style={{ width: '100%' }} onChange={handleName} type="text" id="explanation_name" name="name" placeholder="Name & Save Snippet.." />
       <Button onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
     </Space.Compact>
+    <Button onClick={handleSave} disabled={nameState.name ? false : true}><ShareAltOutlined />Share</Button>
+    </Space>
 
       
     </div>
