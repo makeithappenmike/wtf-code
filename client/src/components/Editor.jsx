@@ -81,7 +81,8 @@ export default function Editor() {
 
   const [codeState, setCodeState] = useState({ code: ''});
   const [nameState, setNameState] = useState({ name: ''});
-  const [explainationState, setexplainationState] = useState({explaination: '' });
+  const [explanationState, setexplanationState] = useState({explanation: '' });
+  const isNamed = true;
   const [form] = Form.useForm();
 
 
@@ -92,11 +93,11 @@ export default function Editor() {
     console.log("Code State: ", codeState.code);
   };
 
-  // update state when explaination added to text field
-  const handleExplaination = (event) => {
-    const textArea = { explaination: document.getElementById('explaination').value};
-    setexplainationState(textArea);
-    console.log("Explaination State: ", explainationState.explaination);
+  // update state when explanation added to text field
+  const handleexplanation = (event) => {
+    const textArea = { explanation: document.getElementById('explanation').value};
+    setexplanationState(textArea);
+    console.log("explanation State: ", explanationState.explanation);
   };
 
   // update state when name added to text field
@@ -112,16 +113,16 @@ export default function Editor() {
 
     try {
       const { data } = await createSnippet({
-        variables: { code: codeState.code, name: nameState.name, explaination: explainationState.explaination },
+        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation },
       });
       console.log("snippet saved");
-      console.log(codeState.code, explainationState.explaination, nameState.name);
+      console.log(codeState.code, explanationState.explanation, nameState.name);
     } catch (err) {
       console.error(err);
     }
   };
 
-  // submit code in editor to openAI for explaination
+  // submit code in editor to openAI for explanation
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -131,9 +132,9 @@ export default function Editor() {
       const { data } = await explainCode({
         variables: { code: codeState.code, explainer: functionExplainer },
       });
-      console.log("explaination incoming...");
+      console.log("explanation incoming...");
       console.log(data.explainCode);
-      document.getElementById('explaination').value = data.explainCode
+      document.getElementById('explanation').value = data.explainCode
     } catch (err) {
       console.error(err);
     }
@@ -153,11 +154,11 @@ export default function Editor() {
       />
         <Button id='submit_code' onClick={handleSubmit} size="medium">Submit</Button>
       <TextArea id="explanation" name="explanation"
-                onChange={handleExplaination}
+                onChange={handleexplanation}
                 cols="45" rows={4} placeholder="Explanation.." size="medium"/>
       <Space.Compact block size="medium">
       <Input style={{ width: '100%' }} onChange={handleName} type="text" id="explanation_name" name="name" placeholder="Name & Save Snippet.." />
-      <Button onClick={handleSave}>Save</Button>
+      <Button onClick={handleSave} disabled={isNamed ? true : false}>Save</Button>
     </Space.Compact>
 
       
