@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
+import { Form, Input, Checkbox, Button } from 'antd';
 
 import Auth from '../utils/auth';
 
@@ -44,28 +45,37 @@ const Login = (props) => {
     });
   };
 
+  // const onFinish = (values) => {
+  //   console.log('Success:', values);
+  // };
+  // const onFinishFailed = (errorInfo) => {
+  //   console.log('Failed:', errorInfo);
+  // };
+
   return (
-    <main className="flex-row justify-center mb-4">
+    
+    <main className="flex-row justify-center">
       <div className="col-12 col-lg-10">
         <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
+          <h2>Login</h2>
+          {/* <div className="card-body"> */}
             {data ? (
               <p>
                 Success! You may now head{' '}
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
+              <Form>
+                <Input
                   className="form-input"
                   placeholder="Your email"
                   name="email"
                   type="email"
                   value={formState.email}
                   onChange={handleChange}
+                  id='submit_login'
                 />
-                <input
+                <Input
                   className="form-input"
                   placeholder="******"
                   name="password"
@@ -73,14 +83,16 @@ const Login = (props) => {
                   value={formState.password}
                   onChange={handleChange}
                 />
-                <button
-                  className="btn btn-block btn-info"
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
+                <Button
+                  // className="btn btn-block btn-info"
+                  // style={{ cursor: 'pointer' }}
+                  // type="submit"
+                  id='submit_login'
+                  onClick={handleFormSubmit}
                 >
                   Submit
-                </button>
-              </form>
+                </Button>
+              </Form>
             )}
 
             {error && (
@@ -88,7 +100,7 @@ const Login = (props) => {
                 {error.message}
               </div>
             )}
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </main>

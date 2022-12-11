@@ -5,8 +5,6 @@ import SiteFooter from '../components/Footer';
 
 const { Header, Footer, Sider, Content } = Layout;
 
-
-
 const Login = () => {
 
   return (

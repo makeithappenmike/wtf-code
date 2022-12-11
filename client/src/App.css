@@ -37,7 +37,8 @@
   color: white;
 }
 
-#submit_code {
+#submit_code,
+#submit_login {
   margin: 10px 0px 10px 0px;
 }
 

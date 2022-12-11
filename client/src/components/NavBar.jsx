@@ -83,20 +83,22 @@ const styles = {
   return (
     <>
     <Layout>
+    {Auth.loggedIn() ? (
     <Header flex="auto" className="header" >
     <Row wrap={true}>
       <Col flex="auto">
-        {Auth.loggedIn() ? (
+        
         <>
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
         </>
-        ) : <></>}
+        
         </Col>
       <Col flex="100px">
     <Switch id='modeSwitch' size="medium" checkedChildren="light" unCheckedChildren="dark" onChange={onChange} />
     </Col>
     </Row>
     </Header>
+    ) : <></>}
     </Layout>
     </>
   );
