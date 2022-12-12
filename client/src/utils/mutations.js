@@ -12,12 +12,12 @@ export const CREATE_USER = gql`
 `;
 
 export const CREATE_SNIPPET = gql`
-  mutation createSnippet($name: String!, $code: String!, $explaination: String!) {
-    createSnippet(name: $name, code: $code, explaination: $explaination) {
+  mutation createSnippet($name: String!, $code: String!, $explanation: String!) {
+    createSnippet(name: $name, code: $code, explanation: $explanation) {
       _id
       name
       code
-      explaination
+      explanation
     }
   }
 `;
@@ -53,5 +53,12 @@ export const LOGIN_USER = gql`
 export const EXPLAIN_CODE = gql`
   mutation explainCode($code: String!, $explainer: String!) {
     explainCode(code: $code, explainer: $explainer)
+  }
+`;
+
+// TODO: will take in the code snippet, explanation, and name as well
+export const SHARE = gql`
+  mutation share($recipient: String!) {
+    share(recipient: $recipient)
   }
 `;

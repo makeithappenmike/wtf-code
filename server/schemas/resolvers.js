@@ -5,8 +5,12 @@ const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
   // TODO: need to get env working
   apiKey: "",
-  
 });
+
+const mandrill = require("@mailchimp/mailchimp_transactional")(
+  // "YOUR_API_KEY"
+  // test key
+);
 
 
 const resolvers = {
@@ -96,6 +100,27 @@ const resolvers = {
         console.log(e)
     }
     },
+
+    share: async (parent, {recipient}) => {
+      const message = {
+        from_email: "jon@fart.cool",
+        subject: "Hello WTDcode",
+        text: "Welcome to Mailchimp Transactional!",
+        to: [
+          {
+            email: recipient,
+            type: "to"
+          }
+        ]
+      };
+      
+        const response = await mandrill.messages.send({
+          message
+        });
+        console.log(response);
+      
+    },
+    
   }
 };
 

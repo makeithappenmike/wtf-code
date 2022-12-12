@@ -17,7 +17,7 @@ const typeDefs = gql`
     _id: ID!
     name: String!
     code: String!
-    explaination: String!
+    explanation: String!
 
   }
 
@@ -28,11 +28,12 @@ const typeDefs = gql`
 
   type Mutation {
     createUser(username: String!, email: String!, password: String!): User
-    createSnippet(name: String!, code: String!, explaination: String!): Snippet
+    createSnippet(name: String!, code: String!, explanation: String!): Snippet
     deleteUser(_id:String!): User
     deleteSnippet(_id:String!): Snippet
     login(email: String!, password: String!): Auth
     explainCode(code: String!, explainer: String!): String!
+    share(recipient: String!): [String!]
   }
 `;
 

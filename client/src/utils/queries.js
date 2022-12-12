@@ -26,7 +26,7 @@ export const QUERY_SNIPPET = gql`
       _id
       name
       code
-      explaination
+      explanation
     }
   }
 `;

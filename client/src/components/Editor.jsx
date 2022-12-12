@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { createTheme } from '@uiw/codemirror-themes';
 import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
-import { CREATE_SNIPPET, EXPLAIN_CODE } from '../../src/utils/mutations';
+import { CREATE_SNIPPET, EXPLAIN_CODE, SHARE } from '../../src/utils/mutations';
 import { Button, Input, Form, Space } from 'antd';
 import { ShareAltOutlined } from '@ant-design/icons';
 
@@ -84,8 +84,9 @@ const dark = createTheme({
 
 export default function Editor() {
 
-  const [createSnippet, { error }] = useMutation(CREATE_SNIPPET);
-  const [explainCode, { e, data }] = useMutation(EXPLAIN_CODE);
+  const [createSnippet] = useMutation(CREATE_SNIPPET);
+  const [explainCode] = useMutation(EXPLAIN_CODE);
+  const [shareSnippet] = useMutation(SHARE);
   const [codeState, setCodeState] = useState({ code: ''});
   const [nameState, setNameState] = useState({ name: ''});
   const [explanationState, setexplanationState] = useState({explanation: '' });
@@ -98,7 +99,7 @@ export default function Editor() {
   };
 
   // Update state when explanation added to text field
-  const handleexplanation = (event) => {
+  const handleExplanation = (event) => {
     const textArea = { explanation: document.getElementById('explanation').value};
     setexplanationState(textArea);
     console.log("explanation State: ", explanationState.explanation);
@@ -129,8 +130,11 @@ export default function Editor() {
   const handleShare = async (event) => {
     event.preventDefault();
     try {
-      console.log("Sharing is caring..");
-      console.log(codeState.code, explanationState.explanation, nameState.name);
+      const { data } = await shareSnippet({
+        // TODO: will pull from a modal instead of hard coding
+        variables: { recipient: "jon@fart.cool" },
+      });
+
     } catch (err) {
       console.error(err);
     }
@@ -146,7 +150,8 @@ export default function Editor() {
       });
       console.log("explanation incoming...");
       console.log(data.explainCode);
-      document.getElementById('explanation').value = data.explainCode
+      const textArea = document.querySelector("#explanation");
+      textArea.value = data.explainCode;
     } catch (err) {
       console.error(err);
     }
@@ -165,10 +170,13 @@ export default function Editor() {
         linewrapping='true'
       />
       {/* Button is active if the editor is not empty */}
-      <Button id='submit_code' onClick={handleSubmit} size="medium" disabled={!codeState.code ? false : true}>Submit</Button>
-      <TextArea id="explanation" name="explanation"
-                onChange={handleexplanation}
-                cols="45" rows={4} placeholder="Explanation.." size="medium"/>
+      <Button id='submit_code' onClick={handleSubmit} size="medium" disabled={!codeState.code ? true : false}>Submit</Button>
+      <textarea id="explanation" name="explanation"
+                onChange={handleExplanation}
+                cols="45" rows={4} size="medium">
+                test!
+                </textarea>
+
       <Space>
       <Space.Compact block size="medium">
       <Input style={{ width: '100%' }} onChange={handleName} type="text" id="explanation_name" name="name" placeholder="Name & Save Snippet.." />

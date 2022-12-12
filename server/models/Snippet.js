@@ -9,7 +9,7 @@ const snippetSchema = new Schema({
     type: String,
     required: true
   },
-  explaination: {
+  explanation: {
     type: String,
     required: true
   }
