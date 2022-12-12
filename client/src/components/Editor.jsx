@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { createTheme } from '@uiw/codemirror-themes';
 import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
-import { CREATE_SNIPPET, EXPLAIN_CODE } from '../../src/utils/mutations';
+import { CREATE_SNIPPET, EXPLAIN_CODE, SHARE } from '../../src/utils/mutations';
 import { Button, Input, Form, Space } from 'antd';
 import { ShareAltOutlined } from '@ant-design/icons';
 
@@ -86,6 +86,7 @@ export default function Editor() {
 
   const [createSnippet, { error }] = useMutation(CREATE_SNIPPET);
   const [explainCode, { e, data }] = useMutation(EXPLAIN_CODE);
+  const [shareSnippet, { err, resp }] = useMutation(SHARE);
   const [codeState, setCodeState] = useState({ code: ''});
   const [nameState, setNameState] = useState({ name: ''});
   const [explanationState, setexplanationState] = useState({explanation: '' });
@@ -129,8 +130,10 @@ export default function Editor() {
   const handleShare = async (event) => {
     event.preventDefault();
     try {
-      console.log("Sharing is caring..");
-      console.log(codeState.code, explanationState.explanation, nameState.name);
+      const { data } = await shareSnippet({
+        variables: { recipient: "jon@fart.cool" },
+      });
+
     } catch (err) {
       console.error(err);
     }

@@ -55,3 +55,9 @@ export const EXPLAIN_CODE = gql`
     explainCode(code: $code, explainer: $explainer)
   }
 `;
+
+export const SHARE = gql`
+  mutation share($recipient: String!) {
+    share(recipient: $recipient)
+  }
+`;
