@@ -2,17 +2,17 @@
     {
       "name": "Javascript Product Function",
       "code": "//javascript \nfunction myFunction(p1, p2) {\n  return p1 * p2;\n}\n",
-      "explaination": "It's taking two parameters, p1 and p2. \n2. It's returning the product of p1 and p2."
+      "explanation": "It's taking two parameters, p1 and p2. \n2. It's returning the product of p1 and p2."
     },
     {
       "name": "Go function",
       "code": "//go \nfunction myFunction(p1, p2) {\n  return p1 * p2;\n}\n",
-      "explaination": "It's taking two parameters, p1 and p2. \n2. It's returning the product of p1 and p2."
+      "explanation": "It's taking two parameters, p1 and p2. \n2. It's returning the product of p1 and p2."
     },
     {
       "name": "PHP Product Function",
       "code": "//php \nfunction myFunction(p1, p2) {\n  return p1 * p2;\n}\n",
-      "explaination": "It's taking two parameters, p1 and p2. \n2. It's returning the product of p1 and p2."
+      "explanation": "It's taking two parameters, p1 and p2. \n2. It's returning the product of p1 and p2."
     }
 
 ]

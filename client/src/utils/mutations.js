@@ -12,12 +12,12 @@ export const CREATE_USER = gql`
 `;
 
 export const CREATE_SNIPPET = gql`
-  mutation createSnippet($name: String!, $code: String!, $explaination: String!) {
-    createSnippet(name: $name, code: $code, explaination: $explaination) {
+  mutation createSnippet($name: String!, $code: String!, $explanation: String!) {
+    createSnippet(name: $name, code: $code, explanation: $explanation) {
       _id
       name
       code
-      explaination
+      explanation
     }
   }
 `;
