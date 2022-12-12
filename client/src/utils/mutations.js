@@ -56,6 +56,7 @@ export const EXPLAIN_CODE = gql`
   }
 `;
 
+// TODO: will take in the code snippet, explanation, and name as well
 export const SHARE = gql`
   mutation share($recipient: String!) {
     share(recipient: $recipient)

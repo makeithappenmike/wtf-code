@@ -84,9 +84,9 @@ const dark = createTheme({
 
 export default function Editor() {
 
-  const [createSnippet, { error }] = useMutation(CREATE_SNIPPET);
-  const [explainCode, { e, data }] = useMutation(EXPLAIN_CODE);
-  const [shareSnippet, { err, resp }] = useMutation(SHARE);
+  const [createSnippet] = useMutation(CREATE_SNIPPET);
+  const [explainCode] = useMutation(EXPLAIN_CODE);
+  const [shareSnippet] = useMutation(SHARE);
   const [codeState, setCodeState] = useState({ code: ''});
   const [nameState, setNameState] = useState({ name: ''});
   const [explanationState, setexplanationState] = useState({explanation: '' });
@@ -131,6 +131,7 @@ export default function Editor() {
     event.preventDefault();
     try {
       const { data } = await shareSnippet({
+        // TODO: will pull from a modal instead of hard coding
         variables: { recipient: "jon@fart.cool" },
       });
 
