@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { QUERY_SNIPPET } from '../../src/utils/queries';
 import { RightSquareOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 
