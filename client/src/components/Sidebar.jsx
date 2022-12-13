@@ -18,7 +18,8 @@ const Sidebar = () => {
   const updateState = () => {
     const newState = snippets.map(obj => {
       console.log(obj.name);
-      return {label: obj.name, key: obj._id, icon: <RightSquareOutlined />};
+      return {label: obj.name, key: obj._id, icon: <RightSquareOutlined />, code: obj.code, explanation: obj.explanation};
+      
     });
     setSideBarState(newState);
   };
@@ -28,6 +29,11 @@ const Sidebar = () => {
     updateState();
   }, [data]);
 
+   // Update state based on form input changes
+   const handleClick = () => {
+    document.getElementsByClassName('cm-content')[0].innerText = sideBarState.code;
+    console.log("Sidebar State: ", sideBarState);
+  };
 
 const [collapsed, setCollapsed] = useState(false);
   const {
@@ -39,7 +45,7 @@ const [collapsed, setCollapsed] = useState(false);
         <h3 style={{ color: 'white'}}>Saved Blocks</h3>
 
         <Menu 
-          theme="dark" defaultSelectedKeys={['1']} mode="inline" items={sideBarState} />
+          theme="dark" onClick={handleClick} defaultSelectedKeys={['1']} mode="inline" items={sideBarState} />
       </Sider>
   );
 };
