@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { User, Snippet } = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
@@ -8,7 +9,14 @@ const configuration = new Configuration({
 });
 
 const mandrill = require("@mailchimp/mailchimp_transactional")(
+<<<<<<< HEAD
   process.env.REACT_APP_MANDRILL
+=======
+  // "YOUR_API_KEY"
+  process.env.REACT_APP_MANDRILL
+  // test key
+  // "md-xuY0joN3tN16kQMWUg3QEQ"
+>>>>>>> 80b099e (sidebar working with query)
 );
 
 
@@ -106,25 +114,54 @@ const resolvers = {
     },
 
     share: async (parent, {recipient}) => {
-      const message = {
-        from_email: "jon@fart.cool",
-        subject: "Hello WTDcode",
-        text: "Welcome to Mailchimp Transactional!",
-        to: [
-          {
-            email: recipient,
-            type: "to"
-          }
-        ]
-      };
-      
-        const response = await mandrill.messages.send({
-          message
-        });
-        console.log(response);
-      
-    },
-    
+      const response = await mandrill.messages.sendTemplate({
+        template_name: "wtfcode-share",
+        template_content: [{}],
+
+        message: {
+          from_email: "jon@fart.cool",
+          subject: "Hello from WTFcode",
+          global_merge_vars: [
+            {
+              name: "SNIPPET_NAME",
+              content: "Code Snippet"
+            },
+            {
+              name: "CODE_SNIPPET",
+              content: "This is an example code snippet."
+            },
+            {
+              name: "CODE_EXPLANATION",
+              content: "This is an example explanation."
+            }
+          ],
+          // merge_vars: [
+          //   {
+          //     rcpt: recipient,
+          //     vars: [
+          //       {
+          //         name: "",
+          //         content: ""
+          //       },
+          //       {
+          //         name: "",
+          //         content: ""
+          //       }
+          //     ]
+              
+          //   }
+          // ],
+
+          to: [
+            {
+              email: recipient,
+              type: "to"
+            }
+          ]
+        }
+      })
+      console.log(response);
+    }
   }
 };
 
