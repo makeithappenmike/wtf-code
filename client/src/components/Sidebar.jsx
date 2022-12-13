@@ -30,9 +30,13 @@ const Sidebar = () => {
   }, [data]);
 
    // Update state based on form input changes
-   const handleClick = () => {
-    document.getElementsByClassName('cm-content')[0].innerText = sideBarState.code;
-    console.log("Sidebar State: ", sideBarState);
+   const handleClick = (id) => {
+    document.getElementsByClassName('cm-content')[0].innerText = sideBarState[0].code;
+    document.getElementById('explanation').value = sideBarState[0].explanation;
+    document.getElementById('explanation_name').value = sideBarState[0].label;
+    console.log(sideBarState);
+    console.log(id);
+
   };
 
 const [collapsed, setCollapsed] = useState(false);
@@ -45,7 +49,7 @@ const [collapsed, setCollapsed] = useState(false);
         <h3 style={{ color: 'white'}}>Saved Blocks</h3>
 
         <Menu 
-          theme="dark" onClick={handleClick} defaultSelectedKeys={['1']} mode="inline" items={sideBarState} />
+          theme="dark" onClick={handleClick} mode="inline" items={sideBarState} />
       </Sider>
   );
 };

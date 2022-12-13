@@ -4,7 +4,6 @@ const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
-  // TODO: need to get env working
   apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 });
 
@@ -117,14 +116,17 @@ const resolvers = {
     }
     },
 
-    share: async (parent, {recipient}) => {
+    share: async (parent, {recipient, code, explanation, name}) => {
       const response = await mandrill.messages.sendTemplate({
         template_name: "wtfcode-share",
         template_content: [{}],
 
         message: {
-          from_email: "jon@fart.cool",
+          from_email: "WTFcode@fart.cool",
+          from_name: "WTFcode",
           subject: "Hello from WTFcode",
+          merge: true,
+          merge_language: "handlebars",
           global_merge_vars: [
             {
               name: "SNIPPET_NAME",
@@ -139,26 +141,31 @@ const resolvers = {
               content: "This is an example explanation."
             }
           ],
-          // merge_vars: [
-          //   {
-          //     rcpt: recipient,
-          //     vars: [
-          //       {
-          //         name: "",
-          //         content: ""
-          //       },
-          //       {
-          //         name: "",
-          //         content: ""
-          //       }
-          //     ]
+          merge_vars: [
+            {
+              rcpt: recipient,
+              vars: [
+                {
+                  name: "SNIPPET_NAME",
+                  content: name
+                },
+                {
+                  name: "CODE_SNIPPET",
+                  content: code
+                },
+                {
+                  name: "CODE_EXPLANATION",
+                  content: explanation
+                }
+              ]
               
-          //   }
-          // ],
+            }
+          ],
 
           to: [
             {
               email: recipient,
+              name: "Hey!",
               type: "to"
             }
           ]

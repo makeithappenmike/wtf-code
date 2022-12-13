@@ -131,8 +131,8 @@ export default function Editor() {
     event.preventDefault();
     try {
       const { data } = await shareSnippet({
-        // TODO: will pull from a modal instead of hard coding
-        variables: { recipient: "jon@fart.cool" },
+        // TODO: will pull recipient in from a modal instead of hard coding
+        variables: { recipient: "jon@fart.cool", code:codeState.code, explanation: explanationState.explanation, name: nameState.name },
       });
 
     } catch (err) {
