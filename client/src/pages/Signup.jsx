@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginForm from '../components/LoginForm';
+import SignupForm from '../components/SignUpForm';
 import { Layout } from 'antd';
 import SiteFooter from '../components/Footer';
 
@@ -7,7 +7,7 @@ import SiteFooter from '../components/Footer';
 
 const { Content } = Layout;
 
-const Login = () => {
+const Signup = () => {
 
   return (
     <main>
@@ -15,7 +15,7 @@ const Login = () => {
         minHeight: '100vh',
       }}>
           <Content >
-            <LoginForm />
+            <SignupForm />
           </Content>
             <SiteFooter />
         </Layout>
@@ -23,4 +23,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

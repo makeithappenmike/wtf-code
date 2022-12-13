@@ -24,10 +24,15 @@ const resolvers = {
   },
 
   Mutation: {
-    createUser: async (parent, username, email, password) => {
-      const user = await User.create(username, email, password);
+    createUser: async (parent, { username, email, password }) => {
+      try {
+        const user = await User.create({ username, email, password });
       const token = signToken(user);
       return {token, user};
+      } catch (error) {
+        console.log(error);
+      }
+      
     },
     createSnippet: async (parent, args) => {
         const snippet = await Snippet.create(args);
