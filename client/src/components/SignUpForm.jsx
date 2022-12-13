@@ -8,6 +8,7 @@ import Auth from '../utils/auth';
 // TODO: Handle form validation
 // TODO: Add signup button
 // TODO: Handle errors and adjust current error handling
+// TODO: Handle duplicate signups
 
 const Signup = (props) => {
   const [formState, setFormState] = useState({ username: '', email: '', password: '' });
@@ -33,6 +34,7 @@ const Signup = (props) => {
         variables: { ...formState },
       });
       Auth.login(data.createUser.token);
+      alert('Woohoo! Signup successful!\nLogging you in..');
     } catch (e) {
       console.error(e);
     }
