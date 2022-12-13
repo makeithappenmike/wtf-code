@@ -4,12 +4,11 @@ const { AuthenticationError } = require('apollo-server-express');
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
   // TODO: need to get env working
-  apiKey: "",
+  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 });
 
 const mandrill = require("@mailchimp/mailchimp_transactional")(
-  // "YOUR_API_KEY"
-  // test key
+  process.env.REACT_APP_MANDRILL
 );
 
 

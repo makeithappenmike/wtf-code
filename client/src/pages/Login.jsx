@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginForm from '../components/LoginForm';
+import SignupForm from '../components/SignUpForm';
 import { Layout } from 'antd';
 import SiteFooter from '../components/Footer';
 
@@ -16,6 +17,7 @@ const Login = () => {
       }}>
           <Content >
             <LoginForm />
+            <SignupForm />
           </Content>
             <SiteFooter />
         </Layout>
