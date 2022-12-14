@@ -37,12 +37,12 @@ const handleLogOut = async (event) => {
 
 const navItems = [
   {
-    path: "/",
+    path: "/home",
     label: "",
     icon: <img  src={WTFCode} style={{ maxHeight: '30px', verticalAlign: 'middle'}} alt="WTFCode"/>,
   },
   {
-    path: "/",
+    path: "/home",
     label: "Code",
   },
   {
