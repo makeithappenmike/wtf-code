@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
-import { Layout, Menu, theme, Switch, Col, Row, Button } from 'antd';
+import { Layout, Menu, Col, Row, Button } from 'antd';
 import WTFCode from'../assets/wtf-code.png';
 
-// TODO: Handle logout
 // TODO: Move logo and logout out of navItems
 // TODO: Design & update logo
 // TODO: Fix mobile view -- toggle button currently disappears
@@ -54,11 +53,6 @@ const navItems = [
     path: "/contact",
     label: "Contact",
   },
-  // {
-  //   path: "/login",
-  //   label: "",
-  //   icon: 
-  // }
 ].map((item, index) => {
   return {
     key: index,
