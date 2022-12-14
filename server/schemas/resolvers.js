@@ -1,14 +1,25 @@
+require('dotenv').config();
 const { User, Snippet } = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
-  // TODO: need to get env working
   apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 });
 
 const mandrill = require("@mailchimp/mailchimp_transactional")(
+<<<<<<< HEAD
   process.env.REACT_APP_MANDRILL
+=======
+  // "YOUR_API_KEY"
+  process.env.REACT_APP_MANDRILL
+  // test key
+<<<<<<< HEAD
+  // "md-xuY0joN3tN16kQMWUg3QEQ"
+>>>>>>> 80b099e (sidebar working with query)
+=======
+  // process.env.REACT_APP_MANDRILL_TEST
+>>>>>>> 5cb7b94 (handleClick started in sidebar)
 );
 
 
@@ -105,26 +116,63 @@ const resolvers = {
     }
     },
 
-    share: async (parent, {recipient}) => {
-      const message = {
-        from_email: "jon@fart.cool",
-        subject: "Hello WTDcode",
-        text: "Welcome to Mailchimp Transactional!",
-        to: [
-          {
-            email: recipient,
-            type: "to"
-          }
-        ]
-      };
-      
-        const response = await mandrill.messages.send({
-          message
-        });
-        console.log(response);
-      
-    },
-    
+    share: async (parent, {recipient, code, explanation, name}) => {
+      const response = await mandrill.messages.sendTemplate({
+        template_name: "wtfcode-share",
+        template_content: [{}],
+
+        message: {
+          from_email: "WTFcode@fart.cool",
+          from_name: "WTFcode",
+          subject: "Hello from WTFcode",
+          merge: true,
+          merge_language: "handlebars",
+          global_merge_vars: [
+            {
+              name: "SNIPPET_NAME",
+              content: "Code Snippet"
+            },
+            {
+              name: "CODE_SNIPPET",
+              content: "This is an example code snippet."
+            },
+            {
+              name: "CODE_EXPLANATION",
+              content: "This is an example explanation."
+            }
+          ],
+          merge_vars: [
+            {
+              rcpt: recipient,
+              vars: [
+                {
+                  name: "SNIPPET_NAME",
+                  content: name
+                },
+                {
+                  name: "CODE_SNIPPET",
+                  content: code
+                },
+                {
+                  name: "CODE_EXPLANATION",
+                  content: explanation
+                }
+              ]
+              
+            }
+          ],
+
+          to: [
+            {
+              email: recipient,
+              name: "Hey!",
+              type: "to"
+            }
+          ]
+        }
+      })
+      console.log(response);
+    }
   }
 };
 
