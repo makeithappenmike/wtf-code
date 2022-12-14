@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { redirect } from "react-router-dom"; // TODO: Implement this?
-import useLocalStorage from './utils/hooks/localStorage'; // ! TODO: Implement this page
+// import { redirect } from "react-router-dom"; // TODO: Implement this?
+// import useLocalStorage from './utils/hooks/localStorage'; // ! TODO: Implement this page
 import './App.css'
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
@@ -12,6 +12,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import Signup from './pages/Signup';
+import ProtectedRoutes from './pages/ProtectedRoutes';
 
 // TODO: If you're not logged in, you can't access any pages besides login
 // TODO: Handle dark/light mode switching
@@ -61,28 +62,30 @@ function App() {
             <Routes>
               <Route 
                 path="/" 
-                element={<Home />}
-              />
-              <Route 
-                path="/login" 
                 element={<Login />}
               />
-              <Route 
-                path="/signup" 
-                element={<Signup />}
-              />
-              <Route 
-                path="/about" 
-                element={<About />}
-              />
-              <Route 
-                path="/contact" 
-                element={<Contact />}
-              />
-              <Route 
-                path="*"
-                element={<NotFound />}
-              />
+              <Route element={<ProtectedRoutes />}>
+                <Route 
+                  path="/home" 
+                  element={<Home />}
+                />
+                <Route 
+                  path="/signup" 
+                  element={<Signup />}
+                />
+                <Route 
+                  path="/about" 
+                  element={<About />}
+                />
+                <Route 
+                  path="/contact" 
+                  element={<Contact />}
+                />
+                <Route 
+                  path="*"
+                  element={<NotFound />}
+                />
+              </Route>
             </Routes>
           </div>
         </Router>
