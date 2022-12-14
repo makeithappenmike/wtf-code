@@ -50,13 +50,11 @@ const Login = (props) => {
         <div className="card">
           <h2>Login</h2>
             {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
+              // TODO: Add loading here
+              <></>
             ) : (
               <Form>
-                <Input className="form-input" placeholder="Your email" name="email" type="email" value={formState.email} onChange={handleChange} id='submit_login' />
+                <Input className="form-input" placeholder="Your email" name="email" type="email" value={formState.email} onChange={handleChange} id='submit_email' />
                 <Input className="form-input" placeholder="******" name="password" type="password" value={formState.password} onChange={handleChange} />
                 <Button id='submit_login' onClick={handleFormSubmit} >
                   Login

@@ -83,11 +83,12 @@ const NavBar = () => {
     <Row wrap={true}>
       <Col flex="auto">
         <>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={navItems} />
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} items={navItems} />
         </>
         </Col>
       <Col flex="100px">
-      <Button id='logoutButton' onClick={logout}>Logout</Button>
+    {/* <Switch id='modeSwitch' size="medium" checkedChildren="light" unCheckedChildren="dark" onChange={onChange} /> */}
+    <Button id='logoutButton' onClick={logout}>Logout</Button>
     </Col>
     </Row>
     </Header>
