@@ -81,7 +81,6 @@ const NavBar = () => {
         </>
         </Col>
       <Col flex="100px">
-    {/* <Switch id='modeSwitch' size="medium" checkedChildren="light" unCheckedChildren="dark" onChange={onChange} /> */}
     <Button id='logoutButton' onClick={logout}>Logout</Button>
     </Col>
     </Row>
