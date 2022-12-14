@@ -10,12 +10,19 @@ import { Layout, Menu, theme } from 'antd';
 // ?: Are we allowing any other editor customization?
 
 const { Sider } = Layout;
+// const [modelState, setModelState] = useState({ model: ''});
+
+  // Update state when name added to text field
+  const handleModel = (event) => {
+    const nameArea = { model: document.getElementById('explanation_name').value};
+    setNameState(nameArea);
+    console.log("Name State: ", nameState.name);
+  };
 
 const modelItems = [
   getItem('Model', 'sub1', <CodeOutlined />, [
-    getItem('Model 1', '3'),
-    getItem('Model 2', '4'),
-    getItem('Model 3', '5'),
+    getItem('Davinci', '3'),
+    getItem('Cushman', '4'),
   ])
 ];
 
@@ -27,12 +34,11 @@ const editorItems = [
   ])
 ];
 
-function getItem(label, key, icon, children) {
+function getItem(label, key, icon) {
   return {
-    key,
-    icon,
-    children,
     label,
+    key,
+    icon
   };
 }
 
