@@ -8,20 +8,7 @@ const configuration = new Configuration({
 });
 
 const mandrill = require("@mailchimp/mailchimp_transactional")(
-<<<<<<< HEAD
-  process.env.REACT_APP_MANDRILL
-=======
-  // "YOUR_API_KEY"
-  process.env.REACT_APP_MANDRILL
-  // test key
-<<<<<<< HEAD
-  // "md-xuY0joN3tN16kQMWUg3QEQ"
->>>>>>> 80b099e (sidebar working with query)
-=======
-  // process.env.REACT_APP_MANDRILL_TEST
->>>>>>> 5cb7b94 (handleClick started in sidebar)
-);
-
+  process.env.REACT_APP_MANDRILL)
 
 const resolvers = {
   Query: {
