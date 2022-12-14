@@ -4,12 +4,11 @@ const { AuthenticationError } = require('apollo-server-express');
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
   // TODO: need to get env working
-  apiKey: "",
+  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 });
 
 const mandrill = require("@mailchimp/mailchimp_transactional")(
-  // "YOUR_API_KEY"
-  // test key
+  process.env.REACT_APP_MANDRILL
 );
 
 
@@ -25,10 +24,15 @@ const resolvers = {
   },
 
   Mutation: {
-    createUser: async (parent, username, email, password) => {
-      const user = await User.create(username, email, password);
+    createUser: async (parent, { username, email, password }) => {
+      try {
+        const user = await User.create({ username, email, password });
       const token = signToken(user);
       return {token, user};
+      } catch (error) {
+        console.log(error);
+      }
+      
     },
     createSnippet: async (parent, args) => {
         const snippet = await Snippet.create(args);

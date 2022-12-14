@@ -27,7 +27,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(username: String!, email: String!, password: String!): User
+    createUser(username: String!, email: String!, password: String!): Auth
     createSnippet(name: String!, code: String!, explanation: String!): Snippet
     deleteUser(_id:String!): User
     deleteSnippet(_id:String!): Snippet

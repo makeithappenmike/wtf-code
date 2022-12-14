@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
+import Signup from './pages/Signup';
 
 // TODO: If you're not logged in, you can't access any pages besides login
 // TODO: Handle dark/light mode switching
@@ -25,6 +26,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
+  // TODO: Add if to move forward
   const token = localStorage.getItem('id_token');
   // return the headers to the context so httpLink can read them
   return {
@@ -64,6 +66,10 @@ function App() {
               <Route 
                 path="/login" 
                 element={<Login />}
+              />
+              <Route 
+                path="/signup" 
+                element={<Signup />}
               />
               <Route 
                 path="/about" 
