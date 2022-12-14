@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
-import { Layout, Menu, theme, Switch, Col, Row, Button } from 'antd';
+import { Layout, Menu, Col, Row, Button } from 'antd';
 import WTFCode from'../assets/wtf-code.png';
 
-// TODO: Handle logout
 // TODO: Move logo and logout out of navItems
 // TODO: Design & update logo
 // TODO: Fix mobile view -- toggle button currently disappears
@@ -38,12 +37,12 @@ const handleLogOut = async (event) => {
 
 const navItems = [
   {
-    path: "/",
+    path: "/home",
     label: "",
     icon: <img  src={WTFCode} style={{ maxHeight: '30px', verticalAlign: 'middle'}} alt="WTFCode"/>,
   },
   {
-    path: "/",
+    path: "/home",
     label: "Code",
   },
   {
@@ -54,11 +53,6 @@ const navItems = [
     path: "/contact",
     label: "Contact",
   },
-  // {
-  //   path: "/login",
-  //   label: "",
-  //   icon: 
-  // }
 ].map((item, index) => {
   return {
     key: index,
@@ -87,7 +81,6 @@ const NavBar = () => {
         </>
         </Col>
       <Col flex="100px">
-    {/* <Switch id='modeSwitch' size="medium" checkedChildren="light" unCheckedChildren="dark" onChange={onChange} /> */}
     <Button id='logoutButton' onClick={logout}>Logout</Button>
     </Col>
     </Row>

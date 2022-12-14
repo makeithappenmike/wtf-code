@@ -62,7 +62,7 @@ const Signup = (props) => {
                 <Input className="form-input" placeholder="Your name" name="username" type="name" value={formState.username} onChange={handleChange} id='signup_name' />
                 <Input className="form-input" placeholder="Your email" name="email" type="email" value={formState.email} onChange={handleChange} id='signup_email' />
                 <Input className="form-input" placeholder="******" name="password" type="password" value={formState.password} onChange={handleChange} id='signup_password' />
-                <Button id='signup' onClick={handleFormSubmit} >
+                <Button id='signup_button' onClick={handleFormSubmit} >
                   Signup
                 </Button>
               </Form>
