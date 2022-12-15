@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { User, Snippet } = require('../models');
+const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 const { Configuration, OpenAIApi } = require("openai");
@@ -16,9 +16,19 @@ const resolvers = {
       return User.find({});
     },
 
-    snippet: async () => {
-        return Snippet.find({});
-      },
+    me: async () => {
+      try {
+        const me = await User.find(
+          {}
+          // TODO: pull in the user via context
+      );
+
+      return me;
+
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 
   Mutation: {
@@ -32,9 +42,26 @@ const resolvers = {
       }
       
     },
-    createSnippet: async (parent, args) => {
-        const snippet = await Snippet.create(args);
-        return snippet;
+    createSnippet: async (parent, { name, code, explanation, email }) => {
+        // const snippet = await Snippet.create(name, code, explanation, userID);
+        try {
+          console.log("name: ", name);
+          const updatedUser = await User.findOneAndUpdate(
+            { email: email },
+            {
+              $addToSet: { snippets: { name: name, code: code, explanation: explanation } },
+            }, 
+            {
+              new: true,
+            }
+        );
+
+        return updatedUser;
+
+        } catch (error) {
+          console.log(error);
+          
+        }
     },
 
     deleteUser: async (parent, {_id}) => {
@@ -87,7 +114,7 @@ const resolvers = {
           model: "code-davinci-002",
           prompt: code + explainer,
           temperature: 0,
-          max_tokens: 10,
+          max_tokens: 200,
           top_p: 1,
           frequency_penalty: 0,
           presence_penalty: 0,
