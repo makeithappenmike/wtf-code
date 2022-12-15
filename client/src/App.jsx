@@ -12,6 +12,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import Signup from './pages/Signup';
+import { GlobalContextProvider } from './utils/context';
 
 // TODO: If you're not logged in, you can't access any pages besides login
 // TODO: Handle dark/light mode switching
@@ -54,6 +55,7 @@ function App() {
 
   return (
     <div className="App">
+    <GlobalContextProvider> 
       <ApolloProvider client={client}>
         <Router>
         <NavBar />
@@ -87,6 +89,7 @@ function App() {
           </div>
         </Router>
       </ApolloProvider>
+    </GlobalContextProvider> 
     </div>
   )
 }
