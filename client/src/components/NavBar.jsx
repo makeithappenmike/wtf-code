@@ -36,11 +36,11 @@ const handleLogOut = async (event) => {
 };
 
 const navItems = [
-  {
-    path: "/home",
-    label: "",
-    icon: <img  src={WTFCode} style={{ maxHeight: '30px', verticalAlign: 'middle'}} alt="WTFCode"/>,
-  },
+  // {
+  //   path: "/home",
+  //   label: "",
+  //   icon: <img  src={WTFCode} style={{ maxHeight: '50px', verticalAlign: 'middle'}} alt="WTFCode"/>,
+  // },
   {
     path: "/home",
     label: "Code",
@@ -68,19 +68,25 @@ const NavBar = () => {
     event.preventDefault();
     Auth.logout();
   };
+
+  const centerStyle = {
+    position: 'relative',
+    display: 'flex',
+    justifyContent: 'end'
+  };
   
   return (
     <>
     <Layout>
     {Auth.loggedIn() ? (
-    <Header flex="auto" className="header" >
-    <Row wrap={true}>
-      <Col flex="auto">
+    <Header className="header" >
+    <Row wrap={false}>
+      <Col flex="auto" >
         <>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} items={navItems} />
+        <Menu theme="dark" style={centerStyle} mode="horizontal" defaultSelectedKeys={['1']} items={navItems} />
         </>
         </Col>
-      <Col flex="100px">
+      <Col justify='end'>
     <Button id='logoutButton' onClick={logout}>Logout</Button>
     </Col>
     </Row>
