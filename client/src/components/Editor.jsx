@@ -94,13 +94,11 @@ export default function Editor() {
   const [explanationState, setexplanationState] = useState({explanation: 'Click \'Submit\' to generate a code explanation here! ' });
   const [modal2Open, setModal2Open] = useState(false);
   const {currentSnippet} = useContext(GlobalContext);
-  console.log("current snippet: ", currentSnippet);
 
   // Update state based on form input changes
   const handleChange = (event) => {
     const codeForm = { code: document.getElementsByClassName('cm-content')[0].innerText, name: 'untitiled'};
     setCodeState(codeForm);
-    console.log("Code State: ", codeState.code);
   };
 
   // Update state when explanation added to text field
@@ -200,6 +198,7 @@ export default function Editor() {
       {/* Button is active if the editor is not empty */}
       <Button id='submit_code' onClick={handleSubmit} size="medium" disabled={!codeState.code ? true : false}>Submit</Button>
       <textarea id="explanation" name="explanation"
+                value={currentSnippet.explanation}
                 onChange={handleExplanation}
                 cols="45" rows={4} size="medium">
                 Click 'Submit' to generate a code explanation here!
@@ -207,7 +206,7 @@ export default function Editor() {
 
       <Space>
       <Space.Compact block size="medium">
-      <Input style={{ width: '100%' }} onChange={handleName} type="text" id="explanation_name" name="name" placeholder="Name & Save Snippet.." />
+      <Input style={{ width: '100%' }} onChange={handleName} value={currentSnippet.label} type="text" id="explanation_name" name="name"  />
       {/* Button is active if the explanation name is not empty */}
       <Button onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
       </Space.Compact>

@@ -20,7 +20,6 @@ const Sidebar = () => {
 
   const updateState = () => {
     const newState = snippets.map(obj => {
-      console.log(obj.name);
       return {label: obj.name, key: obj._id, icon: <RightSquareOutlined />, code: obj.code, explanation: obj.explanation};
       
     });
@@ -34,17 +33,8 @@ const Sidebar = () => {
 
    // Update state based on form input changes
    const handleClick = (id) => {
-    console.log(id);
     const snippet = sideBarState.find(obj=>obj.key === id.key);
-    console.log(sideBarState);
-    console.log("inside click: ", snippet);
     setCurrentSnippet(snippet);
-
-    // document.getElementsByClassName('cm-content')[0].innerText = sideBarState[0].code;
-    // document.getElementById('explanation').value = sideBarState[0].explanation;
-    // document.getElementById('explanation_name').value = sideBarState[0].label;
-    // console.log(sideBarState);
-    // console.log(id);
 
   };
 
