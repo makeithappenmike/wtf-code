@@ -120,7 +120,7 @@ export default function Editor() {
     event.preventDefault();
     try {
       const { data } = await createSnippet({
-        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation, email: "johan@fart.cool" },
+        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation, email: "jonathan1@fart.cool" },
       });
       console.log("snippet saved");
       console.log(codeState.code, explanationState.explanation, nameState.name);

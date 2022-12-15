@@ -7,7 +7,6 @@ export const CREATE_USER = gql`
       username
       email
       password}
-     
       token
     }
   }
