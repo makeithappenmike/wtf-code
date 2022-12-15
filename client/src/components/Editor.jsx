@@ -199,16 +199,18 @@ export default function Editor() {
       <textarea id="explanation" name="explanation"
                 value={currentSnippet.explanation}
                 onChange={handleExplanation}
-                cols="45" rows={4} size="medium">
+                cols="45" rows={4} size="medium" style={{ heigh: 'fit-content'}}>
                 Click 'Submit' to generate a code explanation here!
                 </textarea>
 
       <Space>
-      <Space.Compact block size="medium">
-      <Input style={{ width: '100%' }} onChange={handleName} value={currentSnippet.label} type="text" id="explanation_name" name="name"  />
+      <div id='explanation_div'>
+      <Space.Compact block size="medium" >
+      <Input onChange={handleName} value={currentSnippet.label} type="text" id="explanation_name" name="name"/>
       {/* Button is active if the explanation name is not empty */}
       <Button onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
       </Space.Compact>
+      </div>
       {/* Button is active if the explanation name is not empty */}
       <Button onClick={() => setModal2Open(true)} disabled={nameState.name ? false : true}><ShareAltOutlined />Share</Button>
       </Space>
