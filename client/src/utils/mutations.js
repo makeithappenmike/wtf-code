@@ -7,21 +7,28 @@ export const CREATE_USER = gql`
       username
       email
       password}
+     
       token
     }
   }
 `;
 
 export const CREATE_SNIPPET = gql`
-  mutation createSnippet($name: String!, $code: String!, $explanation: String!) {
-    createSnippet(name: $name, code: $code, explanation: $explanation) {
-      _id
+mutation createSnippet($name: String!, $code: String!, $explanation: String!, $email: String!) {
+  createSnippet(name: $name, code: $code, explanation: $explanation, email: $email) {
+    email
+    username
+    password
+    snippets {
       name
       code
       explanation
     }
   }
+}
 `;
+
+
 
 export const DELETE_USER = gql`
 mutation deleteUser($deleteUserId: String!) {

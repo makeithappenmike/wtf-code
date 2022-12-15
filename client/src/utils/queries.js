@@ -7,6 +7,7 @@ export const QUERY_USER = gql`
       username
       email
       password
+      snippets
     }
   }
 `;
@@ -21,12 +22,16 @@ export const QUERY_PASSWORD = gql`
 `;
 
 export const QUERY_SNIPPET = gql`
-  query snippet {
-    snippet {
+  query Snippet {
+    user {
       _id
-      name
-      code
-      explanation
+      email
+      snippets {
+        _id
+        name
+        code
+        explanation
+      }
     }
   }
 `;

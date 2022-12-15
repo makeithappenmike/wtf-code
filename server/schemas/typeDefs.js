@@ -6,6 +6,7 @@ const typeDefs = gql`
     username: String!
     email: String!
     password: String!
+    snippets: [Snippet]
   }
 
   type Auth {
@@ -18,17 +19,18 @@ const typeDefs = gql`
     name: String!
     code: String!
     explanation: String!
+    user: User
 
   }
 
   type Query {
     user: [User]
-    snippet: [Snippet]
+    me: [User]
   }
 
   type Mutation {
     createUser(username: String!, email: String!, password: String!): Auth
-    createSnippet(name: String!, code: String!, explanation: String!): Snippet
+    createSnippet(name: String!, code: String!, explanation: String!, email: String!): User
     deleteUser(_id:String!): User
     deleteSnippet(_id:String!): Snippet
     login(email: String!, password: String!): Auth
