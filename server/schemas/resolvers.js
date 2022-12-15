@@ -32,9 +32,26 @@ const resolvers = {
       }
       
     },
-    createSnippet: async (parent, args) => {
-        const snippet = await Snippet.create(args);
-        return snippet;
+    createSnippet: async (parent, { name, code, explanation, email }) => {
+        // const snippet = await Snippet.create(name, code, explanation, userID);
+        try {
+          console.log("name: ", name);
+          const updatedUser = await User.findOneAndUpdate(
+            { email: email },
+            {
+              $addToSet: { snippets: { name: name, code: code, explanation: explanation } },
+            }, 
+            {
+              new: true,
+            }
+        );
+
+        return updatedUser;
+
+        } catch (error) {
+          console.log(error);
+          
+        }
     },
 
     deleteUser: async (parent, {_id}) => {
@@ -87,7 +104,7 @@ const resolvers = {
           model: "code-davinci-002",
           prompt: code + explainer,
           temperature: 0,
-          max_tokens: 10,
+          max_tokens: 200,
           top_p: 1,
           frequency_penalty: 0,
           presence_penalty: 0,
