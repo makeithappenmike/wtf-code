@@ -5,8 +5,10 @@ import { createTheme } from '@uiw/codemirror-themes';
 import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
 import { CREATE_SNIPPET, EXPLAIN_CODE, SHARE } from '../../src/utils/mutations';
-import { Button, Input, Form, Space } from 'antd';
+import { Button, Input, Modal, notification, Space } from 'antd';
 import { ShareAltOutlined } from '@ant-design/icons';
+import { useContext } from 'react';
+import { GlobalContext } from '../utils/context';
 
 // TODO: Wire up theme editor switching
 // TODO: Debug explanation (Cannot return null for non-nullable field Mutation.explainCode)
@@ -87,15 +89,16 @@ export default function Editor() {
   const [createSnippet] = useMutation(CREATE_SNIPPET);
   const [explainCode] = useMutation(EXPLAIN_CODE);
   const [shareSnippet] = useMutation(SHARE);
-  const [codeState, setCodeState] = useState({ code: ''});
-  const [nameState, setNameState] = useState({ name: ''});
-  const [explanationState, setexplanationState] = useState({explanation: '' });
+  const [codeState, setCodeState] = useState({ code: '// input your code here!'});
+  const [nameState, setNameState] = useState({ name: 'Snippet Name'});
+  const [explanationState, setexplanationState] = useState({explanation: 'Click \'Submit\' to generate a code explanation here! ' });
+  const [modal2Open, setModal2Open] = useState(false);
+  const {currentSnippet} = useContext(GlobalContext);
 
   // Update state based on form input changes
   const handleChange = (event) => {
     const codeForm = { code: document.getElementsByClassName('cm-content')[0].innerText, name: 'untitiled'};
     setCodeState(codeForm);
-    console.log("Code State: ", codeState.code);
   };
 
   // Update state when explanation added to text field
@@ -117,7 +120,7 @@ export default function Editor() {
     event.preventDefault();
     try {
       const { data } = await createSnippet({
-        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation },
+        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation, email: "johan@fart.cool" },
       });
       console.log("snippet saved");
       console.log(codeState.code, explanationState.explanation, nameState.name);
@@ -132,13 +135,16 @@ export default function Editor() {
     try {
       const { data } = await shareSnippet({
         // TODO: will pull recipient in from a modal instead of hard coding
-        variables: { recipient: "jon@fart.cool", code:codeState.code, explanation: explanationState.explanation, name: nameState.name },
+        variables: { recipient: "jonshogren@mac.com", code:codeState.code, explanation: explanationState.explanation, name: nameState.name },
       });
+      openNotification("Message Sent!", "Your Snippet has been shared. Great job!");
 
     } catch (err) {
       console.error(err);
+      openNotification("There was a problem sending your message.");
     }
   };
+
 
   // Submit code in editor to openAI for explanation
   const handleSubmit = async (event) => {
@@ -157,10 +163,17 @@ export default function Editor() {
     }
   }
 
+  const openNotification = (title, message) => {
+    notification.open({
+      message: title,
+      description: message,
+    });
+  };
+
   return (
     <div>
       <CodeMirror
-        value="console.log('hello world!');"
+        value={currentSnippet.code}
         height="500px"
         align='left'
         theme={dark}
@@ -169,22 +182,36 @@ export default function Editor() {
         smartindent='true'
         linewrapping='true'
       />
+
+      <Modal
+        title="Share Snippet"
+        centered
+        open={modal2Open}
+        onOk={() => setModal2Open(false)}
+        onCancel={() => setModal2Open(false)}
+      >
+        <p>some contents...</p>
+        <p>some contents...</p>
+        <p>some contents...</p>
+      </Modal>
+
       {/* Button is active if the editor is not empty */}
       <Button id='submit_code' onClick={handleSubmit} size="medium" disabled={!codeState.code ? true : false}>Submit</Button>
       <textarea id="explanation" name="explanation"
+                value={currentSnippet.explanation}
                 onChange={handleExplanation}
                 cols="45" rows={4} size="medium">
-                test!
+                Click 'Submit' to generate a code explanation here!
                 </textarea>
 
       <Space>
       <Space.Compact block size="medium">
-      <Input style={{ width: '100%' }} onChange={handleName} type="text" id="explanation_name" name="name" placeholder="Name & Save Snippet.." />
+      <Input style={{ width: '100%' }} onChange={handleName} value={currentSnippet.label} type="text" id="explanation_name" name="name"  />
       {/* Button is active if the explanation name is not empty */}
       <Button onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
       </Space.Compact>
       {/* Button is active if the explanation name is not empty */}
-      <Button onClick={handleShare} disabled={nameState.name ? false : true}><ShareAltOutlined />Share</Button>
+      <Button onClick={() => setModal2Open(true)} disabled={nameState.name ? false : true}><ShareAltOutlined />Share</Button>
       </Space>
 
       

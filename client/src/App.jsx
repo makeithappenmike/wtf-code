@@ -10,6 +10,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import Signup from './pages/Signup';
+import { GlobalContextProvider } from './utils/context';
 import ProtectedRoutes from './pages/ProtectedRoutes';
 
 // TODO: Handle dark/light mode switching
@@ -51,6 +52,7 @@ function App() {
 
   return (
     <div className="App">
+    <GlobalContextProvider> 
       <ApolloProvider client={client}>
         <Router>
         <NavBar />
@@ -86,6 +88,7 @@ function App() {
           </div>
         </Router>
       </ApolloProvider>
+    </GlobalContextProvider> 
     </div>
   )
 }
