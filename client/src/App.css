@@ -55,6 +55,20 @@
   margin-bottom: 10px;
 }
 
+#explanation_space {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 500px;
+  /* width: 100%; */
+}
+
+#explanation_name {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 500px;
+}
+
 #modeSwitch {
   width: fit-content;
   justify-content: flex-end;

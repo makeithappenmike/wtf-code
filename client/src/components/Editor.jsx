@@ -205,11 +205,13 @@ export default function Editor() {
                 </textarea>
 
       <Space>
-      <Space.Compact block size="medium">
-      <Input style={{ width: '100%' }} onChange={handleName} value={currentSnippet.label} type="text" id="explanation_name" name="name"  />
+      <div id='explanation_div'>
+      <Space.Compact block size="medium" >
+      <Input onChange={handleName} value={currentSnippet.label} type="text" id="explanation_name" name="name"/>
       {/* Button is active if the explanation name is not empty */}
       <Button onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
       </Space.Compact>
+      </div>
       {/* Button is active if the explanation name is not empty */}
       <Button onClick={() => setModal2Open(true)} disabled={nameState.name ? false : true}><ShareAltOutlined />Share</Button>
       </Space>
