@@ -120,7 +120,7 @@ export default function Editor() {
     event.preventDefault();
     try {
       const { data } = await createSnippet({
-        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation, email: "jonathan1@fart.cool" },
+        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation, email: "johan@fart.cool" },
       });
       console.log("snippet saved");
       console.log(codeState.code, explanationState.explanation, nameState.name);
@@ -132,11 +132,15 @@ export default function Editor() {
   // Save code based on state
   const handleShare = async (event) => {
     event.preventDefault();
+    const recipient = document.querySelector("#recipient").value;
+    console.log(recipient);
     try {
       const { data } = await shareSnippet({
-        // TODO: will pull recipient in from a modal instead of hard coding
-        variables: { recipient: "jonshogren@mac.com", code:codeState.code, explanation: explanationState.explanation, name: nameState.name },
+        
+       
+        variables: { recipient: recipient, code:codeState.code, explanation: explanationState.explanation, name: nameState.name },
       });
+      setModal2Open(false);
       openNotification("Message Sent!", "Your Snippet has been shared. Great job!");
 
     } catch (err) {
@@ -187,12 +191,12 @@ export default function Editor() {
         title="Share Snippet"
         centered
         open={modal2Open}
-        onOk={() => setModal2Open(false)}
+        onOk={handleShare}
         onCancel={() => setModal2Open(false)}
       >
-        <p>some contents...</p>
-        <p>some contents...</p>
-        <p>some contents...</p>
+        <p>Enter the email address that you'd like to share with</p>
+        <Input id="recipient" />
+        
       </Modal>
 
       {/* Button is active if the editor is not empty */}
