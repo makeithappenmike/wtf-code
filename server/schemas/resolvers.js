@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { User, Snippet } = require('../models');
+const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 const { Configuration, OpenAIApi } = require("openai");
@@ -16,9 +16,19 @@ const resolvers = {
       return User.find({});
     },
 
-    snippet: async () => {
-        return Snippet.find({});
-      },
+    me: async () => {
+      try {
+        const me = await User.find(
+          {}
+          // TODO: pull in the user via context
+      );
+
+      return me;
+
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 
   Mutation: {
