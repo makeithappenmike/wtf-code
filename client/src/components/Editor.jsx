@@ -5,8 +5,8 @@ import { createTheme } from '@uiw/codemirror-themes';
 import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
 import { CREATE_SNIPPET, EXPLAIN_CODE, SHARE } from '../../src/utils/mutations';
-import { Button, Input, Modal, notification, Space } from 'antd';
-import { ShareAltOutlined } from '@ant-design/icons';
+import { Button, Input, Modal, notification, Space, Spin } from 'antd';
+import { ShareAltOutlined, LoadingOutlined } from '@ant-design/icons';
 import { GlobalContext } from '../utils/context';
 
 // TODO: Wire up theme editor switching
@@ -17,6 +17,7 @@ import { GlobalContext } from '../utils/context';
 
 const { TextArea } = Input;
 const extensions = [javascript({ jsx: true })];
+const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 // If we want to include custom themes we can do so like below
 // We can bring in already created themes from https://uiwjs.github.io/react-codemirror/#/theme/
@@ -86,7 +87,7 @@ const light = createTheme({
 export default function Editor() {
 
   const [createSnippet] = useMutation(CREATE_SNIPPET);
-  const [explainCode] = useMutation(EXPLAIN_CODE);
+  const [explainCode, { loading, error, data }] = useMutation(EXPLAIN_CODE);
   const [shareSnippet] = useMutation(SHARE);
   const [codeState, setCodeState] = useState({ code: '// input your code here!'});
   const [nameState, setNameState] = useState({ name: 'Snippet Name'});
@@ -196,6 +197,7 @@ export default function Editor() {
 
       {/* Button is active if the editor is not empty */}
       <Button id='submit_code' onClick={handleSubmit} size="medium" disabled={!codeState.code ? true : false}>Submit</Button>
+      <Spin spinning={loading} indicator={loadingIcon} style={{ paddingLeft: '5px' }}></Spin>
       <textarea id="explanation" name="explanation"
                 value={currentSnippet.explanation}
                 onChange={handleExplanation}
