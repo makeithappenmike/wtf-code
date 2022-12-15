@@ -200,7 +200,7 @@ export default function Editor() {
       <textarea id="explanation" name="explanation"
                 value={currentSnippet.explanation}
                 onChange={handleExplanation}
-                cols="45" rows={4} size="medium">
+                cols="45" rows={4} size="medium" style={{ heigh: 'fit-content'}}>
                 Click 'Submit' to generate a code explanation here!
                 </textarea>
 

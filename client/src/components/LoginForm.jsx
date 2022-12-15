@@ -32,7 +32,7 @@ const Login = (props) => {
     };
 
   // On form submit, attempt login
-  const handleFormSubmit = async (event) => {
+  const handleLoginClick = async (event) => {
     event.preventDefault();
     try {
       const { data } = await login({
@@ -54,7 +54,7 @@ const Login = (props) => {
   return (
     <main className="flex-row justify-center">
       <div className="col-12 col-lg-10">
-        <div className="card">
+        <div className="card" style={{ width: 'calc(50%)', margin: 'auto' }}>
           <h2>Login</h2>
             {data ? (
               // TODO: Add loading here
@@ -63,7 +63,7 @@ const Login = (props) => {
               <Form>
                 <Input className="form-input" placeholder="Your email" name="email" type="email" value={formState.email} onChange={handleChange} id='submit_email' />
                 <Input className="form-input" placeholder="******" name="password" type="password" value={formState.password} onChange={handleChange} />
-                <Button id='submit_login' onClick={handleFormSubmit} >
+                <Button id='submit_login' onClick={handleLoginClick} >
                   Login
                 </Button>
                 <Button type="link" id='submit_signup' htmlType="button" onClick={handleSignupClick}>

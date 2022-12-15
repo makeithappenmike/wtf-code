@@ -17,7 +17,7 @@ const Login = () => {
       }}>
           <Content>
           <img  id='loginLogo' src={WTFCode} alt="WTFCode"/>
-            <LoginForm />
+            <LoginForm style={{ paddingLeft: '200px' }}/>
           </Content>
             <SiteFooter />
         </Layout>

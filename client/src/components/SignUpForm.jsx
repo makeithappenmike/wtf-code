@@ -25,8 +25,15 @@ const Signup = (props) => {
     });
   };
 
+  const handleLoginClick = (event) => {
+    event.preventDefault();
+    console.log('click');
+    const { name, value } = event.target;
+    window.location.assign('/')
+    };
+
   // On form submit, attempt signup
-  const handleFormSubmit = async (event) => {
+  const handleSignupClick = async (event) => {
     event.preventDefault();
     console.log(formState);
     try {
@@ -51,7 +58,7 @@ const Signup = (props) => {
   return (
     <main className="flex-row justify-center">
       <div className="col-12 col-lg-10">
-        <div className="card">
+        <div className="card" style={{ width: 'calc(50%)', margin: 'auto' }}>
           <h2>Signup</h2>
             {data ? (
               <p>
@@ -62,7 +69,10 @@ const Signup = (props) => {
                 <Input className="form-input" placeholder="Your name" name="username" type="name" value={formState.username} onChange={handleChange} id='signup_name' />
                 <Input className="form-input" placeholder="Your email" name="email" type="email" value={formState.email} onChange={handleChange} id='signup_email' />
                 <Input className="form-input" placeholder="******" name="password" type="password" value={formState.password} onChange={handleChange} id='signup_password' />
-                <Button id='signup_button' onClick={handleFormSubmit} >
+                <Button type="link" id='submit_login' onClick={handleLoginClick} >
+                  Login
+                </Button>
+                <Button id='signup_button' onClick={handleSignupClick} >
                   Signup
                 </Button>
               </Form>
