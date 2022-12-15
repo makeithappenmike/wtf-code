@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import Auth from '../utils/auth';
 
 // TODO: Handle form validation
 // TODO: Add signup button
 // TODO: Handle errors and adjust current error handling
 
+const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error, data }] = useMutation(LOGIN_USER);
+  const [login, { loading, error, data }] = useMutation(LOGIN_USER);
 
   // Update state based on form input changes
   const handleChange = (event) => {
@@ -69,6 +72,7 @@ const Login = (props) => {
                 <Button type="link" id='submit_signup' htmlType="button" onClick={handleSignupClick}>
                   Signup
                 </Button>
+                <Spin spinning={loading} indicator={loadingIcon} style={{ paddingLeft: '5px' }}></Spin>
               </Form>
             )}
             {error && (
