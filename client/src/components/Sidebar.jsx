@@ -4,6 +4,7 @@ import { QUERY_SNIPPET } from '../../src/utils/queries';
 import { RightSquareOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 import { useEffect } from 'react';
+import WTFCode from'../assets/wtf-code.png';
 import { GlobalContext } from '../utils/context';
 
 const { Sider } = Layout;
@@ -45,6 +46,7 @@ const [collapsed, setCollapsed] = useState(false);
   
   return (
       <Sider id='sidebar' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+        <img  src={WTFCode} style={{ maxHeight: '50px', verticalAlign: 'middle'}} alt="WTFCode"/>
         <h3 style={{ color: 'white'}}>Saved Blocks</h3>
 
         <Menu 
