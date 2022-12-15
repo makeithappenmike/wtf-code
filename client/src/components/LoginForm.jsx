@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import { Form, Input, Button } from 'antd';
@@ -23,6 +23,13 @@ const Login = (props) => {
       [name]: value,
     });
   };
+
+  const handleSignupClick = (event) => {
+    event.preventDefault();
+    console.log('click');
+    const { name, value } = event.target;
+    window.location.assign('/signup')
+    };
 
   // On form submit, attempt login
   const handleFormSubmit = async (event) => {
@@ -58,6 +65,9 @@ const Login = (props) => {
                 <Input className="form-input" placeholder="******" name="password" type="password" value={formState.password} onChange={handleChange} />
                 <Button id='submit_login' onClick={handleFormSubmit} >
                   Login
+                </Button>
+                <Button type="link" id='submit_signup' htmlType="button" onClick={handleSignupClick}>
+                  Signup
                 </Button>
               </Form>
             )}
