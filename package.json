@@ -13,7 +13,7 @@
     "start:dev": "concurrently \"npm run dev\" \"cd server && npm run start\" ",
     "start": "env-cmd -e production node server/server.js",
     "server": "cd server server.js --ignore client",
-    "install": "cd server && npm i && cd ../client && npm i",
+    "heroku-install": "cd server && npm i && cd ../client && npm i",
     "client": "cd client && npm start"
   },
   "dependencies": {
