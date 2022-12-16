@@ -86,11 +86,7 @@ const light = createTheme({
 export default function Editor() {
 
   const [createSnippet] = useMutation(CREATE_SNIPPET);
-<<<<<<< HEAD
   const [explainCode, { loading, error, data }] = useMutation(EXPLAIN_CODE);
-=======
-  const [explainCode, { loading, error, data}] = useMutation(EXPLAIN_CODE);
->>>>>>> 18063c5 (added loading icon to submit)
   const [shareSnippet] = useMutation(SHARE);
   const [codeState, setCodeState] = useState({ code: '// input your code here!'});
   const [nameState, setNameState] = useState({ name: 'Snippet Name'});
@@ -123,10 +119,9 @@ export default function Editor() {
     event.preventDefault();
     try {
       const { data } = await createSnippet({
-        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation, email: "johan@fart.cool" },
+        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation},
       });
-      console.log("snippet saved");
-      console.log(codeState.code, explanationState.explanation, nameState.name);
+      console.log("snippet saved: ", nameState.name);
     } catch (err) {
       console.error(err);
     }
@@ -136,7 +131,6 @@ export default function Editor() {
   const handleShare = async (event) => {
     event.preventDefault();
     const recipient = document.querySelector("#recipient").value;
-    console.log(recipient);
     try {
       const { data } = await shareSnippet({
         

@@ -13,9 +13,8 @@ export const CREATE_USER = gql`
 `;
 
 export const CREATE_SNIPPET = gql`
-mutation createSnippet($name: String!, $code: String!, $explanation: String!, $email: String!) {
-  createSnippet(name: $name, code: $code, explanation: $explanation, email: $email) {
-    email
+mutation createSnippet($name: String!, $code: String!, $explanation: String!) {
+  createSnippet(name: $name, code: $code, explanation: $explanation) {
     username
     password
     snippets {

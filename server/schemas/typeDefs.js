@@ -24,13 +24,13 @@ const typeDefs = gql`
   }
 
   type Query {
-    user: [User]
-    me: [User]
+    users: [User]
+    me: User
   }
 
   type Mutation {
     createUser(username: String!, email: String!, password: String!): Auth
-    createSnippet(name: String!, code: String!, explanation: String!, email: String!): User
+    createSnippet(name: String!, code: String!, explanation: String!): User
     deleteUser(_id:String!): User
     deleteSnippet(_id:String!): Snippet
     login(email: String!, password: String!): Auth
