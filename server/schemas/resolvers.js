@@ -194,6 +194,64 @@ const resolvers = {
         }
       })
       console.log(response);
+    },
+
+    contact: async (parent, {email, name, message}) => {
+      const response = await mandrill.messages.sendTemplate({
+        template_name: "wtfcode-contact", // Template doesn't exist yet
+        template_content: [{}],
+
+        message: {
+          from_email: email,
+          from_name: name,
+          subject: "New Message from WTFCode",
+          merge: true,
+          merge_language: "handlebars",
+          global_merge_vars: [
+            {
+              name: "NAME",
+              content: name // Pass in name
+            },
+            {
+              name: "EMAIL",
+              content: email // Pass in email
+            },
+            {
+              name: "MESSAGE",
+              content: message // Pass in message
+            }
+          ],
+          merge_vars: [
+            {
+              rcpt: recipient,
+              vars: [
+                {
+                  name: "SNIPPET_NAME",
+                  content: name
+                },
+                {
+                  name: "CODE_SNIPPET",
+                  content: code
+                },
+                {
+                  name: "CODE_EXPLANATION",
+                  content: explanation
+                }
+              ]
+              
+            }
+          ],
+
+          to: [
+            {
+              email: "hello@wtf-code.com",
+              name: name, // Pass in from form
+              type: "to"
+            }
+          ]
+        }
+      })
+      console.log(response);
     }
   }
 };

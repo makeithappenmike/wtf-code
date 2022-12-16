@@ -3,7 +3,7 @@ import { Layout, Form, Input, Button, Spin } from 'antd';
 import SiteFooter from '../components/Footer';
 import WTFCode from'../assets/wtf-code.png';
 import { LoadingOutlined } from '@ant-design/icons';
-
+import { CONTACT } from '../../src/utils/mutations';
 
 // TODO: Add content here -- contact info for WTF as well as links to OpenAI?
 // TODO: Footer is off page -- should be visible by default
@@ -15,7 +15,7 @@ const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const Contact = () => {
 
 const [formState, setFormState] = useState({ name: '', message: '' });
-// const [login, { loading, error, data }] = useMutation(LOGIN_USER);
+const [contact] = useMutation(CONTACT);
 
   // Update state based on form input changes
   const handleChange = (event) => {
@@ -33,9 +33,9 @@ const [formState, setFormState] = useState({ name: '', message: '' });
     event.preventDefault();
     try {
       console.log('click');
-      // const { data } = await sendMessage({
-      //   variables: { ...formState },
-      // });
+      const { data } = await contact({
+        variables: { ...formState },
+      });
     } catch (e) {
       console.error(e);
     }
@@ -43,6 +43,7 @@ const [formState, setFormState] = useState({ name: '', message: '' });
     // Clear form values
     setFormState({
       email: '',
+      name: '',
       message: '',
     });
 

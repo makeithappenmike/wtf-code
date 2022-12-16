@@ -68,3 +68,11 @@ export const SHARE = gql`
     share(recipient: $recipient, code: $code, explanation: $explanation, name: $name)
   }
 `;
+
+// TODO: will take in the code snippet, explanation, and name as well
+// ?: Can we auto-load email based on user logged in?
+export const CONTACT= gql`
+  mutation share($email: String!, $name: String!, $message: String!) {
+    share(email: $email, name: $name, message: $message)
+  }
+`;
