@@ -83,7 +83,7 @@ const NavBar = () => {
     <Row wrap={false}>
       <Col flex="auto" >
         <>
-        <Menu theme="dark" style={centerStyle} mode="horizontal" defaultSelectedKeys={['1']} items={navItems} />
+        <Menu theme="dark" style={centerStyle} mode="horizontal" defaultSelectedKeys={['0']} items={navItems} />
         </>
         </Col>
       <Col justify='end'>

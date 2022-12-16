@@ -47,7 +47,8 @@
 #submit_code,
 #submit_login,
 #signup_button,
-#login_email {
+#login_email,
+#submit_message {
   margin: 10px 0px 10px 0px;
 }
 

@@ -27,7 +27,6 @@ const NotFound = () => {
         <p style={{ textAlign: 'center'}}>We can't find the page you were looking for.. try again or head back to the home page.
         <p />
         <Button id='home_button' htmlType="button" onClick={handleHomeClick}>Home</Button></p>
-        
         </Content>
         <SiteFooter />
         </Layout>
