@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { createTheme } from '@uiw/codemirror-themes';
 import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
-import { CREATE_SNIPPET, EXPLAIN_CODE, SHARE } from '../../src/utils/mutations';
+import { CREATE_SNIPPET, DELETE_SNIPPET, EXPLAIN_CODE, SHARE } from '../../src/utils/mutations';
 import { Button, Input, Modal, notification, Space, Spin } from 'antd';
 import { ShareAltOutlined, LoadingOutlined } from '@ant-design/icons';
 import { GlobalContext } from '../utils/context';
@@ -88,6 +88,7 @@ export default function Editor() {
   const [createSnippet] = useMutation(CREATE_SNIPPET);
   const [explainCode, { loading, error, data }] = useMutation(EXPLAIN_CODE);
   const [shareSnippet] = useMutation(SHARE);
+  const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const [codeState, setCodeState] = useState({ code: '// input your code here!'});
   const [nameState, setNameState] = useState({ name: 'Snippet Name'});
   const [explanationState, setexplanationState] = useState({explanation: 'Click \'Submit\' to generate a code explanation here! ' });
@@ -121,9 +122,9 @@ export default function Editor() {
       const { data } = await createSnippet({
         variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation},
       });
-      console.log("snippet saved: ", nameState.name);
+      openNotification("Your snippet has been saved.");
     } catch (err) {
-      console.error(err);
+      openNotification("There was a problem saving your snippet.");
     }
   };
 
@@ -133,8 +134,6 @@ export default function Editor() {
     const recipient = document.querySelector("#recipient").value;
     try {
       const { data } = await shareSnippet({
-        
-       
         variables: { recipient: recipient, code:codeState.code, explanation: explanationState.explanation, name: nameState.name },
       });
       setModal2Open(false);
@@ -143,6 +142,22 @@ export default function Editor() {
     } catch (err) {
       console.error(err);
       openNotification("There was a problem sending your message.");
+    }
+  };
+
+  // Delete a snippet
+  const handleDelete = async (event) => {
+    event.preventDefault();
+    console.log(typeof(currentSnippet.key));
+    try {
+      const { data } = await deleteSnippet({
+        variables: { id: currentSnippet.key },
+      });
+      openNotification("Snippet Deleted", "Your Snippet has been deleted.");
+
+    } catch (err) {
+      console.error(err);
+      openNotification("There was a problem deleting your snippet.");
     }
   };
 
@@ -216,6 +231,8 @@ export default function Editor() {
       </div>
       {/* Button is active if the explanation name is not empty */}
       <Button onClick={() => setModal2Open(true)} disabled={nameState.name ? false : true}><ShareAltOutlined />Share</Button>
+
+      <Button id='delete' onClick={handleDelete} size="medium" >Delete</Button>
       </Space>
 
       

@@ -41,9 +41,7 @@ const resolvers = {
       
     },
     createSnippet: async (parent, { name, code, explanation }, context) => {
-        // const snippet = await Snippet.create(name, code, explanation, userID);
         try {
-          console.log("name: ", name);
           const updatedUser = await User.findOneAndUpdate(
             { email: context.user.email },
             {
@@ -67,10 +65,22 @@ const resolvers = {
         return user;
     },
 
-    deleteSnippet: async (parent, {_id}) => {
-      const snippet = await Snippet.findByIdAndDelete(_id);
-      return snippet;
-    },
+    deleteSnippet: async (parent, {_id}, context) => {
+      try {
+        const user = await User.findOneAndUpdate(
+          { email: context.user.email },
+          {
+            $pull: { snippets: { _id: _id } },
+          },
+      );
+
+      return user;
+
+      } catch (error) {
+        console.log(error);
+        
+      }
+  },
 
     login: async (parent, { email, password }) => {
 
