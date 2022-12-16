@@ -1,5 +1,5 @@
 import React, { useState, useContext} from 'react';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { QUERY_ME } from '../../src/utils/queries';
 import { RightSquareOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
@@ -13,8 +13,8 @@ const Sidebar = () => {
   // TODO: Spinning wheel if loading
   // TODO: error handling?
 
-  const { setCurrentSnippet } = useContext(GlobalContext);
-  const { loading, data } = useQuery(QUERY_ME);
+  const { setCurrentSnippet, refetchSnippets } = useContext(GlobalContext);
+  const [getData, { refetch, loading, data, called }] = useLazyQuery(QUERY_ME);
   const snippets = data?.me.snippets || [];
   
   const [sideBarState, setSideBarState] = useState([]);
@@ -26,6 +26,17 @@ const Sidebar = () => {
     });
     setSideBarState(newState);
   };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (called && refetchSnippets > 0) {
+      refetch();
+    }
+  }, [refetchSnippets, called]);
+
 
   useEffect(() => {
     updateState();

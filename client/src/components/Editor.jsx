@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { useMutation } from '@apollo/client';
 import { createTheme } from '@uiw/codemirror-themes';
@@ -84,16 +84,19 @@ const light = createTheme({
 });
 
 export default function Editor() {
-
+  const {currentSnippet, setRefetchSnippets} = useContext(GlobalContext);
   const [createSnippet] = useMutation(CREATE_SNIPPET);
   const [explainCode, { loading, error, data }] = useMutation(EXPLAIN_CODE);
   const [shareSnippet] = useMutation(SHARE);
   const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const [codeState, setCodeState] = useState({ code: '// input your code here!'});
   const [nameState, setNameState] = useState({ name: 'Snippet Name'});
-  const [explanationState, setexplanationState] = useState({explanation: 'Click \'Submit\' to generate a code explanation here! ' });
-  const [modal2Open, setModal2Open] = useState(false);
-  const {currentSnippet} = useContext(GlobalContext);
+  const [explanationState, setexplanationState] = useState({explanation: ''});
+  const [modal2Open, setModal2Open] = useState(false);  
+
+  useEffect(() => {
+    setexplanationState({ explanation: currentSnippet.explanation});
+  }, [currentSnippet]);
 
   // Update state based on form input changes
   const handleChange = (event) => {
@@ -103,8 +106,7 @@ export default function Editor() {
 
   // Update state when explanation added to text field
   const handleExplanation = (event) => {
-    const textArea = { explanation: document.getElementById('explanation').value};
-    setexplanationState(textArea);
+    setexplanationState({explanation: event.target.value});
     console.log("explanation State: ", explanationState.explanation);
   };
 
@@ -122,6 +124,7 @@ export default function Editor() {
       const { data } = await createSnippet({
         variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation},
       });
+      setRefetchSnippets(1);
       openNotification("Your snippet has been saved.");
     } catch (err) {
       openNotification("There was a problem saving your snippet.");
@@ -153,6 +156,7 @@ export default function Editor() {
       const { data } = await deleteSnippet({
         variables: { id: currentSnippet.key },
       });
+      setRefetchSnippets(2);
       openNotification("Snippet Deleted", "Your Snippet has been deleted.");
 
     } catch (err) {
@@ -174,6 +178,7 @@ export default function Editor() {
       console.log(data.explainCode);
       const textArea = document.querySelector("#explanation");
       textArea.value = data.explainCode;
+      setexplanationState(data.explainCode);
     } catch (err) {
       console.error(err);
     }
@@ -215,7 +220,7 @@ export default function Editor() {
       <Button id='submit_code' onClick={handleSubmit} size="medium" disabled={!codeState.code ? true : false}>Submit</Button>
       <Spin spinning={loading} indicator={loadingIcon} style={{ paddingLeft: '5px' }}></Spin>
       <textarea id="explanation" name="explanation"
-                value={currentSnippet.explanation}
+                value={explanationState.explanation}
                 onChange={handleExplanation}
                 cols="45" rows={4} size="medium" style={{ heigh: 'fit-content'}}>
                 Click 'Submit' to generate a code explanation here!
