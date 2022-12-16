@@ -90,7 +90,7 @@ export default function Editor() {
   const [shareSnippet] = useMutation(SHARE);
   const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const [codeState, setCodeState] = useState({ code: '// input your code here!'});
-  const [nameState, setNameState] = useState({ name: 'Snippet Name'});
+  const [nameState, setNameState] = useState({ name: ''});
   const [explanationState, setexplanationState] = useState({explanation: ''});
   const [modal2Open, setModal2Open] = useState(false);  
 
@@ -180,7 +180,7 @@ export default function Editor() {
       textArea.value = data.explainCode;
       setexplanationState(data.explainCode);
     } catch (err) {
-      console.error(err);
+      openNotification("There was a problem getting an explanation for your snippet.")
     }
   }
 
@@ -229,7 +229,7 @@ export default function Editor() {
       <Space>
       <div id='explanation_div'>
       <Space.Compact block size="medium" >
-      <Input onChange={handleName} value={currentSnippet.label} type="text" id="explanation_name" name="name"/>
+      <Input onChange={handleName} value={nameState.name} type="text" id="explanation_name" name="name"/>
       {/* Button is active if the explanation name is not empty */}
       <Button onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
       </Space.Compact>
