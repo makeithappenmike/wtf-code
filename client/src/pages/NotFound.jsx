@@ -1,11 +1,19 @@
-import { Layout } from 'antd';
+import { Layout, Button } from 'antd';
 import React from 'react';
 import SiteFooter from '../components/Footer';
+import WTFCode404 from'../assets/WTF-Code-Page-Not-Found.png';
 
 // TODO: Add content here
 // TODO: Footer is off page -- should be visible by default
 
 const { Content } = Layout;
+const handleHomeClick = (event) => {
+  event.preventDefault();
+  console.log('click');
+  const { name, value } = event.target;
+  window.location.assign('/home')
+  };
+
 const NotFound = () => {
 
   return (
@@ -14,7 +22,12 @@ const NotFound = () => {
         minHeight: '100vh',
       }}>
         <Content >
-        NotFound
+        <img  id='loginLogo' src={WTFCode404} alt="404 Page Not Found"/>
+        <h1 style={{ textAlign: 'center'}}>Uh Oh!</h1>
+        <p style={{ textAlign: 'center'}}>We can't find the page you were looking for.. try again or head back to the home page.
+        <p />
+        <Button id='home_button' htmlType="button" onClick={handleHomeClick}>Home</Button></p>
+        
         </Content>
         <SiteFooter />
         </Layout>
