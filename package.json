@@ -15,7 +15,7 @@
     "server": "cd server server.js --ignore client",
     "heroku-install": "cd server && npm i && cd ../client && npm i",
     "client": "cd client && npm start",
-    "postinstall": "vite build"
+    "heroku-postbuild": "vite build"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
