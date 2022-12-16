@@ -20,7 +20,8 @@ import ProtectedRoutes from './pages/ProtectedRoutes';
 // TODO: Don't return password on the backend!!!
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  // uri: 'http://localhost:3001/graphql',
+  uri: '/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
