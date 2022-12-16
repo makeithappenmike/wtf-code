@@ -56,6 +56,11 @@
   margin-bottom: 10px;
 }
 
+#logoutButton:hover {
+  background-color: #2e3541;
+  color: white;
+}
+
 #explanation_space {
   display: flex;
   flex-grow: 1;

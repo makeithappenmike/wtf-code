@@ -87,7 +87,7 @@ const NavBar = () => {
         </>
         </Col>
       <Col justify='end'>
-    <Button id='logoutButton' onClick={logout}>Logout</Button>
+    <Button id='logoutButton' type='link' style={{ border: '1px solid #2e3541'  }} onClick={logout}>Logout</Button>
     </Col>
     </Row>
     </Header>
