@@ -34,7 +34,7 @@ db.once('open', () => {
 
 if (process.env.NODE_ENV === 'production') {
   console.log('In production');
-  app.use(express.static(('../dist')));
+  app.use(express.static(path.join(__dirname, '../dist')));
 }
 
 // when we're ready...
