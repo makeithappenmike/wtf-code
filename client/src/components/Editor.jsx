@@ -11,7 +11,6 @@ import { GlobalContext } from '../utils/context';
 
 // TODO: Wire up theme editor switching
 // TODO: Debug explanation (Cannot return null for non-nullable field Mutation.explainCode)
-// TODO: Handle sharing
 // ?: When ready, remove console.logs
 // ?: Should we disable the ability to save if the explanation is empty? 
 
@@ -87,7 +86,11 @@ const light = createTheme({
 export default function Editor() {
 
   const [createSnippet] = useMutation(CREATE_SNIPPET);
+<<<<<<< HEAD
   const [explainCode, { loading, error, data }] = useMutation(EXPLAIN_CODE);
+=======
+  const [explainCode, { loading, error, data}] = useMutation(EXPLAIN_CODE);
+>>>>>>> 18063c5 (added loading icon to submit)
   const [shareSnippet] = useMutation(SHARE);
   const [codeState, setCodeState] = useState({ code: '// input your code here!'});
   const [nameState, setNameState] = useState({ name: 'Snippet Name'});
