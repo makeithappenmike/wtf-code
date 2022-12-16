@@ -21,9 +21,9 @@ export const QUERY_PASSWORD = gql`
   }
 `;
 
-export const QUERY_SNIPPET = gql`
-  query Snippet {
-    user {
+export const QUERY_ME = gql`
+  query me {
+    me {
       _id
       email
       snippets {

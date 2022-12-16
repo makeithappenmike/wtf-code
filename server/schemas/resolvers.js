@@ -12,23 +12,21 @@ const mandrill = require("@mailchimp/mailchimp_transactional")(
 
 const resolvers = {
   Query: {
-    user: async () => {
+    users: async () => {
       return User.find({});
     },
 
-    me: async () => {
-      try {
-        const me = await User.find(
-          {}
-          // TODO: pull in the user via context
-      );
-
-      return me;
-
-      } catch (error) {
-        console.log(error);
+    me: async (parent, args, context) => {
+        if(context.user) {
+          try {
+            const me = await User.findOne(
+              {email: context.user.email})
+              return me;
+          } catch (error) {
+            console.log(error);
+        }
       }
-    },
+    }
   },
 
   Mutation: {
@@ -42,12 +40,10 @@ const resolvers = {
       }
       
     },
-    createSnippet: async (parent, { name, code, explanation, email }) => {
-        // const snippet = await Snippet.create(name, code, explanation, userID);
+    createSnippet: async (parent, { name, code, explanation }, context) => {
         try {
-          console.log("name: ", name);
           const updatedUser = await User.findOneAndUpdate(
-            { email: email },
+            { email: context.user.email },
             {
               $addToSet: { snippets: { name: name, code: code, explanation: explanation } },
             }, 
@@ -69,10 +65,22 @@ const resolvers = {
         return user;
     },
 
-    deleteSnippet: async (parent, {_id}) => {
-      const snippet = await Snippet.findByIdAndDelete(_id);
-      return snippet;
-    },
+    deleteSnippet: async (parent, {_id}, context) => {
+      try {
+        const user = await User.findOneAndUpdate(
+          { email: context.user.email },
+          {
+            $pull: { snippets: { _id: _id } },
+          },
+      );
+
+      return user;
+
+      } catch (error) {
+        console.log(error);
+        
+      }
+  },
 
     login: async (parent, { email, password }) => {
 

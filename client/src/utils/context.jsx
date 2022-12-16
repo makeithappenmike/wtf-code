@@ -4,5 +4,7 @@ export const GlobalContext = createContext();
 
 export const GlobalContextProvider = (props) => {
     const [currentSnippet, setCurrentSnippet] = useState({});
-    return <GlobalContext.Provider value={{setCurrentSnippet, currentSnippet}}>{props.children}</GlobalContext.Provider>
+    const [refetchSnippets, setRefetchSnippets] = useState( 0 );
+
+    return <GlobalContext.Provider value={{setCurrentSnippet, currentSnippet, refetchSnippets, setRefetchSnippets}}>{props.children}</GlobalContext.Provider>
 }

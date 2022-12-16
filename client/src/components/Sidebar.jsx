@@ -1,6 +1,6 @@
 import React, { useState, useContext} from 'react';
-import { useQuery } from '@apollo/client';
-import { QUERY_SNIPPET } from '../../src/utils/queries';
+import { useLazyQuery } from '@apollo/client';
+import { QUERY_ME } from '../../src/utils/queries';
 import { RightSquareOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 import { useEffect } from 'react';
@@ -13,9 +13,9 @@ const Sidebar = () => {
   // TODO: Spinning wheel if loading
   // TODO: error handling?
 
-  const { setCurrentSnippet } = useContext(GlobalContext);
-  const { loading, data } = useQuery(QUERY_SNIPPET);
-  const snippets = data?.snippet || [];
+  const { setCurrentSnippet, refetchSnippets } = useContext(GlobalContext);
+  const [getData, { refetch, loading, data, called }] = useLazyQuery(QUERY_ME);
+  const snippets = data?.me.snippets || [];
   
   const [sideBarState, setSideBarState] = useState([]);
 
@@ -28,7 +28,17 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    // code here;
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (called && refetchSnippets > 0) {
+      refetch();
+    }
+  }, [refetchSnippets, called]);
+
+
+  useEffect(() => {
     updateState();
   }, [data]);
 
@@ -36,7 +46,6 @@ const Sidebar = () => {
    const handleClick = (id) => {
     const snippet = sideBarState.find(obj=>obj.key === id.key);
     setCurrentSnippet(snippet);
-
   };
 
 const [collapsed, setCollapsed] = useState(false);

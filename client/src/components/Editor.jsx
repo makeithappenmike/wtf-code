@@ -1,17 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { useMutation } from '@apollo/client';
 import { createTheme } from '@uiw/codemirror-themes';
 import { javascript } from '@codemirror/lang-javascript';
 import { tags as t } from '@lezer/highlight';
-import { CREATE_SNIPPET, EXPLAIN_CODE, SHARE } from '../../src/utils/mutations';
+import { CREATE_SNIPPET, DELETE_SNIPPET, EXPLAIN_CODE, SHARE } from '../../src/utils/mutations';
 import { Button, Input, Modal, notification, Space, Spin } from 'antd';
 import { ShareAltOutlined, LoadingOutlined } from '@ant-design/icons';
 import { GlobalContext } from '../utils/context';
 
 // TODO: Wire up theme editor switching
 // TODO: Debug explanation (Cannot return null for non-nullable field Mutation.explainCode)
-// TODO: Handle sharing
 // ?: When ready, remove console.logs
 // ?: Should we disable the ability to save if the explanation is empty? 
 
@@ -85,15 +84,19 @@ const light = createTheme({
 });
 
 export default function Editor() {
-
+  const {currentSnippet, setRefetchSnippets} = useContext(GlobalContext);
   const [createSnippet] = useMutation(CREATE_SNIPPET);
   const [explainCode, { loading, error, data }] = useMutation(EXPLAIN_CODE);
   const [shareSnippet] = useMutation(SHARE);
+  const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const [codeState, setCodeState] = useState({ code: '// input your code here!'});
-  const [nameState, setNameState] = useState({ name: 'Snippet Name'});
-  const [explanationState, setexplanationState] = useState({explanation: 'Click \'Submit\' to generate a code explanation here! ' });
-  const [modal2Open, setModal2Open] = useState(false);
-  const {currentSnippet} = useContext(GlobalContext);
+  const [nameState, setNameState] = useState({ name: ''});
+  const [explanationState, setexplanationState] = useState({explanation: ''});
+  const [modal2Open, setModal2Open] = useState(false);  
+
+  useEffect(() => {
+    setexplanationState({ explanation: currentSnippet.explanation});
+  }, [currentSnippet]);
 
   // Update state based on form input changes
   const handleChange = (event) => {
@@ -103,8 +106,7 @@ export default function Editor() {
 
   // Update state when explanation added to text field
   const handleExplanation = (event) => {
-    const textArea = { explanation: document.getElementById('explanation').value};
-    setexplanationState(textArea);
+    setexplanationState({explanation: event.target.value});
     console.log("explanation State: ", explanationState.explanation);
   };
 
@@ -120,28 +122,46 @@ export default function Editor() {
     event.preventDefault();
     try {
       const { data } = await createSnippet({
-        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation, email: "johan@fart.cool" },
+        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation},
       });
-      console.log("snippet saved");
-      console.log(codeState.code, explanationState.explanation, nameState.name);
+      setRefetchSnippets(1);
+      openNotification("Your snippet has been saved.");
     } catch (err) {
-      console.error(err);
+      openNotification("There was a problem saving your snippet.");
     }
   };
 
   // Save code based on state
   const handleShare = async (event) => {
     event.preventDefault();
+    const recipient = document.querySelector("#recipient").value;
     try {
       const { data } = await shareSnippet({
-        // TODO: will pull recipient in from a modal instead of hard coding
-        variables: { recipient: "jonshogren@mac.com", code:codeState.code, explanation: explanationState.explanation, name: nameState.name },
+        variables: { recipient: recipient, code:codeState.code, explanation: explanationState.explanation, name: nameState.name },
       });
+      setModal2Open(false);
       openNotification("Message Sent!", "Your Snippet has been shared. Great job!");
 
     } catch (err) {
       console.error(err);
       openNotification("There was a problem sending your message.");
+    }
+  };
+
+  // Delete a snippet
+  const handleDelete = async (event) => {
+    event.preventDefault();
+    console.log(typeof(currentSnippet.key));
+    try {
+      const { data } = await deleteSnippet({
+        variables: { id: currentSnippet.key },
+      });
+      setRefetchSnippets(2);
+      openNotification("Snippet Deleted", "Your Snippet has been deleted.");
+
+    } catch (err) {
+      console.error(err);
+      openNotification("There was a problem deleting your snippet.");
     }
   };
 
@@ -158,8 +178,9 @@ export default function Editor() {
       console.log(data.explainCode);
       const textArea = document.querySelector("#explanation");
       textArea.value = data.explainCode;
+      setexplanationState(data.explainCode);
     } catch (err) {
-      console.error(err);
+      openNotification("There was a problem getting an explanation for your snippet.")
     }
   }
 
@@ -187,19 +208,19 @@ export default function Editor() {
         title="Share Snippet"
         centered
         open={modal2Open}
-        onOk={() => setModal2Open(false)}
+        onOk={handleShare}
         onCancel={() => setModal2Open(false)}
       >
-        <p>some contents...</p>
-        <p>some contents...</p>
-        <p>some contents...</p>
+        <p>Enter the email address that you'd like to share with</p>
+        <Input id="recipient" />
+        
       </Modal>
 
       {/* Button is active if the editor is not empty */}
       <Button id='submit_code' onClick={handleSubmit} size="medium" disabled={!codeState.code ? true : false}>Submit</Button>
       <Spin spinning={loading} indicator={loadingIcon} style={{ paddingLeft: '5px' }}></Spin>
       <textarea id="explanation" name="explanation"
-                value={currentSnippet.explanation}
+                value={explanationState.explanation}
                 onChange={handleExplanation}
                 cols="45" rows={4} size="medium" style={{ heigh: 'fit-content'}}>
                 Click 'Submit' to generate a code explanation here!
@@ -208,13 +229,15 @@ export default function Editor() {
       <Space>
       <div id='explanation_div'>
       <Space.Compact block size="medium" >
-      <Input onChange={handleName} value={currentSnippet.label} type="text" id="explanation_name" name="name"/>
+      <Input onChange={handleName} value={nameState.name} type="text" id="explanation_name" name="name"/>
       {/* Button is active if the explanation name is not empty */}
       <Button onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
       </Space.Compact>
       </div>
       {/* Button is active if the explanation name is not empty */}
       <Button onClick={() => setModal2Open(true)} disabled={nameState.name ? false : true}><ShareAltOutlined />Share</Button>
+
+      <Button id='delete' onClick={handleDelete} size="medium" >Delete</Button>
       </Space>
 
       
