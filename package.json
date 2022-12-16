@@ -14,7 +14,8 @@
     "start": "node server/server.js",
     "server": "cd server server.js --ignore client",
     "heroku-install": "cd server && npm i && cd ../client && npm i",
-    "client": "cd client && npm start"
+    "client": "cd client && npm start",
+    "postinstall": "ng build"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
