@@ -10,7 +10,6 @@ import { ShareAltOutlined, LoadingOutlined } from '@ant-design/icons';
 import { GlobalContext } from '../utils/context';
 
 // TODO: Wire up theme editor switching
-// TODO: Debug explanation (Cannot return null for non-nullable field Mutation.explainCode)
 // ?: When ready, remove console.logs
 // ?: Should we disable the ability to save if the explanation is empty? 
 
@@ -228,16 +227,16 @@ export default function Editor() {
 
       <Space>
       <div id='explanation_div'>
-      <Space.Compact block size="medium" >
+      <Space.Compact block size="medium" style={{ marginBottom: '5px' }}>
       <Input onChange={handleName} value={nameState.name} type="text" id="explanation_name" name="name"/>
       {/* Button is active if the explanation name is not empty */}
-      <Button onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
+      <Button id='save_button' onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
       </Space.Compact>
       </div>
       {/* Button is active if the explanation name is not empty */}
-      <Button onClick={() => setModal2Open(true)} disabled={nameState.name ? false : true}><ShareAltOutlined />Share</Button>
-      <Button id='delete' onClick={handleDelete} size="medium" >Delete</Button>
       </Space>
+      <Button id='share_button' style={{ marginBottom: '5px', justifyContent: 'center' }} onClick={() => setModal2Open(true)} disabled={nameState.name ? false : true}><ShareAltOutlined />Share</Button>
+      <Button id='delete_button' style={{ textAlign: 'center' }} onClick={handleDelete} size="medium" >Delete</Button>
 
       
     </div>

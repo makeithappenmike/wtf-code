@@ -14,10 +14,9 @@ import { GlobalContextProvider } from './utils/context';
 import ProtectedRoutes from './pages/ProtectedRoutes';
 
 // TODO: Handle dark/light mode switching
-// TODO: Handle mobile experience
 // TODO: Add tooltips for context on how to use OpenAI
 // TODO: Update color scheme
-// TODO: Don't return password on the backend!!!
+// TODO: Don't return password on the backend
 
 const httpLink = createHttpLink({
   // uri: 'http://localhost:3001/graphql',

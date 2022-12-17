@@ -120,6 +120,12 @@ textarea:hover {
   flex-wrap: wrap;
 }
 
+#delete_button,
+#share_button {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -147,18 +153,6 @@ textarea:hover {
 
   #sider_title {
     font-size: 1em;
-  }
-  
-}
-
-@media (max-width: 767px) {
-
-  #explanation_div {
-    flex-direction: column;
-  }
-
-  #share_button {
-    display: inline-block
   }
   
 }
