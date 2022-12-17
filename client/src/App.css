@@ -47,12 +47,18 @@
 #submit_code,
 #submit_login,
 #signup_button,
-#login_email {
+#login_email,
+#submit_message {
   margin: 10px 0px 10px 0px;
 }
 
 #explanation {
   margin-bottom: 10px;
+}
+
+#logoutButton:hover {
+  background-color: #2e3541;
+  color: white;
 }
 
 #explanation_space {

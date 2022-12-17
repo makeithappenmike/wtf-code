@@ -7,11 +7,11 @@
     "npm": "8.x"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "env-cmd -e developement vite",
+    "build": "env-cmd -e developement vite build",
     "preview": "vite preview",
     "start:dev": "concurrently \"npm run dev\" \"cd server && npm run start\" ",
-    "start": "node server/server.js",
+    "start": "env-cmd -e production node server/server.js",
     "server": "cd server server.js --ignore client",
     "heroku-install": "cd server && npm i && cd ../client && npm i",
     "client": "cd client && npm start",
