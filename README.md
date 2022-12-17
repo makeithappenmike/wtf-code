@@ -47,6 +47,39 @@ Once you have that setup, create a ```.env-cmdrc.json``` file in the root direct
     }
 }
 ```
+Because we're using React Router and hosting the app on Heroku, there are a few specifications we have to make to our package.json Scripts. Here are the required scripts for Developement v. Production -- ```Note: the scripts that require updating are "dev", "build", and "start":
+
+For ```Developement```:
+
+```
+"scripts": {
+    "dev": "env-cmd -e developement vite",
+    "build": "env-cmd -e production vite build",
+    "preview": "vite preview",
+    "start:dev": "concurrently \"npm run dev\" \"cd server && npm run start\" ",
+    "start": "env-cmd -e production node server/server.js",
+    "server": "cd server server.js --ignore client",
+    "heroku-install": "cd server && npm i && cd ../client && npm i",
+    "client": "cd client && npm start",
+    "postinstall": "vite build"
+  },
+  ```
+
+For ```Production```:
+
+```
+"scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start:dev": "concurrently \"npm run dev\" \"cd server && npm run start\" ",
+    "start": "node server/server.js",
+    "server": "cd server server.js --ignore client",
+    "heroku-install": "cd server && npm i && cd ../client && npm i",
+    "client": "cd client && npm start",
+    "postinstall": "vite build"
+  },
+```
 
 ## Installation
 To install:
