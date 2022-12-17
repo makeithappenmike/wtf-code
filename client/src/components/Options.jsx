@@ -47,7 +47,7 @@ const Options = () => {
   const [collapsed, setCollapsed] = useState(false);
   
   return (
-      <Sider id='options' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+      <Sider id='options' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}breakpoint="md">
         <h3>Options</h3>
         <Menu style={{ textAlign: 'left'}} theme="dark" defaultSelectedKeys={['1']} mode="inline" items={modelItems} expandIcon={<RightOutlined />}/>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" style={{ textAlign: 'left'}} items={editorItems} expandIcon={<RightOutlined />}/>
