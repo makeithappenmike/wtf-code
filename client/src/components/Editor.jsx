@@ -236,7 +236,6 @@ export default function Editor() {
       </div>
       {/* Button is active if the explanation name is not empty */}
       <Button onClick={() => setModal2Open(true)} disabled={nameState.name ? false : true}><ShareAltOutlined />Share</Button>
-
       <Button id='delete' onClick={handleDelete} size="medium" >Delete</Button>
       </Space>
 

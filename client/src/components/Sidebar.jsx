@@ -54,9 +54,11 @@ const [collapsed, setCollapsed] = useState(false);
   } = theme.useToken();
   
   return (
-      <Sider id='sidebar' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <img  src={WTFCode} style={{ maxHeight: '50px', verticalAlign: 'middle'}} alt="WTFCode"/>
-        <h3 style={{ color: 'white'}}>Saved Snippets</h3>
+      <Sider id='sidebar' breakpoint="md" collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+        <section id="image_container">
+        <img  className='.img-fluid' id='sidebar_logo' src={WTFCode} style={{ maxHeight: '50px', verticalAlign: 'middle'}} alt="WTFCode"/>
+        </section>
+        <h1 id='sider_title' style={{ color: 'white'}}>Saved Snippets</h1>
         <Menu 
           style={{ textAlign: 'left' }}theme="dark" onClick={handleClick} mode="inline" items={sideBarState} />
       </Sider>
