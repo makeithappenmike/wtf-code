@@ -16,7 +16,9 @@ const About = () => {
       }}>
         <Content>
         <section style={{ textAlign: 'center' }}>
-        <img  id='loginLogo' src={WTFCode} alt="404 Page Not Found"/>
+        {/* <section id="image_container"> */}
+        <img  id='about_logo' src={WTFCode} alt="WTF Code Logo"/>
+        {/* </section> */}
           <section style={{ textAlign: 'left', border: '1px solid #a1adc3', borderRadius: '10px', marginLeft: '50px', marginRight: '50px', marginTop: '50px', padding: '25px', backgroundColor: '#b2bed4', boxShadow: '3px 3px 3px #373f4a' }}>
         <h2 style={{ textAlign: 'center' }}>Welcome to WTFCode!</h2>
         <p>Let's face it, as developers, at somepoint we find ourselves asking <em>"what the f*@k is this code actually doing?"</em>. Its a perfectly valid question, and sometimes easier to answer than others.</p>

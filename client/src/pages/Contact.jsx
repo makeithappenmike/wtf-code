@@ -15,7 +15,7 @@ const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const Contact = () => {
 
 const [formState, setFormState] = useState({ name: '', message: '' });
-const [contact] = useMutation(CONTACT);
+// const [contact] = useMutation(CONTACT);
 
   // Update state based on form input changes
   const handleChange = (event) => {
@@ -58,7 +58,9 @@ const [contact] = useMutation(CONTACT);
       }}>
         <Content>
         <section>
-        <img  id='loginLogo' src={WTFCode} alt="404 Page Not Found"/>
+        {/* <section id="image_container"> */}
+        <img  id='about_logo' src={WTFCode} alt="WTF Code Logo"/>
+        {/* </section> */}
           <section>
           <h2>Contact</h2>
           <Form>

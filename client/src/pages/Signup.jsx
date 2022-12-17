@@ -16,7 +16,7 @@ const Signup = () => {
         minHeight: '100vh',
       }}>
           <Content >
-          <img  id='loginLogo' src={WTFCode} alt="WTFCode"/>
+          <img  id='signup_logo' src={WTFCode} alt="WTFCode"/>
             <SignupForm style={{ paddingLeft: '200px' }}/>
           </Content>
             <SiteFooter />

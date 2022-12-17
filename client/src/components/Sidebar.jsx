@@ -56,9 +56,9 @@ const [collapsed, setCollapsed] = useState(false);
   return (
       <Sider id='sidebar' breakpoint="md" collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <section id="image_container">
-        <img  className='.img-fluid' id='sidebarLogo' src={WTFCode} style={{ maxHeight: '50px', verticalAlign: 'middle'}} alt="WTFCode"/>
+        <img  className='.img-fluid' id='sidebar_logo' src={WTFCode} style={{ maxHeight: '50px', verticalAlign: 'middle'}} alt="WTFCode"/>
         </section>
-        <h3 style={{ color: 'white'}}>Saved Snippets</h3>
+        <h1 id='sider_title' style={{ color: 'white'}}>Saved Snippets</h1>
         <Menu 
           style={{ textAlign: 'left' }}theme="dark" onClick={handleClick} mode="inline" items={sideBarState} />
       </Sider>
