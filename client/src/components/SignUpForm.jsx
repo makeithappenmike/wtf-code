@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { CREATE_USER } from '../utils/mutations';
+import { CREATE_USER, CREATE_SNIPPET } from '../utils/mutations';
 import { Form, Input, Button, notification, Modal, Spin } from 'antd';
 import { WarningTwoTone } from '@ant-design/icons';
 import Auth from '../utils/auth';
@@ -23,6 +23,7 @@ const openNotification = (title, message) => {
 const Signup = (props) => {
   const [formState, setFormState] = useState({ username: '', email: '', password: '' });
   const [createUser, { loading, error, data }] = useMutation(CREATE_USER);
+  const [createSnippet] = useMutation(CREATE_SNIPPET);
   const [modal2Open, setModal2Open] = useState(false);  
 
   // Update state based on form input changes
@@ -58,6 +59,17 @@ const Signup = (props) => {
       console.error(e);
     }
 
+    // Create example snippet when someone signs up
+    try {
+      const { data } = await createSnippet({
+        variables: { code: "// Press the 'Submit' button below to explain this code. \nconsole.log('Hello World!')", name: "My First Snippet", explanation: "explanationState.explanation"},
+      });
+      setRefetchSnippets(1);
+      openNotification("We've created a snippet for you! Click on 'My First Snippet' to take a look.");
+    } catch (err) {
+      // openNotification("There was a problem saving your snippet.");
+    }
+
     // Clear form values
     setFormState({
       name: '',
@@ -84,18 +96,6 @@ const Signup = (props) => {
                 <Button id='signup_button' onClick={handleSignupClick} >
                   Signup
                 </Button>
-                <Modal
-                  title="Uh oh!"
-                  centered
-                  open={modal2Open}
-                  onCancel={() => setModal2Open(false)}
-                  footer={
-                    <Button key="ok" type="primary" onClick={() => setModal2Open(false)}>
-                      Ok
-                    </Button>}
-                >
-                  <p><WarningTwoTone /> Looks like there was an issue signing up.<br />Please try again...</p>
-                </Modal>
               </Form>
               </>
             ) : (

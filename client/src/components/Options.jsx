@@ -45,12 +45,14 @@ function getItem(label, key, icon) {
 const Options = () => {
 
   const [collapsed, setCollapsed] = useState(false);
+  const [editorTheme, setEditorTheme] = useState(false);
   
   return (
-      <Sider id='options' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}breakpoint="md">
-        <h1 id='sider_title'>Options</h1>
+      // <Sider id='options' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}breakpoint="md">
+      <Sider id='options' collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}breakpoint="md">
+        {/* <h1 id='sider_title'>Options</h1>
         <Menu style={{ textAlign: 'left'}} theme="dark" defaultSelectedKeys={['1']} mode="inline" items={modelItems} expandIcon={<RightOutlined />}/>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" style={{ textAlign: 'left'}} items={editorItems} expandIcon={<RightOutlined />}/>
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" style={{ textAlign: 'left'}} items={editorItems} expandIcon={<RightOutlined />}/> */}
       </Sider>
   );
   
