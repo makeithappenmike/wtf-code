@@ -62,10 +62,9 @@ const Signup = (props) => {
     // Create example snippet when someone signs up
     try {
       const { data } = await createSnippet({
-        variables: { code: "// Press the 'Submit' button below to explain this code. \nconsole.log('Hello World!')", name: "My First Snippet", explanation: "explanationState.explanation"},
+        variables: { code: "// Press the 'Submit' button below to explain this code. \nconsole.log('Hello World!')", name: "Example Snippet", explanation: "When you Submit your code, an explanation will show up here!\n\nYou can edit the explanation, give it a name below and then Save.\n\nTo remove a snippet, press the Delete button."},
       });
       setRefetchSnippets(1);
-      openNotification("We've created a snippet for you! Click on 'My First Snippet' to take a look.");
     } catch (err) {
       // openNotification("There was a problem saving your snippet.");
     }
