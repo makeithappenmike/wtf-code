@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
-import { Form, Input, Button, Spin } from 'antd';
+import { Form, Input, Button, Spin, notification } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import Auth from '../utils/auth';
 
@@ -11,6 +11,13 @@ import Auth from '../utils/auth';
 // TODO: Handle errors and adjust current error handling
 
 const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
+const openNotification = (title, message) => {
+  notification.open({
+    message: title,
+    description: message,
+  });
+};
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -43,7 +50,8 @@ const Login = (props) => {
       });
       Auth.login(data.login.token);
     } catch (e) {
-      console.error(e);
+      openNotification('Uh oh! Incorrect credentials...');
+      // console.error(e);
     }
 
     // Clear form values
