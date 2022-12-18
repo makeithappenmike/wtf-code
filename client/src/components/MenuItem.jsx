@@ -18,8 +18,3 @@ const MenuItem = ({ snippets }) => {
 };
 
 export default MenuItem;
-
-
-// const newState = snippets.map(obj => {
-    //     console.log(obj.name);
-    //     return {label: obj.name, key: obj._id, icon: <RightSquareOutlined />, code: obj.code, explanation: obj.explanation};

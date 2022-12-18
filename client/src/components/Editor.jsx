@@ -10,7 +10,6 @@ import { ShareAltOutlined, LoadingOutlined } from '@ant-design/icons';
 import { GlobalContext } from '../utils/context';
 
 // TODO: Wire up theme editor switching
-// ?: When ready, remove console.logs
 // ?: Should we disable the ability to save if the explanation is empty? 
 
 const { TextArea } = Input;
@@ -106,14 +105,12 @@ export default function Editor() {
   // Update state when explanation added to text field
   const handleExplanation = (event) => {
     setexplanationState({explanation: event.target.value});
-    console.log("explanation State: ", explanationState.explanation);
   };
 
   // Update state when name added to text field
   const handleName = (event) => {
     const nameArea = { name: document.getElementById('explanation_name').value};
     setNameState(nameArea);
-    console.log("Name State: ", nameState.name);
   };
 
   // Save code based on state
@@ -126,7 +123,7 @@ export default function Editor() {
       setRefetchSnippets(1);
       openNotification("Your snippet has been saved.");
     } catch (err) {
-      openNotification("There was a problem saving your snippet.");
+      openNotification("There was a problem saving your snippet. \n\n Try making changes to the text area and saving again!");
     }
   };
 
@@ -150,7 +147,6 @@ export default function Editor() {
   // Delete a snippet
   const handleDelete = async (event) => {
     event.preventDefault();
-    console.log(typeof(currentSnippet.key));
     try {
       const { data } = await deleteSnippet({
         variables: { id: currentSnippet.key },
@@ -168,13 +164,11 @@ export default function Editor() {
   // Submit code in editor to openAI for explanation
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const functionExplainer = "\"\"\"\nHere's what the above function is doing:\n1.";
+    const functionExplainer = "\"\"\"\nHere's what the above code is doing:\n";
     try {
       const { data } = await explainCode({
         variables: { code: codeState.code, explainer: functionExplainer },
       });
-      console.log("explanation incoming...");
-      console.log(data.explainCode);
       const textArea = document.querySelector("#explanation");
       textArea.value = data.explainCode;
       setexplanationState(data.explainCode);

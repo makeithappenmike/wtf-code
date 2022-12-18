@@ -89,7 +89,6 @@ const resolvers = {
 
       console.log(user);
 
-      console.log('Attempting to login');
 
       // If the User is not there, throw an error
       if (!user) {
@@ -103,15 +102,12 @@ const resolvers = {
 
       // If its not, throw an error
       if (!correctPw) {
-        console.log('password', password);
         throw new AuthenticationError('Incorrect credentials');
       } else {
-        console.log('Logged in!');
       }
       
       // Return the User and the signed Token
       const token = signToken(user);
-      console.log("Token", token);
       return { token, user };
     },
 
@@ -130,7 +126,6 @@ const resolvers = {
         });
 
         const answer = response['data']['choices'][0].text;
-        console.log(answer);
         return answer;
     
       }  catch (e) {
@@ -201,7 +196,7 @@ const resolvers = {
         message: {
           from_email: "contact@wtf-code.com",
           from_name: "WTFcode Contact Form",
-          subject: "New Message from ", name,
+          subject: `New Message from ${name}`,
           text: `A new message has been sent from the WTFcode contact form! \n
            ${name} with the email address ${email} has the following to say: \n
            \n${message}
@@ -209,7 +204,7 @@ const resolvers = {
 
           to: [
             {
-              email: "jonshogren@mac.com",
+              email: "hello@wtf-code.com",
               name: "WTF devs",
               type: "to"
             }

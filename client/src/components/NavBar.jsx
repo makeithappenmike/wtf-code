@@ -15,7 +15,6 @@ const onChange = (checked) => {
 
 const handleLogOut = async (event) => {
   event.preventDefault();
-  console.log(formState);
   try {
     const { data } = await createUser({
       variables: { ...formState },

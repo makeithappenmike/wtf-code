@@ -39,7 +39,6 @@ const Signup = (props) => {
 
   const handleLoginClick = (event) => {
     event.preventDefault();
-    console.log('click');
     const { name, value } = event.target;
     window.location.assign('/')
     };
@@ -47,7 +46,6 @@ const Signup = (props) => {
   // On form submit, attempt signup
   const handleSignupClick = async (event) => {
     event.preventDefault();
-    console.log(formState);
     try {
       const { data } = await createUser({
         variables: { ...formState },
