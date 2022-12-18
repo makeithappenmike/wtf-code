@@ -197,55 +197,20 @@ const resolvers = {
     },
 
     contact: async (parent, {email, name, message}) => {
-      const response = await mandrill.messages.sendTemplate({
-        template_name: "wtfcode-contact", // Template doesn't exist yet
-        template_content: [{}],
-
+      const response = await mandrill.messages.send({
         message: {
-          from_email: email,
-          from_name: name,
-          subject: "New Message from WTFCode",
-          merge: true,
-          merge_language: "handlebars",
-          global_merge_vars: [
-            {
-              name: "NAME",
-              content: name // Pass in name
-            },
-            {
-              name: "EMAIL",
-              content: email // Pass in email
-            },
-            {
-              name: "MESSAGE",
-              content: message // Pass in message
-            }
-          ],
-          merge_vars: [
-            {
-              rcpt: recipient,
-              vars: [
-                {
-                  name: "SNIPPET_NAME",
-                  content: name
-                },
-                {
-                  name: "CODE_SNIPPET",
-                  content: code
-                },
-                {
-                  name: "CODE_EXPLANATION",
-                  content: explanation
-                }
-              ]
-              
-            }
-          ],
+          from_email: "contact@wtf-code.com",
+          from_name: "WTFcode Contact Form",
+          subject: "New Message from ", name,
+          text: `A new message has been sent from the WTFcode contact form! \n
+           ${name} with the email address ${email} has the following to say: \n
+           \n${message}
+          `,
 
           to: [
             {
-              email: "hello@wtf-code.com",
-              name: name, // Pass in from form
+              email: "jonshogren@mac.com",
+              name: "WTF devs",
               type: "to"
             }
           ]

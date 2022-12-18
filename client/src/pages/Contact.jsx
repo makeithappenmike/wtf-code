@@ -1,8 +1,10 @@
-import React, { useState, useMutation } from 'react';
+import React, { useState } from 'react';
 import { Layout, Form, Input, Button, Spin } from 'antd';
 import SiteFooter from '../components/Footer';
 import WTFCode from'../assets/wtf-code.png';
 import { LoadingOutlined } from '@ant-design/icons';
+import { useMutation } from '@apollo/client';
+
 import { CONTACT } from '../../src/utils/mutations';
 
 // TODO: Add content here -- contact info for WTF as well as links to OpenAI?
@@ -14,34 +16,34 @@ const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const Contact = () => {
 
-const [formState, setFormState] = useState({ name: '', message: '' });
-// const [contact] = useMutation(CONTACT);
+const [contactState, setContactState] = useState({ email: '', name: '', message: '' });
+const [contact] = useMutation(CONTACT);
 
   // Update state based on form input changes
   const handleChange = (event) => {
   const { name, value } = event.target;
   
   // Update and set formstate
-  setFormState({
-      ...formState,
+  setContactState({
+      ...contactState,
       [name]: value,
     });
+    console.log(contactState);
   };
 
   // On form submit, send message
   const handleMessageSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log('click');
       const { data } = await contact({
-        variables: { ...formState },
+        variables: { ...contactState },
       });
     } catch (e) {
       console.error(e);
     }
 
     // Clear form values
-    setFormState({
+    setContactState({
       email: '',
       name: '',
       message: '',
@@ -64,10 +66,10 @@ const [formState, setFormState] = useState({ name: '', message: '' });
           <section>
           <h2>Contact</h2>
           <Form>
-            <Input className="form-input" placeholder="Your email" name="email" type="email" value={formState.email} onChange={handleChange} id='submit_email' />
-            <Input className="form-input" placeholder="Your name" name="name" type="name" value={formState.name} onChange={handleChange} id='submit_email' />
+            <Input className="form-input" placeholder="Your email" name="email" type="email" value={contactState.email} onChange={handleChange} id='submit_email' />
+            <Input className="form-input" placeholder="Your name" name="name" type="name" value={contactState.name} onChange={handleChange} id='submit_name' />
             <br />
-            <TextArea rows={4} placeholder="Message" maxLength={6} />
+            <TextArea rows={4} placeholder="Message" maxLength={600} value={contactState.message} onChange={handleChange} />
             <Button id='submit_message' onClick={handleMessageSubmit} >
               Submit
             </Button>
