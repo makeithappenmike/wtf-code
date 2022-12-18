@@ -36,7 +36,6 @@ const Login = (props) => {
 
   const handleSignupClick = (event) => {
     event.preventDefault();
-    console.log('click');
     const { name, value } = event.target;
     window.location.assign('/signup')
     };

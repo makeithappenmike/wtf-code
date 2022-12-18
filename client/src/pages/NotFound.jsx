@@ -9,7 +9,6 @@ import WTFCode404 from'../assets/WTF-Code-Page-Not-Found.png';
 const { Content } = Layout;
 const handleHomeClick = (event) => {
   event.preventDefault();
-  console.log('click');
   const { name, value } = event.target;
   window.location.assign('/home')
   };
