@@ -10,7 +10,7 @@ import { ShareAltOutlined, LoadingOutlined } from '@ant-design/icons';
 import { GlobalContext } from '../utils/context';
 
 // TODO: Wire up theme editor switching
-// ?: Should we disable the ability to save if the explanation is empty? 
+// TODO: Fix blank editor resulting in valid (and confusing) explanation
 
 const { TextArea } = Input;
 const extensions = [javascript({ jsx: true })];
@@ -18,6 +18,7 @@ const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 // If we want to include custom themes we can do so like below
 // We can bring in already created themes from https://uiwjs.github.io/react-codemirror/#/theme/
+// Currently, we use Dark theme but can manually switch here only
 
 // Dark theme
 const dark = createTheme({
@@ -92,6 +93,7 @@ export default function Editor() {
   const [explanationState, setexplanationState] = useState({explanation: ''});
   const [modal2Open, setModal2Open] = useState(false);  
 
+  // Set the explantion
   useEffect(() => {
     setexplanationState({ explanation: currentSnippet.explanation});
   }, [currentSnippet]);
@@ -121,26 +123,26 @@ export default function Editor() {
         variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation},
       });
       setRefetchSnippets(1);
-      openNotification("Your snippet has been saved.");
+      openNotification('Your snippet has been saved.');
     } catch (err) {
-      openNotification("There was a problem saving your snippet. \n\n Try making changes to the text area and saving again!");
+      openNotification('There was a problem saving your snippet. \n\n Try making changes to the text area and saving again!');
     }
   };
 
   // Save code based on state
   const handleShare = async (event) => {
     event.preventDefault();
-    const recipient = document.querySelector("#recipient").value;
+    const recipient = document.querySelector('#recipient').value;
     try {
       const { data } = await shareSnippet({
         variables: { recipient: recipient, code:codeState.code, explanation: explanationState.explanation, name: nameState.name },
       });
       setModal2Open(false);
-      openNotification("Message Sent!", "Your Snippet has been shared. Great job!");
+      openNotification('Message Sent!', 'Your Snippet has been shared. Great job!');
 
     } catch (err) {
       console.error(err);
-      openNotification("There was a problem sending your message.");
+      openNotification('There was a problem sending your message.');
     }
   };
 
@@ -152,14 +154,13 @@ export default function Editor() {
         variables: { id: currentSnippet.key },
       });
       setRefetchSnippets(2);
-      openNotification("Snippet Deleted", "Your Snippet has been deleted.");
+      openNotification('Snippet Deleted', 'Your Snippet has been deleted.');
 
     } catch (err) {
       console.error(err);
-      openNotification("There was a problem deleting your snippet.");
+      openNotification('There was a problem deleting your snippet.');
     }
   };
-
 
   // Submit code in editor to openAI for explanation
   const handleSubmit = async (event) => {
@@ -169,14 +170,15 @@ export default function Editor() {
       const { data } = await explainCode({
         variables: { code: codeState.code, explainer: functionExplainer },
       });
-      const textArea = document.querySelector("#explanation");
+      const textArea = document.querySelector('#explanation');
       textArea.value = data.explainCode;
       setexplanationState(data.explainCode);
     } catch (err) {
-      openNotification("There was a problem getting an explanation for your snippet.")
+      openNotification('There was a problem getting an explanation for your snippet.')
     }
   }
 
+  // Handle notifications
   const openNotification = (title, message) => {
     notification.open({
       message: title,
@@ -185,54 +187,35 @@ export default function Editor() {
   };
 
   return (
-    <div>
-      <CodeMirror
-        value={currentSnippet.code}
-        height="500px"
-        align='left'
-        theme={dark}
-        extensions={extensions}
-        onChange={handleChange}     
-        smartindent='true'
-        linewrapping='true'
-      />
+    <section>
 
-      <Modal
-        title="Share Snippet"
-        centered
-        open={modal2Open}
-        onOk={handleShare}
-        onCancel={() => setModal2Open(false)}
-      >
+      {/* This is our Editor */}
+      <CodeMirror value={currentSnippet.code} height='500px' align='left' theme={dark} extensions={extensions} onChange={handleChange} smartindent='true' linewrapping='true' />
+
+      {/* This Modal will popup during the Share process */}
+      <Modal title='Share Snippet' centered open={modal2Open} onOk={handleShare} onCancel={() => setModal2Open(false)} >
         <p>Enter the email address that you'd like to share with</p>
-        <Input id="recipient" />
-        
+        <Input id='recipient' />
       </Modal>
 
       {/* Button is active if the editor is not empty */}
-      <Button id='submit_code' onClick={handleSubmit} size="medium" disabled={!codeState.code ? true : false}>Submit</Button>
+      <Button id='submit_code' onClick={handleSubmit} size='medium' disabled={!codeState.code ? true : false}>Submit</Button>
       <Spin spinning={loading} indicator={loadingIcon} style={{ paddingLeft: '5px' }}></Spin>
-      <textarea id="explanation" name="explanation"
-                value={explanationState.explanation}
-                onChange={handleExplanation}
-                cols="45" rows={4} size="medium" style={{ heigh: 'fit-content'}}>
-                Click 'Submit' to generate a code explanation here!
-                </textarea>
-
+      <textarea id='explanation' name='explanation' value={explanationState.explanation} onChange={handleExplanation} cols='45' rows={4} size='medium' style={{ heigh: 'fit-content'}}>
+        Click 'Submit' to generate a code explanation here!
+      </textarea>
       <Space>
-      <div id='explanation_div'>
-      <Space.Compact block size="medium" style={{ marginBottom: '5px' }}>
-      <Input onChange={handleName} value={nameState.name} type="text" id="explanation_name" name="name"/>
-      {/* Button is active if the explanation name is not empty */}
-      <Button id='save_button' onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
-      </Space.Compact>
-      </div>
-      {/* Button is active if the explanation name is not empty */}
+        <section id='explanation_section'>
+          <Space.Compact block size='medium' style={{ marginBottom: '5px' }}>
+          <Input onChange={handleName} value={nameState.name} type='text' id='explanation_name' name='name'/>
+          {/* Button is active if the explanation name is not empty */}
+          <Button id='save_button' onClick={handleSave} disabled={nameState.name ? false : true}>Save</Button>
+          </Space.Compact>
+        </section>
+        {/* Button is active if the explanation name is not empty */}
       </Space>
       <Button id='share_button' style={{ marginBottom: '5px', justifyContent: 'center' }} onClick={() => setModal2Open(true)} disabled={nameState.name ? false : true}><ShareAltOutlined />Share</Button>
-      <Button id='delete_button' style={{ textAlign: 'center' }} onClick={handleDelete} size="medium" >Delete</Button>
-
-      
-    </div>
+      <Button id='delete_button' style={{ textAlign: 'center' }} onClick={handleDelete} size='medium' >Delete</Button>
+    </section>
   );
   };
