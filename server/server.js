@@ -23,7 +23,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
     await server.start();
     server.applyMiddleware({ app });
     
-
+// When the db is opened, send you'll see these confirmation messages in the console (server-side)
 db.once('open', () => {
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
@@ -32,18 +32,14 @@ db.once('open', () => {
   });
 }
 
+// In Production (in our case, when pushed to Heroku), pull from the dist folder where our build is aggregated
 if (process.env.NODE_ENV === 'production') {
-  console.log('In production');
   app.use(express.static(path.join(__dirname, '../dist')));
 }
 
-// when we're ready...
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
-// });
-
+// This handles our routes
+// React Router requires that we pass all after the root directory and resolve instead of join
 app.get('/*', (req, res) => {
-  console.log('Running...');
   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
 });
 

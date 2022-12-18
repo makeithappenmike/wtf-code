@@ -8,14 +8,6 @@
   will-change: filter;
 }
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
 .main {
   background-color: red;
   height: 100;
@@ -26,6 +18,11 @@
   color: white
 }
 
+.item {
+  color: white;
+}
+
+/* Logos */
 #login_logo,
 #about_logo,
 #contact_logo,
@@ -40,29 +37,6 @@
   max-width: 350px;
 }
 
-.item {
-  color: white;
-}
-
-#sidebar,
-#options {
-  text-align: center;
-  color: white;
-}
-
-#submit_code,
-#submit_login,
-#signup_button,
-#login_email,
-#submit_message {
-  margin: 10px 0px 10px 0px;
-}
-
-#image_container {
-  width: 50%;
-  margin: 0 auto;
-}
-
 #sidebar_logo,
 #login_logo,
 #contact_logo,
@@ -73,8 +47,31 @@
   height: auto;
 }
 
-#explanation {
-  margin-bottom: 10px;
+#image_container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+/* Left and right siders */
+#sidebar,
+#options {
+  text-align: center;
+  color: white;
+}
+
+/* Buttons */
+#submit_code,
+#submit_login,
+#signup_button,
+#login_email,
+#submit_message {
+  margin: 10px 0px 10px 0px;
+}
+
+#delete_button,
+#share_button {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 #logoutButton:hover {
@@ -82,23 +79,27 @@
   color: white;
 }
 
+/* Explanation */
+#explanation {
+  margin-bottom: 10px;
+}
+
+#explanation_section {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 #explanation_space {
   display: flex;
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 500px;
-  /* width: 100%; */
 }
 
 #explanation_name {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 500px;
-}
-
-#modeSwitch {
-  width: fit-content;
-  justify-content: flex-end;
 }
 
 textarea {
@@ -115,40 +116,8 @@ textarea:hover {
   border: .5px solid #1677ff;
 }
 
-#explanation_div {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-#delete_button,
-#share_button {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
+/* Mobile */
+/* TODO: Improvde forms on Mobile */
 @media (max-width: 700px) {
 
   #sider_title {
