@@ -25,4 +25,3 @@ dist-ssr
 # Local
 .env-cmdrc.json
 server/.env
-package.json
