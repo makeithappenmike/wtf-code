@@ -2,7 +2,7 @@ import React from 'react';
 import SignupForm from '../components/SignUpForm';
 import { Layout } from 'antd';
 import SiteFooter from '../components/Footer';
-import WTFCode from'../assets/wtf-code.png';
+import WTFcode from'../assets/wtf-code.png';
 
 // TODO: Improve Mobile form experience
 
@@ -16,7 +16,7 @@ const Signup = () => {
         minHeight: '100vh',
       }}>
           <Content >
-          <img  id='signup_logo' src={WTFCode} alt='WTFCode'/>
+          <img  id='signup_logo' src={WTFcode} alt='WTFcode'/>
             <SignupForm style={{ paddingLeft: '200px' }}/>
           </Content>
           <SiteFooter />

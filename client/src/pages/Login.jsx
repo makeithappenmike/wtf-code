@@ -2,7 +2,7 @@ import React from 'react';
 import LoginForm from '../components/LoginForm';
 import { Layout } from 'antd';
 import SiteFooter from '../components/Footer';
-import WTFCode from'../assets/wtf-code.png';
+import WTFcode from'../assets/wtf-code.png';
 
 const { Content } = Layout;
 
@@ -12,7 +12,7 @@ const Login = () => {
     <main>
       <Layout style={{ minHeight: '100vh' }}>
         <Content>
-          <img  id='login_logo' src={WTFCode} alt='WTFCode logo'/>
+          <img  id='login_logo' src={WTFcode} alt='WTFcode logo'/>
           <LoginForm style={{ paddingLeft: '200px' }}/>
         </Content>
         <SiteFooter />
