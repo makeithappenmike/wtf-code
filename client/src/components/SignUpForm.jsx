@@ -58,7 +58,7 @@ const Signup = (props) => {
     // Create example snippet when someone signs up
     try {
       const { data } = await createSnippet({
-        variables: { code: "// Press the Submit button below to explain this code. \nconsole.log('Hello World!')", name: 'Example Snippet', explanation: 'When you Submit your code, an explanation will show up here!\n\nYou can edit the explanation, give it a name below and then Save.\n\nTo remove a snippet, press the Delete button.'},
+        variables: { code: "// Press the Submit button below to explain this code. \nfunction hello(input) {\n  if (typeof input === 'string') {\n    return input;\n  } else {\n    console.log('Please only use a string');\n}", name: 'Example Snippet', explanation: 'When you Submit your code, an explanation will show up here!\n\nYou can edit the explanation, give it a name below and then Save.\n\nTo remove a snippet, press the Delete button.'},
       });
       setRefetchSnippets(1);
     } catch (err) {

@@ -30,7 +30,6 @@ const Sidebar = () => {
     getData();
   }, []);
 
-  // Get everything from the DB on Snippet click
   useEffect(() => {
     if (called && refetchSnippets > 0) {
       refetch();
