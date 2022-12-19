@@ -170,7 +170,7 @@ export default function Editor() {
       });
       const textArea = document.querySelector("#explanation");
       textArea.value = data.explainCode;
-      setexplanationState(data.explainCode);
+      setexplanationState({explanation: data.explainCode});
     } catch (err) {
       openNotification("There was a problem getting an explanation for your snippet.")
     }
