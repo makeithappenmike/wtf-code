@@ -20,8 +20,8 @@ import ProtectedRoutes from './pages/ProtectedRoutes';
 // TODO: Don't return password on the backend
 
 const httpLink = createHttpLink({
-  // uri: 'http://localhost:3001/graphql', // This is for Developement
-  uri: '/graphql', // This is for Production when pushing to Heroku
+  uri: 'http://localhost:3001/graphql', // This is for Developement
+  // uri: '/graphql', // This is for Production when pushing to Heroku
 });
 
 const authLink = setContext((_, { headers }) => {
