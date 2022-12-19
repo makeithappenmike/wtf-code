@@ -116,9 +116,10 @@ export default function Editor() {
   // Save code based on state
   const handleSave = async (event) => {
     event.preventDefault();
+    // const explanation = explanationState;
     try {
       const { data } = await createSnippet({
-        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation},
+        variables: { code: codeState.code, name: nameState.name, explanation: explanationState},
       });
       setRefetchSnippets(1);
       openNotification("Your snippet has been saved.");
