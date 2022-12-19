@@ -63,8 +63,8 @@ export const EXPLAIN_CODE = gql`
 `;
 
 export const SHARE = gql`
-  mutation share($recipient: String!, $code: String!, $explanation: String!, $name: String!) {
-    share(recipient: $recipient, code: $code, explanation: $explanation, name: $name)
+  mutation share($code: String!, $explanation: String!, $name: String!) {
+    share(code: $code, explanation: $explanation, name: $name)
   }
 `;
 

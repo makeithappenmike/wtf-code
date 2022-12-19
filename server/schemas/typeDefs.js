@@ -35,7 +35,7 @@ const typeDefs = gql`
     deleteSnippet(_id:String!): Snippet
     login(email: String!, password: String!): Auth
     explainCode(code: String!, explainer: String!): String!
-    share(recipient: String!, code: String!, explanation: String!, name: String!): [String!]
+    share(code: String!, explanation: String!, name: String!): [String!]
     contact(email: String!, name: String!, message: String!): [String!]
   }
 `;
