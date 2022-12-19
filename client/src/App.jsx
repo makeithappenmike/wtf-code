@@ -13,6 +13,7 @@ import Signup from './pages/Signup';
 import { GlobalContextProvider } from './utils/context';
 import ProtectedRoutes from './pages/ProtectedRoutes';
 
+// ! TODO: Come back and clean this file up last
 // TODO: Handle dark/light mode switching
 // TODO: Add tooltips for context on how to use OpenAI
 // TODO: Update color scheme
@@ -52,45 +53,45 @@ if (isLoggedIn) {
 function App() {
 
   return (
-    <div className="App">
+    <section className='App'>
     <GlobalContextProvider> 
       <ApolloProvider client={client}>
         <Router>
         <NavBar />
-          <div className="flex-column justify-center align-center min-100-vh bg-primary main">
+          <section className='flex-column justify-center align-center min-100-vh bg-primary main'>
             <Routes>
               <Route 
-                path="/" 
+                path='/' 
                 element={<Login />}
               />
               <Route 
-                  path="/signup" 
+                  path='/signup' 
                   element={<Signup />}
                 />
               <Route element={<ProtectedRoutes />}>
                 <Route 
-                  path="/home" 
+                  path='/home' 
                   element={<Home />}
                 />
                 <Route 
-                  path="/about" 
+                  path='/about' 
                   element={<About />}
                 />
                 <Route 
-                  path="/contact" 
+                  path='/contact' 
                   element={<Contact />}
                 />
                 <Route 
-                  path="*"
+                  path='*'
                   element={<NotFound />}
                 />
               </Route>
             </Routes>
-          </div>
+          </section>
         </Router>
       </ApolloProvider>
     </GlobalContextProvider> 
-    </div>
+    </section>
   )
 }
 

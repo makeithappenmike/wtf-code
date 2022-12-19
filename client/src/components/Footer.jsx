@@ -2,18 +2,12 @@ import React from 'react';
 import { Layout } from 'antd';
 const { Footer } = Layout;
 
-// TODO: Show footer on view screen -- currently you have to scroll a touch
-
 const SiteFooter = () => {
   
   return (
-    <Footer
-          style={{
-            textAlign: 'center',
-          }}
-        >
-          WTF Code ©2022 Created by Michael Martens & Jon Shogren
-        </Footer>
+    <Footer style={{ textAlign: 'center' }} >
+      WTFCode ©2022<br />Created by <a href='https://github.com/makeithappenmike' target='blank'>Michael Martens</a> & <a href='https://github.com/shogren' target='blank'>Jon Shogren</a>
+    </Footer>
   );
 };
 

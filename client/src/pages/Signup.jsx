@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import SiteFooter from '../components/Footer';
 import WTFCode from'../assets/wtf-code.png';
 
-// TODO: What other content do we want here?
+// TODO: Improve Mobile form experience
 
 const { Content } = Layout;
 
@@ -16,10 +16,10 @@ const Signup = () => {
         minHeight: '100vh',
       }}>
           <Content >
-          <img  id='signup_logo' src={WTFCode} alt="WTFCode"/>
+          <img  id='signup_logo' src={WTFCode} alt='WTFCode'/>
             <SignupForm style={{ paddingLeft: '200px' }}/>
           </Content>
-            <SiteFooter />
+          <SiteFooter />
         </Layout>
     </main>
   );
