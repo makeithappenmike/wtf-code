@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Layout, Form, Input, Button, notification, Spin } from 'antd';
 import SiteFooter from '../components/Footer';
-import WTFCode from'../assets/wtf-code.png';
+import WTFcode from'../assets/wtf-code.png';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useMutation } from '@apollo/client';
 import { CONTACT } from '../../src/utils/mutations';
@@ -62,7 +62,7 @@ const Contact = () => {
           <Layout style={{ minHeight: '100vh' }}>
             <Content>
               <section>
-                <img  id='about_logo' src={WTFCode} alt='WTF Code Logo'/>
+                <img  id='about_logo' src={WTFcode} alt='WTF Code Logo'/>
                 <section>
                   <h2>Contact</h2>
                   <Form>

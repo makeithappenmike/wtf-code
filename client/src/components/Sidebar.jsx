@@ -4,7 +4,7 @@ import { QUERY_ME } from '../../src/utils/queries';
 import { RightSquareOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 import { useEffect } from 'react';
-import WTFCode from'../assets/wtf-code.png';
+import WTFcode from'../assets/wtf-code.png';
 import { GlobalContext } from '../utils/context';
 
 const { Sider } = Layout;
@@ -30,7 +30,6 @@ const Sidebar = () => {
     getData();
   }, []);
 
-  // Get everything from the DB on Snippet click
   useEffect(() => {
     if (called && refetchSnippets > 0) {
       refetch();
@@ -57,7 +56,7 @@ const Sidebar = () => {
   return (
     <Sider id='sidebar' breakpoint='md' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
       <section id='image_container'>
-        <img  className='.img-fluid' id='sidebar_logo' src={WTFCode} style={{ maxHeight: '50px', verticalAlign: 'middle'}} alt='WTFCode'/>
+        <img  className='.img-fluid' id='sidebar_logo' src={WTFcode} style={{ maxHeight: '50px', verticalAlign: 'middle'}} alt='WTFcode'/>
       </section>
       <h1 id='sider_title' style={{ color: 'white'}}>Saved Snippets</h1>
       <Menu style={{ textAlign: 'left' }}theme='dark' onClick={handleClick} mode='inline' items={sideBarState} />
