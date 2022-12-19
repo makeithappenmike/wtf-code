@@ -133,7 +133,16 @@ const resolvers = {
     }
     },
 
-    share: async (parent, {recipient, code, explanation, name}) => {
+    share: async (parent, {code, explanation, name}, context) => {
+      if(context.user) {
+        try {
+          const me = await User.findOne(
+            {email: context.user.email})
+        } catch (error) {
+          console.log(error);
+      }
+    }
+      
       const response = await mandrill.messages.sendTemplate({
         template_name: "wtfcode-share",
         template_content: [{}],
@@ -160,7 +169,7 @@ const resolvers = {
           ],
           merge_vars: [
             {
-              rcpt: recipient,
+              rcpt: context.user.email,
               vars: [
                 {
                   name: "SNIPPET_NAME",
@@ -181,7 +190,7 @@ const resolvers = {
 
           to: [
             {
-              email: recipient,
+              email: context.user.email,
               name: "Hey!",
               type: "to"
             }
