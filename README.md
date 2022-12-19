@@ -7,7 +7,7 @@
 ## Description
 This application utilizes the [OpenAI](https://openai.com/) platform to take in a block of code and explain what its doing. The OpenAI platform, having scanned billions of lines of code, is capable of analyzing multiple languages, virtually any type of function / declaration / comment that you throw at it.
 
-Visit the site at [wtf-code.com](http://wtf-code.com/)
+Visit the site at [www.wtf-code.com](https://wtf-code.com/)
 
 <img src="./client/src/assets/wtf-login-page.png" />
 <br>
@@ -30,7 +30,7 @@ A quick note: OpenAI is in Beta. There are some oddities that you'll soon discov
 * Accounts are free to create for now, you should totally [go make one](https://openai.com/)
 
 
-To use the site in Production, visit [wtf-code.com](http://wtf-code.com/).
+To use the site in Production, visit [www.wtf-code.com](https://wtf-code.com/).
 
 * If you're new to the app, you'll first need to Signup by clicking on the Signup button.
 
