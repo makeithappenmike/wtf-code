@@ -118,7 +118,7 @@ export default function Editor() {
     event.preventDefault();
     try {
       const { data } = await createSnippet({
-        variables: { code: codeState.code, name: nameState.name, explanation: explanationState},
+        variables: { code: codeState.code, name: nameState.name, explanation: explanationState.explanation},
       });
       setRefetchSnippets(1);
       openNotification("Your snippet has been saved.");
