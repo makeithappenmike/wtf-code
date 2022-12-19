@@ -1,7 +1,7 @@
 import { Layout, Button } from 'antd';
 import React from 'react';
 import SiteFooter from '../components/Footer';
-import WTFCode404 from '../assets/wtf-code-404.png';
+import WTFcode404 from '../assets/wtf-code-404.png';
 
 const { Content } = Layout;
 
