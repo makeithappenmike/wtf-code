@@ -3,21 +3,36 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+
 ## Description
-This application utilized Google's OpenAI platform to take in a block of code and explain what its doing. The OpenAI platform, having scanned billions of lines of code, is capable of analyzing multiple languages, virtually any type of function / declaration / comment that you throw at it.
+This application utilizes the [OpenAI](https://openai.com/) platform to take in a block of code and explain what its doing. The OpenAI platform, having scanned billions of lines of code, is capable of analyzing multiple languages, virtually any type of function / declaration / comment that you throw at it.
 
-Visit the site here: https://www.wtf-code.com/
+Visit the site at [wtf-code.com](http://wtf-code.com/)
 
-<img src="./client/src/assets/wtf-home-page.png" />
+<img src="./client/src/assets/wtf-login-page.png" />
+<br>
+<img src="./client/src/assets/wtf-explanation.png" />
+<br>
+<img src="./client/src/assets/wtf-share.png" />
+<br>
+<img src="./client/src/assets/wtf-contact.png" />
 <br>
 
 ## Table of Contents
 [Usage](#usage)<br />[Contributing](#contributing)<br />[Installation](#installation)<br />[License](#license)<br />[Questions](#questions)
 
 ## Usage
-To use the site in Production, visit https://www.wtf-code.com/.
 
-* If you're new to the app, you'll first need to Signup by clickingh on the Signup button.
+A quick note: OpenAI is in Beta. There are some oddities that you'll soon discover after playing around with it, such as:
+
+* The more details information you can give it, the better (for example, only a console.log('Hello World'); may yield some overexplained and unclear explanations)
+* Each query costs X tokens -- these are free while the API is in Beta. We're currently limiting the number of information that can be passed into a query and sent back in a response.
+* Accounts are free to create for now, you should totally [go make one](https://openai.com/)
+
+
+To use the site in Production, visit [wtf-code.com](http://wtf-code.com/).
+
+* If you're new to the app, you'll first need to Signup by clicking on the Signup button.
 
 * There, you'll be prompted to enter your name, email (this will be your username), and a password. Assuming all fields have been filled out and your username is not a duplicate, you will be signed in.
 
@@ -25,9 +40,10 @@ To use the site in Production, visit https://www.wtf-code.com/.
 
 * To submit the snippet to OpenAI, click the Submit button below the editor. An API call is then made to OpenAI with some pre-configured settings and an explanation is rendered to the text area below the editor, which you can edit, name and save.
 * To remove a snippet, select the Delete button.
+* To share a snippet, click on the Share button (sharing is limited to sending to yourself at this time)
 
 ## Contributing
-To contribute, follow the Installation steps below. Because there are multiple sensitive API keys required to work with this app (specifically, for connecting to OpenAI and Mandrill and our MongoDB), you'll either need to reach out to us to coordinate sharing of these keys or you'll need to create accounts with [OpenAI](https://www.apoenai.com) and [Mandrill](https://www.mandrillapp.com)** as well as your own database.
+To contribute, follow the Installation steps below. Because there are multiple sensitive API keys required to work with this app (specifically, for connecting to OpenAI, Mandrill and our MongoDB), you'll either need to reach out to us to coordinate sharing of these keys or you'll need to create accounts with [OpenAI](https://openai.com/) and [Mandrill](https://www.mandrillapp.com)** as well as your own database.
 
 ** This also requires a [Mailchimp](https://www.mailchimp.com) account -- they have a free tier and the ability to create a free demo Mandrill account.
 
