@@ -45,9 +45,9 @@ const client = new ApolloClient({
 // TODO: Convert to state
 const isLoggedIn = window.localStorage.getItem('id_token');
 if (isLoggedIn) {
-  console.log('logged in');
+  // console.log('logged in');
 } else {
-  console.log('logged out');
+  // console.log('logged out');
 }
 
 function App() {
